@@ -2,22 +2,17 @@
 export default (audioMotion) => {
     return {
         props: {
-        },
-        render (h) {
-            return h('test render', null, null)
-        },
-        data () {
-            return {
-                el: null
+            audioCtx: {
+                type: AudioContext,
+                required: true
             }
         },
+        render: function (createElement) {
+            return createElement('div', '', )
+        },
         mounted () {
-            console.log('mounted AudioMotionComponent')
             this.el = this.$el
-        },
-        beforeDestroy () {
-        },
-        methods: {
+            audioMotion.init(this.el, this.audioCtx)
         }
     }
 }

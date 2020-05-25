@@ -1,15 +1,17 @@
 {
   "name": "vue-audiomotion-analyzer",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
+  "main": "vue-audiomotion-analyzer.js",
+  "module": "vue-audiomotion-analyzer.esm.js",
+  "unpkg": "vue-audiomotion-analyzer.js",
+  "typings": "types/index.d.ts",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "node build",
+    "lint": "eslint ./src"
   },
   "dependencies": {
-    "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "audiomotion-analyzer": "^2.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
@@ -18,7 +20,12 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "rollup": "^0.51.1",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-commonjs": "^8.4.1",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "vue": "^2.6.11"
   },
   "eslintConfig": {
     "root": true,
