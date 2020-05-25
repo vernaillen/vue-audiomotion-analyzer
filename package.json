@@ -1,15 +1,22 @@
 {
   "name": "vue-audiomotion-analyzer",
   "version": "0.0.1",
-  "private": true,
   "main": "vue-audiomotion-analyzer.js",
   "module": "vue-audiomotion-analyzer.esm.js",
   "unpkg": "vue-audiomotion-analyzer.js",
-  "typings": "types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vernaillen/vue-audiomotion-analyzer.git"
+  },
+  "author": "Wouter Vernaillen <wouter@vernaillen.com>",
+  "bugs": {
+    "url": "https://github.com/vernaillen/vue-audiomotion-analyzer/issues"
+  },
   "scripts": {
     "build": "node build",
     "lint": "eslint ./src"
   },
+  "typings": "types/index.d.ts",
   "dependencies": {
     "audiomotion-analyzer": "^2.2.0"
   },
