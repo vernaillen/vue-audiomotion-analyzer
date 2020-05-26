@@ -1,5 +1,5 @@
 /*!
- * vue-audiomotion-analyzer.js v0.0.1
+ * vue-audiomotion-analyzer.js v0.0.2
  * (c) 2020 Wouter Vernaillen <wouter@vernaillen.com>
  * Released under the MIT License.
  */

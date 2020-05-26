@@ -1,6 +1,6 @@
 {
   "name": "vue-audiomotion-analyzer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "vue-audiomotion-analyzer.js",
   "module": "vue-audiomotion-analyzer.esm.js",
   "unpkg": "vue-audiomotion-analyzer.js",
