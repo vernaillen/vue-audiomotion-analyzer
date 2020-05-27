@@ -1,6 +1,5 @@
-
-import AudioMotionAnalyzer from 'audiomotion-analyzer'
+import "./vue";
 
 export interface AudioMotion {
-    audioMotionObj: AudioMotionAnalyzer
+    getAnalyzer(): AnalyserNode;
 }

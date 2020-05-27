@@ -1,8 +1,8 @@
 import AudioMotionAnalyzer from "audiomotion-analyzer";
 
-export default function (Vue) {
+export default function () {
     return class AudioMotion {
-        constructor({}) {
+        constructor() {
             this.audioMotionObj = undefined
         }
         init (el, audioCtx) {

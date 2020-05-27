@@ -1,5 +1,5 @@
 /*!
- * vue-audiomotion-analyzer.js v0.0.2
+ * vue-audiomotion-analyzer.js v0.0.4
  * (c) 2020 Wouter Vernaillen <wouter@vernaillen.com>
  * Released under the MIT License.
  */
@@ -1011,9 +1011,9 @@ class AudioMotionError extends Error {
 	}
 }
 
-var AudioMotion = function (Vue) {
+var AudioMotion = function () {
     return class AudioMotion {
-        constructor({}) {
+        constructor() {
             this.audioMotionObj = undefined;
         }
         init(el, audioCtx) {
