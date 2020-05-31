@@ -2,17 +2,20 @@
 export default (audioMotion) => {
     return {
         props: {
-            audioCtx: {
-                type: AudioContext,
-                required: true
+            options: {
+                required: false
             }
         },
         render: function (createElement) {
-            return createElement('div', '', )
+            return createElement('div',  {
+                attrs: {
+                    id: 'audioMotionAnalyzer'
+                }
+            }, )
         },
         mounted () {
             this.el = this.$el
-            audioMotion.init(this.el, this.audioCtx)
+            audioMotion.init(this.el, this.options)
         }
     }
 }

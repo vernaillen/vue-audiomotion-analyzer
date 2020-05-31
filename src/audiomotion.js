@@ -4,7 +4,9 @@ export default function () {
     return class AudioMotion {
         constructor() {
             this.audioMotionObj = undefined
-            this.options = {
+            this.options = undefined
+            this.defaultOptions = {
+                audioCtx: undefined,
                 barSpace: 0.1,
                 bgAlpha: 0.7,
                 fftSize: 8192,
@@ -35,21 +37,27 @@ export default function () {
                 start: true,
                 width: undefined
             }
+            this.initialized = false
         }
-        init (el, audioCtx) {
-            this.audioMotionObj = new AudioMotionAnalyzer(
-                el, {audioCtx: audioCtx}
-            );
+        init (el, options) {
+            this.options = {...this.defaultOptions, ...options }
+            this.audioMotionObj = new AudioMotionAnalyzer(el, options);
+            this.initialized = true
         }
         getAnalyzer() {
             return this.audioMotionObj._analyzer
         }
         setOptions(options) {
-            this.options = options
             this.audioMotionObj.setOptions(options)
         }
         getOptions() {
             return this.options
+        }
+        toggleFullscreen() {
+            this.audioMotionObj.toggleFullscreen()
+        }
+        toggleAnalyzer() {
+            this.audioMotionObj.toggleAnalyzer()
         }
     }
 }

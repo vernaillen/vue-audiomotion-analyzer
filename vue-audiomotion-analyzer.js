@@ -12,6 +12,55 @@
   (global = global || self, global.VueAudioMotionAnalyzer = factory());
 }(this, (function () { 'use strict';
 
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
+
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -1174,7 +1223,9 @@
         _classCallCheck(this, AudioMotion);
 
         this.audioMotionObj = undefined;
-        this.options = {
+        this.options = undefined;
+        this.defaultOptions = {
+          audioCtx: undefined,
           barSpace: 0.1,
           bgAlpha: 0.7,
           fftSize: 8192,
@@ -1205,14 +1256,15 @@
           start: true,
           width: undefined
         };
+        this.initialized = false;
       }
 
       _createClass(AudioMotion, [{
         key: "init",
-        value: function init(el, audioCtx) {
-          this.audioMotionObj = new AudioMotionAnalyzer(el, {
-            audioCtx: audioCtx
-          });
+        value: function init(el, options) {
+          this.options = _objectSpread2(_objectSpread2({}, this.defaultOptions), options);
+          this.audioMotionObj = new AudioMotionAnalyzer(el, options);
+          this.initialized = true;
         }
       }, {
         key: "getAnalyzer",
@@ -1222,13 +1274,22 @@
       }, {
         key: "setOptions",
         value: function setOptions(options) {
-          this.options = options;
           this.audioMotionObj.setOptions(options);
         }
       }, {
         key: "getOptions",
         value: function getOptions() {
           return this.options;
+        }
+      }, {
+        key: "toggleFullscreen",
+        value: function toggleFullscreen() {
+          this.audioMotionObj.toggleFullscreen();
+        }
+      }, {
+        key: "toggleAnalyzer",
+        value: function toggleAnalyzer() {
+          this.audioMotionObj.toggleAnalyzer();
         }
       }]);
 
@@ -1239,17 +1300,20 @@
   var AudioMotionComponent = (function (audioMotion) {
     return {
       props: {
-        audioCtx: {
-          type: AudioContext,
-          required: true
+        options: {
+          required: false
         }
       },
       render: function render(createElement) {
-        return createElement('div', '');
+        return createElement('div', {
+          attrs: {
+            id: 'audioMotionAnalyzer'
+          }
+        });
       },
       mounted: function mounted() {
         this.el = this.$el;
-        audioMotion.init(this.el, this.audioCtx);
+        audioMotion.init(this.el, this.options);
       }
     };
   });
@@ -13230,45 +13294,1965 @@
 
   var Vue = unwrapExports(vue);
 
-  var template = "\n    <div id=\"audiomotion-config\">\n        <div class=\"analyzer-configuration\">\n            <div class=\"box center\">\n                <label class=\"label\">Visualization Mode\n                    <select id=\"mode\" v-model=\"options.mode\" @change=\"updateOptions\">\n                        <option value=\"0\">Discrete frequencies</option>\n                        <option value=\"10\">Line / Area graph</option>\n                        <option value=\"1\">1/24th octave bands</option>\n                        <option value=\"2\">1/12th octave bands</option>\n                        <option value=\"3\">1/8th octave bands</option>\n                        <option value=\"4\">1/6th octave bands</option>\n                        <option value=\"5\">1/4th octave bands</option>\n                        <option value=\"6\">1/3rd octave bands</option>\n                        <option value=\"7\">Half octave bands</option>\n                        <option value=\"8\">Full octave bands</option>\n                    </select>\n                </label>\n\n                <fieldset id=\"area_options\">\n                    <label class=\"label\">lineWidth\n                        <input type=\"range\" id=\"line_width\" min=\"0\" max=\"9\" step=\"1\" v-model=\"options.lineWidth\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n\n                    <label class=\"label\">fillAlpha\n                        <input type=\"range\" id=\"fill_alpha\" min=\"0\" max=\"1\" step=\".1\" v-model=\"options.fillAlpha\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n                </fieldset>\n\n                <fieldset id=\"bar_options\">\n                    <label class=\"label\">Bar spacing\n                        <select id=\"bar_space\" v-model=\"options.barSpace\" @change=\"updateOptions\">\n                            <option value=\"0\">None</option>\n                            <option value=\"1\">1px (legacy)</option>\n                            <option value=\"2\">2px</option>\n                            <option value=\"0.1\">10% (default)</option>\n                            <option value=\"0.2\">20%</option>\n                            <option value=\"0.25\">25%</option>\n                            <option value=\"0.4\">40%</option>\n                            <option value=\"0.5\">50%</option>\n                            <option value=\"0.75\">75%</option>\n                            <option value=\"0.9\">90%</option>\n                        </select>\n                    </label>\n                </fieldset>\n\n                <label class=\"label\">Gradient\n                    <select id=\"gradient\" v-model=\"options.gradient\" @change=\"updateOptions\">\n                        <option value=\"classic\">Classic</option>\n                        <option value=\"prism\">Prism</option>\n                        <option value=\"rainbow\">Rainbow</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">reflexRatio\n                    <input type=\"range\" id=\"reflex_ratio\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.reflexRatio\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">reflexAlpha\n                    <input type=\"range\" id=\"reflex_alpha\" min=\"0\" max=\"1\" step=\".05\" v-model=\"options.reflexAlpha\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">FFT size\n                    <select id=\"fft\" v-model=\"options.fftSize\" @change=\"updateOptions\">\n                        <option value=\"1024\">1024</option>\n                        <option value=\"2048\">2048</option>\n                        <option value=\"4096\">4096</option>\n                        <option value=\"8192\">8192</option>\n                        <option value=\"16384\">16384</option>\n                        <option value=\"32768\">32768</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">Frequency range\n                    <select id=\"range\">\n                        <option v-for=\"freqRange in freqRanges\" :value=\"freqRange.id\" @click=\"updateFreqRange(freqRange)\">{{freqRange.display}}</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">sensitivity\n                    <input type=\"range\" id=\"sensitivity\" min=\"0\" max=\"4\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">smoothing\n                    <input type=\"range\" id=\"smoothing\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.smoothing\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n            </div>\n\n            <div class=\"box center\">\n                <input type=\"checkbox\" id=\"btn_bgcolor\" v-model=\"options.showBgColor\" @change=\"updateOptions\">showBgColor</input>\n                <input type=\"checkbox\" id=\"btn_peaks\" v-model=\"options.showPeaks\" @change=\"updateOptions\">showPeaks</input>\n                <input type=\"checkbox\" id=\"btn_leds\" v-model=\"options.showLeds\" @change=\"updateOptions\">showLeds</input>\n                <input type=\"checkbox\" id=\"btn_lumi\" v-model=\"options.lumiBars\" @change=\"updateOptions\">lumiBars</input>\n                <input type=\"checkbox\" id=\"btn_reflex\" v-model=\"options.reflexFit\" @change=\"updateOptions\">reflexFit</input>\n                <input type=\"checkbox\" id=\"btn_scale\" v-model=\"options.showScale\" @change=\"updateOptions\">showScale</input>\n                <input type=\"checkbox\" id=\"btn_lores\" v-model=\"options.loRes\" @change=\"updateOptions\">loRes</input>\n                <input type=\"checkbox\" id=\"btn_fps\" v-model=\"options.showFPS\" @change=\"updateOptions\">showFPS</input>\n                <input type=\"checkbox\" id=\"btn_logo\" v-model=\"options.showLogo\" @change=\"updateOptions\">Logo</input>\n                <input type=\"checkbox\" id=\"btn_freeze\" v-model=\"options.isOn\" data-func=\"toggleAnalyzer\" @change=\"updateOptions\">Freeze</input>\n                <input type=\"checkbox\" id=\"btn_fullscr\" v-model=\"options.isFullscreen\" data-func=\"toggleFullscreen\" @change=\"updateOptions\">Fullscreen</input>\n            </div>\n        </div>\n\n        <div class=\"credits\">\n            <strong>audioMotion-analyzer v<span id=\"version\"></span></strong> Copyright &copy; 2018-2020 Henrique Avila Vianna.\tSource code available on <a href=\"https://github.com/hvianna/audioMotion-analyzer\">GitHub</a>.\n        </div>\n    </div>";
+  var check = function (it) {
+    return it && it.Math == Math && it;
+  };
+
+  // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+  var global_1 =
+    // eslint-disable-next-line no-undef
+    check(typeof globalThis == 'object' && globalThis) ||
+    check(typeof window == 'object' && window) ||
+    check(typeof self == 'object' && self) ||
+    check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
+    // eslint-disable-next-line no-new-func
+    Function('return this')();
+
+  var fails = function (exec) {
+    try {
+      return !!exec();
+    } catch (error) {
+      return true;
+    }
+  };
+
+  // Thank's IE8 for his funny defineProperty
+  var descriptors = !fails(function () {
+    return Object.defineProperty({}, 1, { get: function () { return 7; } })[1] != 7;
+  });
+
+  var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
+  var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  // Nashorn ~ JDK8 bug
+  var NASHORN_BUG = getOwnPropertyDescriptor && !nativePropertyIsEnumerable.call({ 1: 2 }, 1);
+
+  // `Object.prototype.propertyIsEnumerable` method implementation
+  // https://tc39.github.io/ecma262/#sec-object.prototype.propertyisenumerable
+  var f = NASHORN_BUG ? function propertyIsEnumerable(V) {
+    var descriptor = getOwnPropertyDescriptor(this, V);
+    return !!descriptor && descriptor.enumerable;
+  } : nativePropertyIsEnumerable;
+
+  var objectPropertyIsEnumerable = {
+  	f: f
+  };
+
+  var createPropertyDescriptor = function (bitmap, value) {
+    return {
+      enumerable: !(bitmap & 1),
+      configurable: !(bitmap & 2),
+      writable: !(bitmap & 4),
+      value: value
+    };
+  };
+
+  var toString = {}.toString;
+
+  var classofRaw = function (it) {
+    return toString.call(it).slice(8, -1);
+  };
+
+  var split = ''.split;
+
+  // fallback for non-array-like ES3 and non-enumerable old V8 strings
+  var indexedObject = fails(function () {
+    // throws an error in rhino, see https://github.com/mozilla/rhino/issues/346
+    // eslint-disable-next-line no-prototype-builtins
+    return !Object('z').propertyIsEnumerable(0);
+  }) ? function (it) {
+    return classofRaw(it) == 'String' ? split.call(it, '') : Object(it);
+  } : Object;
+
+  // `RequireObjectCoercible` abstract operation
+  // https://tc39.github.io/ecma262/#sec-requireobjectcoercible
+  var requireObjectCoercible = function (it) {
+    if (it == undefined) throw TypeError("Can't call method on " + it);
+    return it;
+  };
+
+  // toObject with fallback for non-array-like ES3 strings
+
+
+
+  var toIndexedObject = function (it) {
+    return indexedObject(requireObjectCoercible(it));
+  };
+
+  var isObject = function (it) {
+    return typeof it === 'object' ? it !== null : typeof it === 'function';
+  };
+
+  // `ToPrimitive` abstract operation
+  // https://tc39.github.io/ecma262/#sec-toprimitive
+  // instead of the ES6 spec version, we didn't implement @@toPrimitive case
+  // and the second argument - flag - preferred type is a string
+  var toPrimitive = function (input, PREFERRED_STRING) {
+    if (!isObject(input)) return input;
+    var fn, val;
+    if (PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject(val = fn.call(input))) return val;
+    if (typeof (fn = input.valueOf) == 'function' && !isObject(val = fn.call(input))) return val;
+    if (!PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject(val = fn.call(input))) return val;
+    throw TypeError("Can't convert object to primitive value");
+  };
+
+  var hasOwnProperty = {}.hasOwnProperty;
+
+  var has = function (it, key) {
+    return hasOwnProperty.call(it, key);
+  };
+
+  var document$1 = global_1.document;
+  // typeof document.createElement is 'object' in old IE
+  var EXISTS = isObject(document$1) && isObject(document$1.createElement);
+
+  var documentCreateElement = function (it) {
+    return EXISTS ? document$1.createElement(it) : {};
+  };
+
+  // Thank's IE8 for his funny defineProperty
+  var ie8DomDefine = !descriptors && !fails(function () {
+    return Object.defineProperty(documentCreateElement('div'), 'a', {
+      get: function () { return 7; }
+    }).a != 7;
+  });
+
+  var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+  // `Object.getOwnPropertyDescriptor` method
+  // https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
+  var f$1 = descriptors ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+    O = toIndexedObject(O);
+    P = toPrimitive(P, true);
+    if (ie8DomDefine) try {
+      return nativeGetOwnPropertyDescriptor(O, P);
+    } catch (error) { /* empty */ }
+    if (has(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P]);
+  };
+
+  var objectGetOwnPropertyDescriptor = {
+  	f: f$1
+  };
+
+  var anObject = function (it) {
+    if (!isObject(it)) {
+      throw TypeError(String(it) + ' is not an object');
+    } return it;
+  };
+
+  var nativeDefineProperty = Object.defineProperty;
+
+  // `Object.defineProperty` method
+  // https://tc39.github.io/ecma262/#sec-object.defineproperty
+  var f$2 = descriptors ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
+    anObject(O);
+    P = toPrimitive(P, true);
+    anObject(Attributes);
+    if (ie8DomDefine) try {
+      return nativeDefineProperty(O, P, Attributes);
+    } catch (error) { /* empty */ }
+    if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported');
+    if ('value' in Attributes) O[P] = Attributes.value;
+    return O;
+  };
+
+  var objectDefineProperty = {
+  	f: f$2
+  };
+
+  var createNonEnumerableProperty = descriptors ? function (object, key, value) {
+    return objectDefineProperty.f(object, key, createPropertyDescriptor(1, value));
+  } : function (object, key, value) {
+    object[key] = value;
+    return object;
+  };
+
+  var setGlobal = function (key, value) {
+    try {
+      createNonEnumerableProperty(global_1, key, value);
+    } catch (error) {
+      global_1[key] = value;
+    } return value;
+  };
+
+  var SHARED = '__core-js_shared__';
+  var store = global_1[SHARED] || setGlobal(SHARED, {});
+
+  var sharedStore = store;
+
+  var functionToString = Function.toString;
+
+  // this helper broken in `3.4.1-3.4.4`, so we can't use `shared` helper
+  if (typeof sharedStore.inspectSource != 'function') {
+    sharedStore.inspectSource = function (it) {
+      return functionToString.call(it);
+    };
+  }
+
+  var inspectSource = sharedStore.inspectSource;
+
+  var WeakMap = global_1.WeakMap;
+
+  var nativeWeakMap = typeof WeakMap === 'function' && /native code/.test(inspectSource(WeakMap));
+
+  var shared = createCommonjsModule(function (module) {
+  (module.exports = function (key, value) {
+    return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
+  })('versions', []).push({
+    version: '3.6.5',
+    mode:  'global',
+    copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
+  });
+  });
+
+  var id = 0;
+  var postfix = Math.random();
+
+  var uid = function (key) {
+    return 'Symbol(' + String(key === undefined ? '' : key) + ')_' + (++id + postfix).toString(36);
+  };
+
+  var keys = shared('keys');
+
+  var sharedKey = function (key) {
+    return keys[key] || (keys[key] = uid(key));
+  };
+
+  var hiddenKeys = {};
+
+  var WeakMap$1 = global_1.WeakMap;
+  var set, get, has$1;
+
+  var enforce = function (it) {
+    return has$1(it) ? get(it) : set(it, {});
+  };
+
+  var getterFor = function (TYPE) {
+    return function (it) {
+      var state;
+      if (!isObject(it) || (state = get(it)).type !== TYPE) {
+        throw TypeError('Incompatible receiver, ' + TYPE + ' required');
+      } return state;
+    };
+  };
+
+  if (nativeWeakMap) {
+    var store$1 = new WeakMap$1();
+    var wmget = store$1.get;
+    var wmhas = store$1.has;
+    var wmset = store$1.set;
+    set = function (it, metadata) {
+      wmset.call(store$1, it, metadata);
+      return metadata;
+    };
+    get = function (it) {
+      return wmget.call(store$1, it) || {};
+    };
+    has$1 = function (it) {
+      return wmhas.call(store$1, it);
+    };
+  } else {
+    var STATE = sharedKey('state');
+    hiddenKeys[STATE] = true;
+    set = function (it, metadata) {
+      createNonEnumerableProperty(it, STATE, metadata);
+      return metadata;
+    };
+    get = function (it) {
+      return has(it, STATE) ? it[STATE] : {};
+    };
+    has$1 = function (it) {
+      return has(it, STATE);
+    };
+  }
+
+  var internalState = {
+    set: set,
+    get: get,
+    has: has$1,
+    enforce: enforce,
+    getterFor: getterFor
+  };
+
+  var redefine = createCommonjsModule(function (module) {
+  var getInternalState = internalState.get;
+  var enforceInternalState = internalState.enforce;
+  var TEMPLATE = String(String).split('String');
+
+  (module.exports = function (O, key, value, options) {
+    var unsafe = options ? !!options.unsafe : false;
+    var simple = options ? !!options.enumerable : false;
+    var noTargetGet = options ? !!options.noTargetGet : false;
+    if (typeof value == 'function') {
+      if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
+      enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+    }
+    if (O === global_1) {
+      if (simple) O[key] = value;
+      else setGlobal(key, value);
+      return;
+    } else if (!unsafe) {
+      delete O[key];
+    } else if (!noTargetGet && O[key]) {
+      simple = true;
+    }
+    if (simple) O[key] = value;
+    else createNonEnumerableProperty(O, key, value);
+  // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
+  })(Function.prototype, 'toString', function toString() {
+    return typeof this == 'function' && getInternalState(this).source || inspectSource(this);
+  });
+  });
+
+  var path = global_1;
+
+  var aFunction = function (variable) {
+    return typeof variable == 'function' ? variable : undefined;
+  };
+
+  var getBuiltIn = function (namespace, method) {
+    return arguments.length < 2 ? aFunction(path[namespace]) || aFunction(global_1[namespace])
+      : path[namespace] && path[namespace][method] || global_1[namespace] && global_1[namespace][method];
+  };
+
+  var ceil = Math.ceil;
+  var floor = Math.floor;
+
+  // `ToInteger` abstract operation
+  // https://tc39.github.io/ecma262/#sec-tointeger
+  var toInteger = function (argument) {
+    return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
+  };
+
+  var min = Math.min;
+
+  // `ToLength` abstract operation
+  // https://tc39.github.io/ecma262/#sec-tolength
+  var toLength = function (argument) {
+    return argument > 0 ? min(toInteger(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+  };
+
+  var max = Math.max;
+  var min$1 = Math.min;
+
+  // Helper for a popular repeating case of the spec:
+  // Let integer be ? ToInteger(index).
+  // If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
+  var toAbsoluteIndex = function (index, length) {
+    var integer = toInteger(index);
+    return integer < 0 ? max(integer + length, 0) : min$1(integer, length);
+  };
+
+  // `Array.prototype.{ indexOf, includes }` methods implementation
+  var createMethod = function (IS_INCLUDES) {
+    return function ($this, el, fromIndex) {
+      var O = toIndexedObject($this);
+      var length = toLength(O.length);
+      var index = toAbsoluteIndex(fromIndex, length);
+      var value;
+      // Array#includes uses SameValueZero equality algorithm
+      // eslint-disable-next-line no-self-compare
+      if (IS_INCLUDES && el != el) while (length > index) {
+        value = O[index++];
+        // eslint-disable-next-line no-self-compare
+        if (value != value) return true;
+      // Array#indexOf ignores holes, Array#includes - not
+      } else for (;length > index; index++) {
+        if ((IS_INCLUDES || index in O) && O[index] === el) return IS_INCLUDES || index || 0;
+      } return !IS_INCLUDES && -1;
+    };
+  };
+
+  var arrayIncludes = {
+    // `Array.prototype.includes` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.includes
+    includes: createMethod(true),
+    // `Array.prototype.indexOf` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+    indexOf: createMethod(false)
+  };
+
+  var indexOf = arrayIncludes.indexOf;
+
+
+  var objectKeysInternal = function (object, names) {
+    var O = toIndexedObject(object);
+    var i = 0;
+    var result = [];
+    var key;
+    for (key in O) !has(hiddenKeys, key) && has(O, key) && result.push(key);
+    // Don't enum bug & hidden keys
+    while (names.length > i) if (has(O, key = names[i++])) {
+      ~indexOf(result, key) || result.push(key);
+    }
+    return result;
+  };
+
+  // IE8- don't enum bug keys
+  var enumBugKeys = [
+    'constructor',
+    'hasOwnProperty',
+    'isPrototypeOf',
+    'propertyIsEnumerable',
+    'toLocaleString',
+    'toString',
+    'valueOf'
+  ];
+
+  var hiddenKeys$1 = enumBugKeys.concat('length', 'prototype');
+
+  // `Object.getOwnPropertyNames` method
+  // https://tc39.github.io/ecma262/#sec-object.getownpropertynames
+  var f$3 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+    return objectKeysInternal(O, hiddenKeys$1);
+  };
+
+  var objectGetOwnPropertyNames = {
+  	f: f$3
+  };
+
+  var f$4 = Object.getOwnPropertySymbols;
+
+  var objectGetOwnPropertySymbols = {
+  	f: f$4
+  };
+
+  // all object keys, includes non-enumerable and symbols
+  var ownKeys$1 = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
+    var keys = objectGetOwnPropertyNames.f(anObject(it));
+    var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+    return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
+  };
+
+  var copyConstructorProperties = function (target, source) {
+    var keys = ownKeys$1(source);
+    var defineProperty = objectDefineProperty.f;
+    var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (!has(target, key)) defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+    }
+  };
+
+  var replacement = /#|\.prototype\./;
+
+  var isForced = function (feature, detection) {
+    var value = data[normalize(feature)];
+    return value == POLYFILL ? true
+      : value == NATIVE ? false
+      : typeof detection == 'function' ? fails(detection)
+      : !!detection;
+  };
+
+  var normalize = isForced.normalize = function (string) {
+    return String(string).replace(replacement, '.').toLowerCase();
+  };
+
+  var data = isForced.data = {};
+  var NATIVE = isForced.NATIVE = 'N';
+  var POLYFILL = isForced.POLYFILL = 'P';
+
+  var isForced_1 = isForced;
+
+  var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
+
+
+
+
+
+
+  /*
+    options.target      - name of the target object
+    options.global      - target is the global object
+    options.stat        - export as static methods of target
+    options.proto       - export as prototype methods of target
+    options.real        - real prototype method for the `pure` version
+    options.forced      - export even if the native feature is available
+    options.bind        - bind methods to the target, required for the `pure` version
+    options.wrap        - wrap constructors to preventing global pollution, required for the `pure` version
+    options.unsafe      - use the simple assignment of property instead of delete + defineProperty
+    options.sham        - add a flag to not completely full polyfills
+    options.enumerable  - export as enumerable property
+    options.noTargetGet - prevent calling a getter on target
+  */
+  var _export = function (options, source) {
+    var TARGET = options.target;
+    var GLOBAL = options.global;
+    var STATIC = options.stat;
+    var FORCED, target, key, targetProperty, sourceProperty, descriptor;
+    if (GLOBAL) {
+      target = global_1;
+    } else if (STATIC) {
+      target = global_1[TARGET] || setGlobal(TARGET, {});
+    } else {
+      target = (global_1[TARGET] || {}).prototype;
+    }
+    if (target) for (key in source) {
+      sourceProperty = source[key];
+      if (options.noTargetGet) {
+        descriptor = getOwnPropertyDescriptor$1(target, key);
+        targetProperty = descriptor && descriptor.value;
+      } else targetProperty = target[key];
+      FORCED = isForced_1(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
+      // contained in target
+      if (!FORCED && targetProperty !== undefined) {
+        if (typeof sourceProperty === typeof targetProperty) continue;
+        copyConstructorProperties(sourceProperty, targetProperty);
+      }
+      // add a flag to not completely full polyfills
+      if (options.sham || (targetProperty && targetProperty.sham)) {
+        createNonEnumerableProperty(sourceProperty, 'sham', true);
+      }
+      // extend global
+      redefine(target, key, sourceProperty, options);
+    }
+  };
+
+  // `IsArray` abstract operation
+  // https://tc39.github.io/ecma262/#sec-isarray
+  var isArray = Array.isArray || function isArray(arg) {
+    return classofRaw(arg) == 'Array';
+  };
+
+  // `ToObject` abstract operation
+  // https://tc39.github.io/ecma262/#sec-toobject
+  var toObject = function (argument) {
+    return Object(requireObjectCoercible(argument));
+  };
+
+  var createProperty = function (object, key, value) {
+    var propertyKey = toPrimitive(key);
+    if (propertyKey in object) objectDefineProperty.f(object, propertyKey, createPropertyDescriptor(0, value));
+    else object[propertyKey] = value;
+  };
+
+  var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
+    // Chrome 38 Symbol has incorrect toString conversion
+    // eslint-disable-next-line no-undef
+    return !String(Symbol());
+  });
+
+  var useSymbolAsUid = nativeSymbol
+    // eslint-disable-next-line no-undef
+    && !Symbol.sham
+    // eslint-disable-next-line no-undef
+    && typeof Symbol.iterator == 'symbol';
+
+  var WellKnownSymbolsStore = shared('wks');
+  var Symbol$1 = global_1.Symbol;
+  var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
+
+  var wellKnownSymbol = function (name) {
+    if (!has(WellKnownSymbolsStore, name)) {
+      if (nativeSymbol && has(Symbol$1, name)) WellKnownSymbolsStore[name] = Symbol$1[name];
+      else WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+    } return WellKnownSymbolsStore[name];
+  };
+
+  var SPECIES = wellKnownSymbol('species');
+
+  // `ArraySpeciesCreate` abstract operation
+  // https://tc39.github.io/ecma262/#sec-arrayspeciescreate
+  var arraySpeciesCreate = function (originalArray, length) {
+    var C;
+    if (isArray(originalArray)) {
+      C = originalArray.constructor;
+      // cross-realm fallback
+      if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
+      else if (isObject(C)) {
+        C = C[SPECIES];
+        if (C === null) C = undefined;
+      }
+    } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
+  };
+
+  var engineUserAgent = getBuiltIn('navigator', 'userAgent') || '';
+
+  var process = global_1.process;
+  var versions = process && process.versions;
+  var v8 = versions && versions.v8;
+  var match, version;
+
+  if (v8) {
+    match = v8.split('.');
+    version = match[0] + match[1];
+  } else if (engineUserAgent) {
+    match = engineUserAgent.match(/Edge\/(\d+)/);
+    if (!match || match[1] >= 74) {
+      match = engineUserAgent.match(/Chrome\/(\d+)/);
+      if (match) version = match[1];
+    }
+  }
+
+  var engineV8Version = version && +version;
+
+  var SPECIES$1 = wellKnownSymbol('species');
+
+  var arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
+    // We can't use this feature detection in V8 since it causes
+    // deoptimization and serious performance degradation
+    // https://github.com/zloirock/core-js/issues/677
+    return engineV8Version >= 51 || !fails(function () {
+      var array = [];
+      var constructor = array.constructor = {};
+      constructor[SPECIES$1] = function () {
+        return { foo: 1 };
+      };
+      return array[METHOD_NAME](Boolean).foo !== 1;
+    });
+  };
+
+  var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
+  var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+  var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
+
+  // We can't use this feature detection in V8 since it causes
+  // deoptimization and serious performance degradation
+  // https://github.com/zloirock/core-js/issues/679
+  var IS_CONCAT_SPREADABLE_SUPPORT = engineV8Version >= 51 || !fails(function () {
+    var array = [];
+    array[IS_CONCAT_SPREADABLE] = false;
+    return array.concat()[0] !== array;
+  });
+
+  var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('concat');
+
+  var isConcatSpreadable = function (O) {
+    if (!isObject(O)) return false;
+    var spreadable = O[IS_CONCAT_SPREADABLE];
+    return spreadable !== undefined ? !!spreadable : isArray(O);
+  };
+
+  var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
+
+  // `Array.prototype.concat` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.concat
+  // with adding support of @@isConcatSpreadable and @@species
+  _export({ target: 'Array', proto: true, forced: FORCED }, {
+    concat: function concat(arg) { // eslint-disable-line no-unused-vars
+      var O = toObject(this);
+      var A = arraySpeciesCreate(O, 0);
+      var n = 0;
+      var i, k, length, len, E;
+      for (i = -1, length = arguments.length; i < length; i++) {
+        E = i === -1 ? O : arguments[i];
+        if (isConcatSpreadable(E)) {
+          len = toLength(E.length);
+          if (n + len > MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+          for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
+        } else {
+          if (n >= MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+          createProperty(A, n++, E);
+        }
+      }
+      A.length = n;
+      return A;
+    }
+  });
+
+  var aFunction$1 = function (it) {
+    if (typeof it != 'function') {
+      throw TypeError(String(it) + ' is not a function');
+    } return it;
+  };
+
+  // optional / simple context binding
+  var functionBindContext = function (fn, that, length) {
+    aFunction$1(fn);
+    if (that === undefined) return fn;
+    switch (length) {
+      case 0: return function () {
+        return fn.call(that);
+      };
+      case 1: return function (a) {
+        return fn.call(that, a);
+      };
+      case 2: return function (a, b) {
+        return fn.call(that, a, b);
+      };
+      case 3: return function (a, b, c) {
+        return fn.call(that, a, b, c);
+      };
+    }
+    return function (/* ...args */) {
+      return fn.apply(that, arguments);
+    };
+  };
+
+  var push = [].push;
+
+  // `Array.prototype.{ forEach, map, filter, some, every, find, findIndex }` methods implementation
+  var createMethod$1 = function (TYPE) {
+    var IS_MAP = TYPE == 1;
+    var IS_FILTER = TYPE == 2;
+    var IS_SOME = TYPE == 3;
+    var IS_EVERY = TYPE == 4;
+    var IS_FIND_INDEX = TYPE == 6;
+    var NO_HOLES = TYPE == 5 || IS_FIND_INDEX;
+    return function ($this, callbackfn, that, specificCreate) {
+      var O = toObject($this);
+      var self = indexedObject(O);
+      var boundFunction = functionBindContext(callbackfn, that, 3);
+      var length = toLength(self.length);
+      var index = 0;
+      var create = specificCreate || arraySpeciesCreate;
+      var target = IS_MAP ? create($this, length) : IS_FILTER ? create($this, 0) : undefined;
+      var value, result;
+      for (;length > index; index++) if (NO_HOLES || index in self) {
+        value = self[index];
+        result = boundFunction(value, index, O);
+        if (TYPE) {
+          if (IS_MAP) target[index] = result; // map
+          else if (result) switch (TYPE) {
+            case 3: return true;              // some
+            case 5: return value;             // find
+            case 6: return index;             // findIndex
+            case 2: push.call(target, value); // filter
+          } else if (IS_EVERY) return false;  // every
+        }
+      }
+      return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
+    };
+  };
+
+  var arrayIteration = {
+    // `Array.prototype.forEach` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+    forEach: createMethod$1(0),
+    // `Array.prototype.map` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.map
+    map: createMethod$1(1),
+    // `Array.prototype.filter` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.filter
+    filter: createMethod$1(2),
+    // `Array.prototype.some` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.some
+    some: createMethod$1(3),
+    // `Array.prototype.every` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.every
+    every: createMethod$1(4),
+    // `Array.prototype.find` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.find
+    find: createMethod$1(5),
+    // `Array.prototype.findIndex` method
+    // https://tc39.github.io/ecma262/#sec-array.prototype.findIndex
+    findIndex: createMethod$1(6)
+  };
+
+  var defineProperty = Object.defineProperty;
+  var cache = {};
+
+  var thrower = function (it) { throw it; };
+
+  var arrayMethodUsesToLength = function (METHOD_NAME, options) {
+    if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
+    if (!options) options = {};
+    var method = [][METHOD_NAME];
+    var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
+    var argument0 = has(options, 0) ? options[0] : thrower;
+    var argument1 = has(options, 1) ? options[1] : undefined;
+
+    return cache[METHOD_NAME] = !!method && !fails(function () {
+      if (ACCESSORS && !descriptors) return true;
+      var O = { length: -1 };
+
+      if (ACCESSORS) defineProperty(O, 1, { enumerable: true, get: thrower });
+      else O[1] = 1;
+
+      method.call(O, argument0, argument1);
+    });
+  };
+
+  var $filter = arrayIteration.filter;
+
+
+
+  var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
+  // Edge 14- issue
+  var USES_TO_LENGTH = arrayMethodUsesToLength('filter');
+
+  // `Array.prototype.filter` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.filter
+  // with adding support of @@species
+  _export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+    filter: function filter(callbackfn /* , thisArg */) {
+      return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    }
+  });
+
+  var $map = arrayIteration.map;
+
+
+
+  var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('map');
+  // FF49- issue
+  var USES_TO_LENGTH$1 = arrayMethodUsesToLength('map');
+
+  // `Array.prototype.map` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.map
+  // with adding support of @@species
+  _export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$1 || !USES_TO_LENGTH$1 }, {
+    map: function map(callbackfn /* , thisArg */) {
+      return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+    }
+  });
+
+  var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('slice');
+  var USES_TO_LENGTH$2 = arrayMethodUsesToLength('slice', { ACCESSORS: true, 0: 0, 1: 2 });
+
+  var SPECIES$2 = wellKnownSymbol('species');
+  var nativeSlice = [].slice;
+  var max$1 = Math.max;
+
+  // `Array.prototype.slice` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.slice
+  // fallback for not array-like ES3 strings and DOM objects
+  _export({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$2 || !USES_TO_LENGTH$2 }, {
+    slice: function slice(start, end) {
+      var O = toIndexedObject(this);
+      var length = toLength(O.length);
+      var k = toAbsoluteIndex(start, length);
+      var fin = toAbsoluteIndex(end === undefined ? length : end, length);
+      // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
+      var Constructor, result, n;
+      if (isArray(O)) {
+        Constructor = O.constructor;
+        // cross-realm fallback
+        if (typeof Constructor == 'function' && (Constructor === Array || isArray(Constructor.prototype))) {
+          Constructor = undefined;
+        } else if (isObject(Constructor)) {
+          Constructor = Constructor[SPECIES$2];
+          if (Constructor === null) Constructor = undefined;
+        }
+        if (Constructor === Array || Constructor === undefined) {
+          return nativeSlice.call(O, k, fin);
+        }
+      }
+      result = new (Constructor === undefined ? Array : Constructor)(max$1(fin - k, 0));
+      for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
+      result.length = n;
+      return result;
+    }
+  });
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  var script = {
+    name: "AudioMotionConfigDisplay",
+    props: {
+      audioMotion: {
+        required: true
+      }
+    },
+    data: function data() {
+      return {
+        options: undefined,
+        freqRanges: [{
+          id: 0,
+          min: 20,
+          max: 22000,
+          display: '20Hz - 22KHz'
+        }, {
+          id: 1,
+          min: 30,
+          max: 16000,
+          display: '30Hz - 16KHz'
+        }, {
+          id: 2,
+          min: 100,
+          max: 10000,
+          display: '100Hz - 10KHz'
+        }]
+      };
+    },
+    methods: {
+      updateOptions: function updateOptions() {
+        this.audioMotion.setOptions(this.options);
+      },
+      updateFreqRange: function updateFreqRange(freqRange) {
+        this.options.minFreq = freqRange.min;
+        this.options.maxFreq = freqRange.max;
+        this.updateOptions();
+      }
+    },
+    mounted: function mounted() {
+      this.options = this.audioMotion.getOptions();
+    }
+  };
+
+  function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+      if (typeof shadowMode !== 'boolean') {
+          createInjectorSSR = createInjector;
+          createInjector = shadowMode;
+          shadowMode = false;
+      }
+      // Vue.extend constructor export interop.
+      const options = typeof script === 'function' ? script.options : script;
+      // render functions
+      if (template && template.render) {
+          options.render = template.render;
+          options.staticRenderFns = template.staticRenderFns;
+          options._compiled = true;
+          // functional template
+          if (isFunctionalTemplate) {
+              options.functional = true;
+          }
+      }
+      // scopedId
+      if (scopeId) {
+          options._scopeId = scopeId;
+      }
+      let hook;
+      if (moduleIdentifier) {
+          // server build
+          hook = function (context) {
+              // 2.3 injection
+              context =
+                  context || // cached call
+                      (this.$vnode && this.$vnode.ssrContext) || // stateful
+                      (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+              // 2.2 with runInNewContext: true
+              if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                  context = __VUE_SSR_CONTEXT__;
+              }
+              // inject component styles
+              if (style) {
+                  style.call(this, createInjectorSSR(context));
+              }
+              // register component module identifier for async chunk inference
+              if (context && context._registeredComponents) {
+                  context._registeredComponents.add(moduleIdentifier);
+              }
+          };
+          // used by ssr in case component is cached and beforeCreate
+          // never gets called
+          options._ssrRegister = hook;
+      }
+      else if (style) {
+          hook = shadowMode
+              ? function (context) {
+                  style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+              }
+              : function (context) {
+                  style.call(this, createInjector(context));
+              };
+      }
+      if (hook) {
+          if (options.functional) {
+              // register for functional component in vue file
+              const originalRender = options.render;
+              options.render = function renderWithStyleInjection(h, context) {
+                  hook.call(context);
+                  return originalRender(h, context);
+              };
+          }
+          else {
+              // inject component registration as beforeCreate hook
+              const existing = options.beforeCreate;
+              options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+          }
+      }
+      return script;
+  }
+
+  const isOldIE = typeof navigator !== 'undefined' &&
+      /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+  function createInjector(context) {
+      return (id, style) => addStyle(id, style);
+  }
+  let HEAD;
+  const styles = {};
+  function addStyle(id, css) {
+      const group = isOldIE ? css.media || 'default' : id;
+      const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+      if (!style.ids.has(id)) {
+          style.ids.add(id);
+          let code = css.source;
+          if (css.map) {
+              // https://developer.chrome.com/devtools/docs/javascript-debugging
+              // this makes source maps inside style tags work properly in Chrome
+              code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+              // http://stackoverflow.com/a/26603875
+              code +=
+                  '\n/*# sourceMappingURL=data:application/json;base64,' +
+                      btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                      ' */';
+          }
+          if (!style.element) {
+              style.element = document.createElement('style');
+              style.element.type = 'text/css';
+              if (css.media)
+                  style.element.setAttribute('media', css.media);
+              if (HEAD === undefined) {
+                  HEAD = document.head || document.getElementsByTagName('head')[0];
+              }
+              HEAD.appendChild(style.element);
+          }
+          if ('styleSheet' in style.element) {
+              style.styles.push(code);
+              style.element.styleSheet.cssText = style.styles
+                  .filter(Boolean)
+                  .join('\n');
+          }
+          else {
+              const index = style.ids.size - 1;
+              const textNode = document.createTextNode(code);
+              const nodes = style.element.childNodes;
+              if (nodes[index])
+                  style.element.removeChild(nodes[index]);
+              if (nodes.length)
+                  style.element.insertBefore(textNode, nodes[index]);
+              else
+                  style.element.appendChild(textNode);
+          }
+      }
+  }
+
+  var __vue_script__ = script;
+  /* template */
+
+  var __vue_render__ = function __vue_render__() {
+    var _vm = this;
+
+    var _h = _vm.$createElement;
+
+    var _c = _vm._self._c || _h;
+
+    return _c("div", {
+      attrs: {
+        id: "audiomotion-config"
+      }
+    }, [_vm.options ? _c("div", {
+      staticClass: "analyzer-configuration"
+    }, [_c("div", {
+      staticClass: "box center"
+    }, [_c("label", {
+      staticClass: "label"
+    }, [_vm._v("Visualization Mode\n                "), _c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.mode,
+        expression: "options.mode"
+      }],
+      attrs: {
+        id: "mode"
+      },
+      on: {
+        change: [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+
+          _vm.$set(_vm.options, "mode", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, _vm.updateOptions]
+      }
+    }, [_c("option", {
+      attrs: {
+        value: "0"
+      }
+    }, [_vm._v("Discrete frequencies")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "10"
+      }
+    }, [_vm._v("Line / Area graph")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "1"
+      }
+    }, [_vm._v("1/24th octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "2"
+      }
+    }, [_vm._v("1/12th octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "3"
+      }
+    }, [_vm._v("1/8th octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "4"
+      }
+    }, [_vm._v("1/6th octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "5"
+      }
+    }, [_vm._v("1/4th octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "6"
+      }
+    }, [_vm._v("1/3rd octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "7"
+      }
+    }, [_vm._v("Half octave bands")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "8"
+      }
+    }, [_vm._v("Full octave bands")])])]), _vm._v(" "), _c("fieldset", {
+      attrs: {
+        id: "area_options"
+      }
+    }, [_c("label", {
+      staticClass: "label"
+    }, [_vm._v("lineWidth\n                    "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.lineWidth,
+        expression: "options.lineWidth"
+      }],
+      attrs: {
+        type: "range",
+        id: "line_width",
+        min: "0",
+        max: "9",
+        step: "1"
+      },
+      domProps: {
+        value: _vm.options.lineWidth
+      },
+      on: {
+        change: _vm.updateOptions,
+        __r: function __r($event) {
+          return _vm.$set(_vm.options, "lineWidth", $event.target.value);
+        }
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "value"
+    })]), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("fillAlpha\n                    "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.fillAlpha,
+        expression: "options.fillAlpha"
+      }],
+      attrs: {
+        type: "range",
+        id: "fill_alpha",
+        min: "0",
+        max: "1",
+        step: ".1"
+      },
+      domProps: {
+        value: _vm.options.fillAlpha
+      },
+      on: {
+        change: _vm.updateOptions,
+        __r: function __r($event) {
+          return _vm.$set(_vm.options, "fillAlpha", $event.target.value);
+        }
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "value"
+    })])]), _vm._v(" "), _c("fieldset", {
+      attrs: {
+        id: "bar_options"
+      }
+    }, [_c("label", {
+      staticClass: "label"
+    }, [_vm._v("Bar spacing\n                    "), _c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.barSpace,
+        expression: "options.barSpace"
+      }],
+      attrs: {
+        id: "bar_space"
+      },
+      on: {
+        change: [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+
+          _vm.$set(_vm.options, "barSpace", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, _vm.updateOptions]
+      }
+    }, [_c("option", {
+      attrs: {
+        value: "0"
+      }
+    }, [_vm._v("None")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "1"
+      }
+    }, [_vm._v("1px (legacy)")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "2"
+      }
+    }, [_vm._v("2px")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.1"
+      }
+    }, [_vm._v("10% (default)")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.2"
+      }
+    }, [_vm._v("20%")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.25"
+      }
+    }, [_vm._v("25%")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.4"
+      }
+    }, [_vm._v("40%")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.5"
+      }
+    }, [_vm._v("50%")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.75"
+      }
+    }, [_vm._v("75%")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "0.9"
+      }
+    }, [_vm._v("90%")])])])]), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("Gradient\n                "), _c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.gradient,
+        expression: "options.gradient"
+      }],
+      attrs: {
+        id: "gradient"
+      },
+      on: {
+        change: [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+
+          _vm.$set(_vm.options, "gradient", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, _vm.updateOptions]
+      }
+    }, [_c("option", {
+      attrs: {
+        value: "classic"
+      }
+    }, [_vm._v("Classic")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "prism"
+      }
+    }, [_vm._v("Prism")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "rainbow"
+      }
+    }, [_vm._v("Rainbow")])])]), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("reflexRatio\n                "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.reflexRatio,
+        expression: "options.reflexRatio"
+      }],
+      attrs: {
+        type: "range",
+        id: "reflex_ratio",
+        min: "0",
+        max: ".9",
+        step: ".1"
+      },
+      domProps: {
+        value: _vm.options.reflexRatio
+      },
+      on: {
+        change: _vm.updateOptions,
+        __r: function __r($event) {
+          return _vm.$set(_vm.options, "reflexRatio", $event.target.value);
+        }
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "value"
+    })]), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("reflexAlpha\n                "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.reflexAlpha,
+        expression: "options.reflexAlpha"
+      }],
+      attrs: {
+        type: "range",
+        id: "reflex_alpha",
+        min: "0",
+        max: "1",
+        step: ".05"
+      },
+      domProps: {
+        value: _vm.options.reflexAlpha
+      },
+      on: {
+        change: _vm.updateOptions,
+        __r: function __r($event) {
+          return _vm.$set(_vm.options, "reflexAlpha", $event.target.value);
+        }
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "value"
+    })]), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("FFT size\n                "), _c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.fftSize,
+        expression: "options.fftSize"
+      }],
+      attrs: {
+        id: "fft"
+      },
+      on: {
+        change: [function ($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+
+          _vm.$set(_vm.options, "fftSize", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }, _vm.updateOptions]
+      }
+    }, [_c("option", {
+      attrs: {
+        value: "1024"
+      }
+    }, [_vm._v("1024")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "2048"
+      }
+    }, [_vm._v("2048")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "4096"
+      }
+    }, [_vm._v("4096")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "8192"
+      }
+    }, [_vm._v("8192")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "16384"
+      }
+    }, [_vm._v("16384")]), _vm._v(" "), _c("option", {
+      attrs: {
+        value: "32768"
+      }
+    }, [_vm._v("32768")])])]), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("Frequency range\n                "), _c("select", {
+      attrs: {
+        id: "range"
+      }
+    }, _vm._l(_vm.freqRanges, function (freqRange) {
+      return _c("option", {
+        domProps: {
+          value: freqRange.id
+        },
+        on: {
+          click: function click($event) {
+            return _vm.updateFreqRange(freqRange);
+          }
+        }
+      }, [_vm._v(_vm._s(freqRange.display))]);
+    }), 0)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("label", {
+      staticClass: "label"
+    }, [_vm._v("smoothing\n                "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.smoothing,
+        expression: "options.smoothing"
+      }],
+      attrs: {
+        type: "range",
+        id: "smoothing",
+        min: "0",
+        max: ".9",
+        step: ".1"
+      },
+      domProps: {
+        value: _vm.options.smoothing
+      },
+      on: {
+        change: _vm.updateOptions,
+        __r: function __r($event) {
+          return _vm.$set(_vm.options, "smoothing", $event.target.value);
+        }
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "value"
+    })])]), _vm._v(" "), _c("div", {
+      staticClass: "box center"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.showBgColor,
+        expression: "options.showBgColor"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_bgcolor"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.showBgColor) ? _vm._i(_vm.options.showBgColor, null) > -1 : _vm.options.showBgColor
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.showBgColor,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "showBgColor", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "showBgColor", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "showBgColor", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("showBgColor"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.showPeaks,
+        expression: "options.showPeaks"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_peaks"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.showPeaks) ? _vm._i(_vm.options.showPeaks, null) > -1 : _vm.options.showPeaks
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.showPeaks,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "showPeaks", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "showPeaks", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "showPeaks", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("showPeaks"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.showLeds,
+        expression: "options.showLeds"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_leds"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.showLeds) ? _vm._i(_vm.options.showLeds, null) > -1 : _vm.options.showLeds
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.showLeds,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "showLeds", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "showLeds", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "showLeds", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("showLeds"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.lumiBars,
+        expression: "options.lumiBars"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_lumi"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.lumiBars) ? _vm._i(_vm.options.lumiBars, null) > -1 : _vm.options.lumiBars
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.lumiBars,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "lumiBars", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "lumiBars", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "lumiBars", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("lumiBars"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.reflexFit,
+        expression: "options.reflexFit"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_reflex"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.reflexFit) ? _vm._i(_vm.options.reflexFit, null) > -1 : _vm.options.reflexFit
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.reflexFit,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "reflexFit", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "reflexFit", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "reflexFit", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("reflexFit"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.showScale,
+        expression: "options.showScale"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_scale"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.showScale) ? _vm._i(_vm.options.showScale, null) > -1 : _vm.options.showScale
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.showScale,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "showScale", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "showScale", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "showScale", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("showScale"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.loRes,
+        expression: "options.loRes"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_lores"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.loRes) ? _vm._i(_vm.options.loRes, null) > -1 : _vm.options.loRes
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.loRes,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "loRes", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "loRes", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "loRes", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("loRes"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.showFPS,
+        expression: "options.showFPS"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_fps"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.showFPS) ? _vm._i(_vm.options.showFPS, null) > -1 : _vm.options.showFPS
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.showFPS,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "showFPS", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "showFPS", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "showFPS", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("showFPS"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.showLogo,
+        expression: "options.showLogo"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_logo"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.showLogo) ? _vm._i(_vm.options.showLogo, null) > -1 : _vm.options.showLogo
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.showLogo,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "showLogo", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "showLogo", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "showLogo", $$c);
+          }
+        }, _vm.updateOptions]
+      }
+    }), _vm._v("Logo"), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.options.isOn,
+        expression: "options.isOn"
+      }],
+      attrs: {
+        type: "checkbox",
+        id: "btn_freeze"
+      },
+      domProps: {
+        checked: Array.isArray(_vm.options.isOn) ? _vm._i(_vm.options.isOn, null) > -1 : _vm.options.isOn
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.options.isOn,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = null,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.options, "isOn", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.options, "isOn", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.options, "isOn", $$c);
+          }
+        }, _vm.audioMotion.toggleAnalyzer]
+      }
+    }), _vm._v("Freeze"), _vm._v(" "), _c("input", {
+      attrs: {
+        type: "checkbox",
+        id: "btn_fullscr"
+      },
+      on: {
+        change: _vm.audioMotion.toggleFullscreen
+      }
+    }), _vm._v("Fullscreen")])]) : _vm._e(), _vm._v(" "), _vm._m(1)]);
+  };
+
+  var __vue_staticRenderFns__ = [function () {
+    var _vm = this;
+
+    var _h = _vm.$createElement;
+
+    var _c = _vm._self._c || _h;
+
+    return _c("label", {
+      staticClass: "label"
+    }, [_vm._v("sensitivity\n                "), _c("input", {
+      attrs: {
+        type: "range",
+        id: "sensitivity",
+        min: "0",
+        max: "4"
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "value"
+    })]);
+  }, function () {
+    var _vm = this;
+
+    var _h = _vm.$createElement;
+
+    var _c = _vm._self._c || _h;
+
+    return _c("div", {
+      staticClass: "credits"
+    }, [_c("strong", [_vm._v("audioMotion-analyzer v"), _c("span", {
+      attrs: {
+        id: "version"
+      }
+    })]), _vm._v(" Copyright © 2018-2020 Henrique Avila Vianna.\tSource code available on "), _c("a", {
+      attrs: {
+        href: "https://github.com/hvianna/audioMotion-analyzer"
+      }
+    }, [_vm._v("GitHub")]), _vm._v(".\n    ")]);
+  }];
+  __vue_render__._withStripped = true;
+  /* style */
+
+  var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
+    if (!inject) return;
+    inject("data-v-75c2771c_0", {
+      source: "\n#audiomotion-config[data-v-75c2771c] {\n    background: #222;\n    color: #ccc;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100%;\n}\na[data-v-75c2771c] {\n    color: #b5c6d0;\n}\na[data-v-75c2771c]:not([class]):hover {\n    color: #fff;\n    filter: drop-shadow(.07em .07em .14em #f0fc) drop-shadow( -.07em -.07em .14em #f0fc);\n}\nbutton[data-v-75c2771c] {\n    margin: 6px;\n    padding: 6px;\n    vertical-align: bottom;\n}\nbutton.active[data-v-75c2771c] {\n    background: #444;\n    border: none;\n    box-shadow: inset 1px 1px 0 #000;\n    color: #0f0;\n    padding: 8px;\n    text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;\n}\ncanvas[data-v-75c2771c] {\n    display: block;\n    width: 100%;\n}\nfieldset[data-v-75c2771c] {\n    border: none;\n    display: inline-block;\n    margin: 0;\n    padding: 0;\n    vertical-align: top;\n}\nfieldset[data-v-75c2771c]:disabled {\n    display: none;\n}\nheader[data-v-75c2771c] {\n    position: relative;\n}\nh1[data-v-75c2771c] {\n    color: #dfe6eb;\n    filter: drop-shadow(2px 2px 0 #000);\n}\nh2[data-v-75c2771c] {\n    margin: 1.5em 0 1em;\n}\nhr[data-v-75c2771c] {\n    border-color: #8888;\n    border-width: 0 0 1px;\n}\nimg[data-v-75c2771c] {\n    max-width: 100%;\n}\ninput[type=\"range\"][data-v-75c2771c] {\n    width: 60px;\n}\ninput[type=\"text\"][data-v-75c2771c],\nselect[data-v-75c2771c] {\n    margin: 6px 0;\n    padding: 6px;\n}\nul[data-v-75c2771c] {\n    line-height: 1.6;\n}\n.big[data-v-75c2771c] {\n    font-size: 120%;\n}\n.box[data-v-75c2771c] {\n    margin-top: 10px;\n}\n.box .title[data-v-75c2771c] {\n    font-weight: bold;\n    line-height: 2;\n    margin-right: 1em;\n}\n.label[data-v-75c2771c] {\n    display: inline-block;\n    font-size: 12px;\n    margin: 0 6px;\n    vertical-align: top;\n}\n.label input[data-v-75c2771c],\n.label select[data-v-75c2771c] {\n    display: block;\n}\n.logo[data-v-75c2771c] {\n    background: linear-gradient(to bottom, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);\n    background-clip: text;\n    font-family: Orbitron, sans-serif;\n    padding-right: .5em;\n    position: relative;\n    text-decoration: none;\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n}\n.logo[data-v-75c2771c]:hover::after {\n    animation: shine-data-v-75c2771c .5s ease-in-out;\n    color: #fff;\n    content: 'audioMotion-analyzer';\n    left: 0;\n    mask-image: linear-gradient(-75deg, transparent 45%, #000 50%, transparent 55%);\n    mask-size: 200%;\n    position: absolute;\n    top: 0;\n    -webkit-mask-position: -50%;\n    -webkit-text-fill-color: #fff;\n}\n@keyframes shine-data-v-75c2771c {\n0% { -webkit-mask-position: 110%;\n}\n100% { -webkit-mask-position: -10%;\n}\n}\n#audio[data-v-75c2771c],\n#video[data-v-75c2771c] {\n    display: block;\n    width: 100%;\n}\n.analyzer-configuration[data-v-75c2771c] {\n    background: #fff1;\n    border: 1px solid #ccc8;\n    margin-bottom: 20px;\n    padding: 10px 0;\n}\n.credits[data-v-75c2771c] {\n    font-size: 12px;\n    padding: 0 0 20px 0;\n    text-align: center;\n}\n.header-nav[data-v-75c2771c] {\n    position: absolute;\n    right: 0;\n    top: 0;\n}\n.header-nav li[data-v-75c2771c] {\n    display: inline;\n    margin-right: .5em;\n}\n.header-nav li[data-v-75c2771c]:not(:last-child)::after {\n    content: ' |';\n    margin-left: .5em;\n}\n\n/* fluid full-width analyzer (single instance demo) */\n#container[data-v-75c2771c] {\n    height: 45vh;\n    margin: 0 calc( 50% - 50vw );\n}\n#container1[data-v-75c2771c] {\n    margin-bottom: 15px;\n}\n.center[data-v-75c2771c] {\n    text-align: center;\n}\n.main[data-v-75c2771c] {\n    display: inline-block;\n    margin-right: 20px;\n    width: 640px;\n}\n.aside[data-v-75c2771c] {\n    display: inline-block;\n    vertical-align: top;\n    width: 320px;\n}\n.selector[data-v-75c2771c] {\n    margin-bottom: 20px;\n}\n.selected[data-v-75c2771c] {\n    outline: 3px solid #c00;\n}\n\n/* overlay */\n#container.overlay[data-v-75c2771c] {\n    height: 563px;\n    margin: 0 auto;\n    position: relative;\n    width: 100%;\n}\n.overlay canvas[data-v-75c2771c] {\n    bottom: 0;\n    pointer-events: none; /* let mouse clicks pass to the underlying video element */\n    position: absolute;\n    touch-action: none; /* ditto for touch events */\n}\n.overlay:not(:fullscreen):hover canvas[data-v-75c2771c] {\n    opacity: .5;\n}\n\n",
+      map: {
+        "version": 3,
+        "sources": ["/Users/wouter/git/audio/vue-audiomotion-analyzer/src/AudioMotionConfigDisplay.vue"],
+        "names": [],
+        "mappings": ";AAsJA;IACA,gBAAA;IACA,WAAA;IACA,wFAAA;IACA,eAAA;IACA,cAAA;IACA,eAAA;IACA,WAAA;AACA;AAEA;IACA,cAAA;AACA;AACA;IACA,WAAA;IACA,oFAAA;AACA;AAEA;IACA,WAAA;IACA,YAAA;IACA,sBAAA;AACA;AACA;IACA,gBAAA;IACA,YAAA;IACA,gCAAA;IACA,WAAA;IACA,YAAA;IACA,qDAAA;AACA;AAEA;IACA,cAAA;IACA,WAAA;AACA;AAEA;IACA,YAAA;IACA,qBAAA;IACA,SAAA;IACA,UAAA;IACA,mBAAA;AACA;AACA;IACA,aAAA;AACA;AAEA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,mCAAA;AACA;AACA;IACA,mBAAA;AACA;AAEA;IACA,mBAAA;IACA,qBAAA;AACA;AAEA;IACA,eAAA;AACA;AAEA;IACA,WAAA;AACA;AAEA;;IAEA,aAAA;IACA,YAAA;AACA;AAEA;IACA,gBAAA;AACA;AAEA;IACA,eAAA;AACA;AAEA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,cAAA;IACA,iBAAA;AACA;AAEA;IACA,qBAAA;IACA,eAAA;IACA,aAAA;IACA,mBAAA;AACA;AACA;;IAEA,cAAA;AACA;AAEA;IACA,0FAAA;IACA,qBAAA;IACA,iCAAA;IACA,mBAAA;IACA,kBAAA;IACA,qBAAA;IACA,6BAAA;IACA,oCAAA;AACA;AAEA;IACA,gDAAA;IACA,WAAA;IACA,+BAAA;IACA,OAAA;IACA,+EAAA;IACA,eAAA;IACA,kBAAA;IACA,MAAA;IACA,2BAAA;IACA,6BAAA;AACA;AAEA;AACA,KAAA,2BAAA;AAAA;AACA,OAAA,2BAAA;AAAA;AACA;AAEA;;IAEA,cAAA;IACA,WAAA;AACA;AAEA;IACA,iBAAA;IACA,uBAAA;IACA,mBAAA;IACA,eAAA;AACA;AAEA;IACA,eAAA;IACA,mBAAA;IACA,kBAAA;AACA;AAEA;IACA,kBAAA;IACA,QAAA;IACA,MAAA;AACA;AACA;IACA,eAAA;IACA,kBAAA;AACA;AACA;IACA,aAAA;IACA,iBAAA;AACA;;AAEA,qDAAA;AACA;IACA,YAAA;IACA,4BAAA;AACA;AAEA;IACA,mBAAA;AACA;AAEA;IACA,kBAAA;AACA;AAEA;IACA,qBAAA;IACA,kBAAA;IACA,YAAA;AACA;AAEA;IACA,qBAAA;IACA,mBAAA;IACA,YAAA;AACA;AAEA;IACA,mBAAA;AACA;AAEA;IACA,uBAAA;AACA;;AAEA,YAAA;AACA;IACA,aAAA;IACA,cAAA;IACA,kBAAA;IACA,WAAA;AACA;AAEA;IACA,SAAA;IACA,oBAAA,EAAA,0DAAA;IACA,kBAAA;IACA,kBAAA,EAAA,2BAAA;AACA;AAEA;IACA,WAAA;AACA",
+        "file": "AudioMotionConfigDisplay.vue",
+        "sourcesContent": ["<template>\n    <div id=\"audiomotion-config\">\n        <div class=\"analyzer-configuration\" v-if=\"options\">\n            <div class=\"box center\">\n                <label class=\"label\">Visualization Mode\n                    <select id=\"mode\" v-model=\"options.mode\" @change=\"updateOptions\">\n                        <option value=\"0\">Discrete frequencies</option>\n                        <option value=\"10\">Line / Area graph</option>\n                        <option value=\"1\">1/24th octave bands</option>\n                        <option value=\"2\">1/12th octave bands</option>\n                        <option value=\"3\">1/8th octave bands</option>\n                        <option value=\"4\">1/6th octave bands</option>\n                        <option value=\"5\">1/4th octave bands</option>\n                        <option value=\"6\">1/3rd octave bands</option>\n                        <option value=\"7\">Half octave bands</option>\n                        <option value=\"8\">Full octave bands</option>\n                    </select>\n                </label>\n\n                <fieldset id=\"area_options\">\n                    <label class=\"label\">lineWidth\n                        <input type=\"range\" id=\"line_width\" min=\"0\" max=\"9\" step=\"1\" v-model=\"options.lineWidth\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n\n                    <label class=\"label\">fillAlpha\n                        <input type=\"range\" id=\"fill_alpha\" min=\"0\" max=\"1\" step=\".1\" v-model=\"options.fillAlpha\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n                </fieldset>\n\n                <fieldset id=\"bar_options\">\n                    <label class=\"label\">Bar spacing\n                        <select id=\"bar_space\" v-model=\"options.barSpace\" @change=\"updateOptions\">\n                            <option value=\"0\">None</option>\n                            <option value=\"1\">1px (legacy)</option>\n                            <option value=\"2\">2px</option>\n                            <option value=\"0.1\">10% (default)</option>\n                            <option value=\"0.2\">20%</option>\n                            <option value=\"0.25\">25%</option>\n                            <option value=\"0.4\">40%</option>\n                            <option value=\"0.5\">50%</option>\n                            <option value=\"0.75\">75%</option>\n                            <option value=\"0.9\">90%</option>\n                        </select>\n                    </label>\n                </fieldset>\n\n                <label class=\"label\">Gradient\n                    <select id=\"gradient\" v-model=\"options.gradient\" @change=\"updateOptions\">\n                        <option value=\"classic\">Classic</option>\n                        <option value=\"prism\">Prism</option>\n                        <option value=\"rainbow\">Rainbow</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">reflexRatio\n                    <input type=\"range\" id=\"reflex_ratio\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.reflexRatio\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">reflexAlpha\n                    <input type=\"range\" id=\"reflex_alpha\" min=\"0\" max=\"1\" step=\".05\" v-model=\"options.reflexAlpha\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">FFT size\n                    <select id=\"fft\" v-model=\"options.fftSize\" @change=\"updateOptions\">\n                        <option value=\"1024\">1024</option>\n                        <option value=\"2048\">2048</option>\n                        <option value=\"4096\">4096</option>\n                        <option value=\"8192\">8192</option>\n                        <option value=\"16384\">16384</option>\n                        <option value=\"32768\">32768</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">Frequency range\n                    <select id=\"range\">\n                        <option v-for=\"freqRange in freqRanges\" :value=\"freqRange.id\" @click=\"updateFreqRange(freqRange)\">{{freqRange.display}}</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">sensitivity\n                    <input type=\"range\" id=\"sensitivity\" min=\"0\" max=\"4\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">smoothing\n                    <input type=\"range\" id=\"smoothing\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.smoothing\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n            </div>\n\n            <div class=\"box center\">\n                <input type=\"checkbox\" id=\"btn_bgcolor\" v-model=\"options.showBgColor\" @change=\"updateOptions\">showBgColor</input>\n                <input type=\"checkbox\" id=\"btn_peaks\" v-model=\"options.showPeaks\" @change=\"updateOptions\">showPeaks</input>\n                <input type=\"checkbox\" id=\"btn_leds\" v-model=\"options.showLeds\" @change=\"updateOptions\">showLeds</input>\n                <input type=\"checkbox\" id=\"btn_lumi\" v-model=\"options.lumiBars\" @change=\"updateOptions\">lumiBars</input>\n                <input type=\"checkbox\" id=\"btn_reflex\" v-model=\"options.reflexFit\" @change=\"updateOptions\">reflexFit</input>\n                <input type=\"checkbox\" id=\"btn_scale\" v-model=\"options.showScale\" @change=\"updateOptions\">showScale</input>\n                <input type=\"checkbox\" id=\"btn_lores\" v-model=\"options.loRes\" @change=\"updateOptions\">loRes</input>\n                <input type=\"checkbox\" id=\"btn_fps\" v-model=\"options.showFPS\" @change=\"updateOptions\">showFPS</input>\n                <input type=\"checkbox\" id=\"btn_logo\" v-model=\"options.showLogo\" @change=\"updateOptions\">Logo</input>\n                <input type=\"checkbox\" id=\"btn_freeze\" v-model=\"options.isOn\"  @change=\"audioMotion.toggleAnalyzer\">Freeze</input>\n                <input type=\"checkbox\" id=\"btn_fullscr\" @change=\"audioMotion.toggleFullscreen\">Fullscreen</input>\n            </div>\n        </div>\n\n        <div class=\"credits\">\n            <strong>audioMotion-analyzer v<span id=\"version\"></span></strong> Copyright &copy; 2018-2020 Henrique Avila Vianna.\tSource code available on <a href=\"https://github.com/hvianna/audioMotion-analyzer\">GitHub</a>.\n        </div>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"AudioMotionConfigDisplay\",\n        props: {\n            audioMotion: {\n                required: true\n            }\n        },\n        data () {\n            return {\n                options: undefined,\n                freqRanges: [\n                    { id: 0, min: 20, max: 22000, display: '20Hz - 22KHz' },\n                    { id: 1, min: 30, max: 16000, display: '30Hz - 16KHz' },\n                    { id: 2, min: 100, max: 10000, display: '100Hz - 10KHz' }\n                ]\n            }\n        },\n        methods: {\n            updateOptions: function() {\n                this.audioMotion.setOptions(this.options)\n            },\n            updateFreqRange: function (freqRange) {\n                this.options.minFreq = freqRange.min\n                this.options.maxFreq = freqRange.max\n                this.updateOptions()\n            }\n        },\n        mounted() {\n            this.options = this.audioMotion.getOptions()\n        }\n    }\n</script>\n\n<style scoped>\n    #audiomotion-config {\n        background: #222;\n        color: #ccc;\n        font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;\n        font-size: 13px;\n        margin: 0 auto;\n        max-width: 100%;\n        width: 100%;\n    }\n\n    a {\n        color: #b5c6d0;\n    }\n    a:not([class]):hover {\n        color: #fff;\n        filter: drop-shadow(.07em .07em .14em #f0fc) drop-shadow( -.07em -.07em .14em #f0fc);\n    }\n\n    button {\n        margin: 6px;\n        padding: 6px;\n        vertical-align: bottom;\n    }\n    button.active {\n        background: #444;\n        border: none;\n        box-shadow: inset 1px 1px 0 #000;\n        color: #0f0;\n        padding: 8px;\n        text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;\n    }\n\n    canvas {\n        display: block;\n        width: 100%;\n    }\n\n    fieldset {\n        border: none;\n        display: inline-block;\n        margin: 0;\n        padding: 0;\n        vertical-align: top;\n    }\n    fieldset:disabled {\n        display: none;\n    }\n\n    header {\n        position: relative;\n    }\n    h1 {\n        color: #dfe6eb;\n        filter: drop-shadow(2px 2px 0 #000);\n    }\n    h2 {\n        margin: 1.5em 0 1em;\n    }\n\n    hr {\n        border-color: #8888;\n        border-width: 0 0 1px;\n    }\n\n    img {\n        max-width: 100%;\n    }\n\n    input[type=\"range\"] {\n        width: 60px;\n    }\n\n    input[type=\"text\"],\n    select {\n        margin: 6px 0;\n        padding: 6px;\n    }\n\n    ul {\n        line-height: 1.6;\n    }\n\n    .big {\n        font-size: 120%;\n    }\n\n    .box {\n        margin-top: 10px;\n    }\n    .box .title {\n        font-weight: bold;\n        line-height: 2;\n        margin-right: 1em;\n    }\n\n    .label {\n        display: inline-block;\n        font-size: 12px;\n        margin: 0 6px;\n        vertical-align: top;\n    }\n    .label input,\n    .label select {\n        display: block;\n    }\n\n    .logo {\n        background: linear-gradient(to bottom, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);\n        background-clip: text;\n        font-family: Orbitron, sans-serif;\n        padding-right: .5em;\n        position: relative;\n        text-decoration: none;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .logo:hover::after {\n        animation: shine .5s ease-in-out;\n        color: #fff;\n        content: 'audioMotion-analyzer';\n        left: 0;\n        mask-image: linear-gradient(-75deg, transparent 45%, #000 50%, transparent 55%);\n        mask-size: 200%;\n        position: absolute;\n        top: 0;\n        -webkit-mask-position: -50%;\n        -webkit-text-fill-color: #fff;\n    }\n\n    @keyframes shine {\n        0% { -webkit-mask-position: 110%; }\n        100% { -webkit-mask-position: -10%; }\n    }\n\n    #audio,\n    #video {\n        display: block;\n        width: 100%;\n    }\n\n    .analyzer-configuration {\n        background: #fff1;\n        border: 1px solid #ccc8;\n        margin-bottom: 20px;\n        padding: 10px 0;\n    }\n\n    .credits {\n        font-size: 12px;\n        padding: 0 0 20px 0;\n        text-align: center;\n    }\n\n    .header-nav {\n        position: absolute;\n        right: 0;\n        top: 0;\n    }\n    .header-nav li {\n        display: inline;\n        margin-right: .5em;\n    }\n    .header-nav li:not(:last-child)::after {\n        content: ' |';\n        margin-left: .5em;\n    }\n\n    /* fluid full-width analyzer (single instance demo) */\n    #container {\n        height: 45vh;\n        margin: 0 calc( 50% - 50vw );\n    }\n\n    #container1 {\n        margin-bottom: 15px;\n    }\n\n    .center {\n        text-align: center;\n    }\n\n    .main {\n        display: inline-block;\n        margin-right: 20px;\n        width: 640px;\n    }\n\n    .aside {\n        display: inline-block;\n        vertical-align: top;\n        width: 320px;\n    }\n\n    .selector {\n        margin-bottom: 20px;\n    }\n\n    .selected {\n        outline: 3px solid #c00;\n    }\n\n    /* overlay */\n    #container.overlay {\n        height: 563px;\n        margin: 0 auto;\n        position: relative;\n        width: 100%;\n    }\n\n    .overlay canvas {\n        bottom: 0;\n        pointer-events: none; /* let mouse clicks pass to the underlying video element */\n        position: absolute;\n        touch-action: none; /* ditto for touch events */\n    }\n\n    .overlay:not(:fullscreen):hover canvas {\n        opacity: .5;\n    }\n\n</style>\n"]
+      },
+      media: undefined
+    });
+  };
+  /* scoped */
+
+
+  var __vue_scope_id__ = "data-v-75c2771c";
+  /* module identifier */
+
+  var __vue_module_identifier__ = undefined;
+  /* functional template */
+
+  var __vue_is_functional_template__ = false;
+  /* style inject SSR */
+
+  /* style inject shadow dom */
+
+  var __vue_component__ = /*#__PURE__*/normalizeComponent({
+    render: __vue_render__,
+    staticRenderFns: __vue_staticRenderFns__
+  }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
+
   var AudioMotionConfig = (function (audioMotion) {
     return {
       render: function render(createElement) {
-        var compiledTemplate = Vue.compile(template);
         var base = {
+          components: {
+            AudioMotionConfigDisplay: __vue_component__
+          },
           data: function data() {
             return {
-              audioMotion: audioMotion,
-              options: audioMotion.getOptions(),
-              freqRanges: [{
-                id: 0,
-                min: 20,
-                max: 22000,
-                display: '20Hz - 22KHz'
-              }, {
-                id: 1,
-                min: 30,
-                max: 16000,
-                display: '30Hz - 16KHz'
-              }, {
-                id: 2,
-                min: 100,
-                max: 10000,
-                display: '100Hz - 10KHz'
-              }]
+              audioMotion: audioMotion
             };
-          },
-          methods: {
-            updateOptions: function updateOptions() {
-              audioMotion.setOptions(this.options);
-            },
-            updateFreqRange: function updateFreqRange(freqRange) {
-              this.options.minFreq = freqRange.min;
-              this.options.maxFreq = freqRange.max;
-              this.updateOptions();
-            }
           }
         };
+        var compiledTemplate = Vue.compile("<AudioMotionConfigDisplay :audioMotion=\"audioMotion\"/>");
         var component = Object.assign({}, compiledTemplate, base);
         return createElement(component);
       }
