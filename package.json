@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "0.0.7",
   "name": "vue-audiomotion-analyzer",
   "main": "vue-audiomotion-analyzer.js",
   "module": "vue-audiomotion-analyzer.esm.js",

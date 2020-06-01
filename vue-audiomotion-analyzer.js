@@ -1,7 +1,7 @@
 /*!
  * vue-audiomotion-analyzer.js 
  * A Vue wrapper for Henrique Avila Vianna's excellent audioMotion-analyzer 
- * @version 0.0.6
+ * @version 0.0.7
  * @author Wouter Vernaillen <https://github.com/vernaillen>
  * @license AGPL-3.0-or-later
  */
@@ -1255,9 +1255,9 @@
           smoothing: 0.5,
           source: undefined,
           start: true,
-          width: undefined
+          width: undefined,
+          frozen: false
         };
-        this.initialized = false;
       }
 
       _createClass(AudioMotion, [{
@@ -1265,7 +1265,6 @@
         value: function init(el, options) {
           this.options = _objectSpread2(_objectSpread2({}, this.defaultOptions), options);
           this.audioMotionObj = new AudioMotionAnalyzer(el, options);
-          this.initialized = true;
         }
       }, {
         key: "getAnalyzer",
@@ -1315,6 +1314,7 @@
       mounted: function mounted() {
         this.el = this.$el;
         audioMotion.init(this.el, this.options);
+        this.$emit('audioMotion', audioMotion);
       }
     };
   });
@@ -14251,6 +14251,11 @@
   //
   //
   //
+  //
+  //
+  //
+  //
+  //
   var script = {
     name: "AudioMotionConfigDisplay",
     props: {
@@ -14286,6 +14291,17 @@
       updateFreqRange: function updateFreqRange(freqRange) {
         this.options.minFreq = freqRange.min;
         this.options.maxFreq = freqRange.max;
+        this.updateOptions();
+      },
+      toggleAnalyzer: function toggleAnalyzer() {
+        this.audioMotion.toggleAnalyzer();
+        this.options.frozen = !this.options.frozen;
+      },
+      toggleFullscreen: function toggleFullscreen() {
+        this.audioMotion.toggleFullscreen();
+      },
+      updateCheckbox: function updateCheckbox(name) {
+        this.options[name] = !this.options[name];
         this.updateOptions();
       }
     },
@@ -14813,7 +14829,10 @@
     }), _vm._v(" "), _c("div", {
       staticClass: "value"
     })])]), _vm._v(" "), _c("div", {
-      staticClass: "box center"
+      staticClass: "box center",
+      attrs: {
+        id: "checkboxes"
+      }
     }, [_c("input", {
       directives: [{
         name: "model",
@@ -14848,7 +14867,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("showBgColor"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("showBgColor");
+        }
+      }
+    }, [_vm._v("showBgColor")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -14882,7 +14907,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("showPeaks"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("showPeaks");
+        }
+      }
+    }, [_vm._v("showPeaks")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -14916,7 +14947,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("showLeds"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("showLeds");
+        }
+      }
+    }, [_vm._v("showLeds")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -14950,7 +14987,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("lumiBars"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("lumiBars");
+        }
+      }
+    }, [_vm._v("lumiBars")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -14984,7 +15027,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("reflexFit"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("reflexFit");
+        }
+      }
+    }, [_vm._v("reflexFit")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -15018,7 +15067,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("showScale"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("showScale");
+        }
+      }
+    }, [_vm._v("showScale")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -15052,7 +15107,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("loRes"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("loRes");
+        }
+      }
+    }, [_vm._v("loRes")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -15086,7 +15147,13 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("showFPS"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("showFPS");
+        }
+      }
+    }, [_vm._v("showFPS")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -15120,23 +15187,29 @@
           }
         }, _vm.updateOptions]
       }
-    }), _vm._v("Logo"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: function click($event) {
+          return _vm.updateCheckbox("showLogo");
+        }
+      }
+    }, [_vm._v("Logo")]), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.options.isOn,
-        expression: "options.isOn"
+        value: _vm.options.frozen,
+        expression: "options.frozen"
       }],
       attrs: {
         type: "checkbox",
         id: "btn_freeze"
       },
       domProps: {
-        checked: Array.isArray(_vm.options.isOn) ? _vm._i(_vm.options.isOn, null) > -1 : _vm.options.isOn
+        checked: Array.isArray(_vm.options.frozen) ? _vm._i(_vm.options.frozen, null) > -1 : _vm.options.frozen
       },
       on: {
         change: [function ($event) {
-          var $$a = _vm.options.isOn,
+          var $$a = _vm.options.frozen,
               $$el = $event.target,
               $$c = $$el.checked ? true : false;
 
@@ -15145,24 +15218,39 @@
                 $$i = _vm._i($$a, $$v);
 
             if ($$el.checked) {
-              $$i < 0 && _vm.$set(_vm.options, "isOn", $$a.concat([$$v]));
+              $$i < 0 && _vm.$set(_vm.options, "frozen", $$a.concat([$$v]));
             } else {
-              $$i > -1 && _vm.$set(_vm.options, "isOn", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+              $$i > -1 && _vm.$set(_vm.options, "frozen", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
             }
           } else {
-            _vm.$set(_vm.options, "isOn", $$c);
+            _vm.$set(_vm.options, "frozen", $$c);
           }
-        }, _vm.audioMotion.toggleAnalyzer]
+        }, _vm.toggleAnalyzer]
       }
-    }), _vm._v("Freeze"), _vm._v(" "), _c("input", {
+    }), _c("span", {
+      on: {
+        click: _vm.toggleAnalyzer
+      }
+    }, [_vm._v("Freeze")]), _vm._v(" "), _c("button", {
       attrs: {
-        type: "checkbox",
         id: "btn_fullscr"
       },
       on: {
-        change: _vm.audioMotion.toggleFullscreen
+        click: _vm.toggleFullscreen
       }
-    }), _vm._v("Fullscreen")])]) : _vm._e(), _vm._v(" "), _vm._m(1)]);
+    }, [_c("svg", {
+      attrs: {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20"
+      }
+    }, [_c("title", [_vm._v("fullscreen")]), _vm._v(" "), _c("path", {
+      attrs: {
+        "fill-rule": "evenodd",
+        d: "M1 1v6h2V3h4V1H1zm2 12H1v6h6v-2H3v-4zm14 4h-4v2h6v-6h-2v4zm0-16h-4v2h4v4h2V1h-2z"
+      }
+    })])])])]) : _vm._e(), _vm._v(" "), _vm._m(1)]);
   };
 
   var __vue_staticRenderFns__ = [function () {
@@ -15208,15 +15296,15 @@
 
   var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
     if (!inject) return;
-    inject("data-v-75c2771c_0", {
-      source: "\n#audiomotion-config[data-v-75c2771c] {\n    background: #222;\n    color: #ccc;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100%;\n}\na[data-v-75c2771c] {\n    color: #b5c6d0;\n}\na[data-v-75c2771c]:not([class]):hover {\n    color: #fff;\n    filter: drop-shadow(.07em .07em .14em #f0fc) drop-shadow( -.07em -.07em .14em #f0fc);\n}\nbutton[data-v-75c2771c] {\n    margin: 6px;\n    padding: 6px;\n    vertical-align: bottom;\n}\nbutton.active[data-v-75c2771c] {\n    background: #444;\n    border: none;\n    box-shadow: inset 1px 1px 0 #000;\n    color: #0f0;\n    padding: 8px;\n    text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;\n}\ncanvas[data-v-75c2771c] {\n    display: block;\n    width: 100%;\n}\nfieldset[data-v-75c2771c] {\n    border: none;\n    display: inline-block;\n    margin: 0;\n    padding: 0;\n    vertical-align: top;\n}\nfieldset[data-v-75c2771c]:disabled {\n    display: none;\n}\nheader[data-v-75c2771c] {\n    position: relative;\n}\nh1[data-v-75c2771c] {\n    color: #dfe6eb;\n    filter: drop-shadow(2px 2px 0 #000);\n}\nh2[data-v-75c2771c] {\n    margin: 1.5em 0 1em;\n}\nhr[data-v-75c2771c] {\n    border-color: #8888;\n    border-width: 0 0 1px;\n}\nimg[data-v-75c2771c] {\n    max-width: 100%;\n}\ninput[type=\"range\"][data-v-75c2771c] {\n    width: 60px;\n}\ninput[type=\"text\"][data-v-75c2771c],\nselect[data-v-75c2771c] {\n    margin: 6px 0;\n    padding: 6px;\n}\nul[data-v-75c2771c] {\n    line-height: 1.6;\n}\n.big[data-v-75c2771c] {\n    font-size: 120%;\n}\n.box[data-v-75c2771c] {\n    margin-top: 10px;\n}\n.box .title[data-v-75c2771c] {\n    font-weight: bold;\n    line-height: 2;\n    margin-right: 1em;\n}\n.label[data-v-75c2771c] {\n    display: inline-block;\n    font-size: 12px;\n    margin: 0 6px;\n    vertical-align: top;\n}\n.label input[data-v-75c2771c],\n.label select[data-v-75c2771c] {\n    display: block;\n}\n.logo[data-v-75c2771c] {\n    background: linear-gradient(to bottom, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);\n    background-clip: text;\n    font-family: Orbitron, sans-serif;\n    padding-right: .5em;\n    position: relative;\n    text-decoration: none;\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n}\n.logo[data-v-75c2771c]:hover::after {\n    animation: shine-data-v-75c2771c .5s ease-in-out;\n    color: #fff;\n    content: 'audioMotion-analyzer';\n    left: 0;\n    mask-image: linear-gradient(-75deg, transparent 45%, #000 50%, transparent 55%);\n    mask-size: 200%;\n    position: absolute;\n    top: 0;\n    -webkit-mask-position: -50%;\n    -webkit-text-fill-color: #fff;\n}\n@keyframes shine-data-v-75c2771c {\n0% { -webkit-mask-position: 110%;\n}\n100% { -webkit-mask-position: -10%;\n}\n}\n#audio[data-v-75c2771c],\n#video[data-v-75c2771c] {\n    display: block;\n    width: 100%;\n}\n.analyzer-configuration[data-v-75c2771c] {\n    background: #fff1;\n    border: 1px solid #ccc8;\n    margin-bottom: 20px;\n    padding: 10px 0;\n}\n.credits[data-v-75c2771c] {\n    font-size: 12px;\n    padding: 0 0 20px 0;\n    text-align: center;\n}\n.header-nav[data-v-75c2771c] {\n    position: absolute;\n    right: 0;\n    top: 0;\n}\n.header-nav li[data-v-75c2771c] {\n    display: inline;\n    margin-right: .5em;\n}\n.header-nav li[data-v-75c2771c]:not(:last-child)::after {\n    content: ' |';\n    margin-left: .5em;\n}\n\n/* fluid full-width analyzer (single instance demo) */\n#container[data-v-75c2771c] {\n    height: 45vh;\n    margin: 0 calc( 50% - 50vw );\n}\n#container1[data-v-75c2771c] {\n    margin-bottom: 15px;\n}\n.center[data-v-75c2771c] {\n    text-align: center;\n}\n.main[data-v-75c2771c] {\n    display: inline-block;\n    margin-right: 20px;\n    width: 640px;\n}\n.aside[data-v-75c2771c] {\n    display: inline-block;\n    vertical-align: top;\n    width: 320px;\n}\n.selector[data-v-75c2771c] {\n    margin-bottom: 20px;\n}\n.selected[data-v-75c2771c] {\n    outline: 3px solid #c00;\n}\n\n/* overlay */\n#container.overlay[data-v-75c2771c] {\n    height: 563px;\n    margin: 0 auto;\n    position: relative;\n    width: 100%;\n}\n.overlay canvas[data-v-75c2771c] {\n    bottom: 0;\n    pointer-events: none; /* let mouse clicks pass to the underlying video element */\n    position: absolute;\n    touch-action: none; /* ditto for touch events */\n}\n.overlay:not(:fullscreen):hover canvas[data-v-75c2771c] {\n    opacity: .5;\n}\n\n",
+    inject("data-v-dcce9c26_0", {
+      source: "\n#audiomotion-config[data-v-dcce9c26] {\n    background: #222;\n    color: #ccc;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;\n    font-size: 13px;\n    margin: 0 auto;\n    max-width: 100%;\n    width: 100%;\n}\na[data-v-dcce9c26] {\n    color: #b5c6d0;\n}\na[data-v-dcce9c26]:not([class]):hover {\n    color: #fff;\n    filter: drop-shadow(.07em .07em .14em #f0fc) drop-shadow( -.07em -.07em .14em #f0fc);\n}\nbutton[data-v-dcce9c26] {\n    margin: 0 6px;\n    padding: 4px 4px 1px 4px;\n    vertical-align: bottom;\n    background: white;\n}\nbutton.active[data-v-dcce9c26] {\n    background: #444;\n    border: none;\n    box-shadow: inset 1px 1px 0 #000;\n    color: #0f0;\n    padding: 8px;\n    text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;\n}\n#checkboxes span[data-v-dcce9c26]:hover {\n    cursor: pointer;\n}\ncanvas[data-v-dcce9c26] {\n    display: block;\n    width: 100%;\n}\nfieldset[data-v-dcce9c26] {\n    border: none;\n    display: inline-block;\n    margin: 0;\n    padding: 0;\n    vertical-align: top;\n}\nfieldset[data-v-dcce9c26]:disabled {\n    display: none;\n}\nheader[data-v-dcce9c26] {\n    position: relative;\n}\nh1[data-v-dcce9c26] {\n    color: #dfe6eb;\n    filter: drop-shadow(2px 2px 0 #000);\n}\nh2[data-v-dcce9c26] {\n    margin: 1.5em 0 1em;\n}\nhr[data-v-dcce9c26] {\n    border-color: #8888;\n    border-width: 0 0 1px;\n}\nimg[data-v-dcce9c26] {\n    max-width: 100%;\n}\ninput[type=\"range\"][data-v-dcce9c26] {\n    width: 60px;\n}\ninput[type=\"text\"][data-v-dcce9c26],\nselect[data-v-dcce9c26] {\n    margin: 6px 0;\n    padding: 6px;\n}\nul[data-v-dcce9c26] {\n    line-height: 1.6;\n}\n.big[data-v-dcce9c26] {\n    font-size: 120%;\n}\n.box[data-v-dcce9c26] {\n    margin-top: 10px;\n}\n.box .title[data-v-dcce9c26] {\n    font-weight: bold;\n    line-height: 2;\n    margin-right: 1em;\n}\n.label[data-v-dcce9c26] {\n    display: inline-block;\n    font-size: 12px;\n    margin: 0 6px;\n    vertical-align: top;\n}\n.label input[data-v-dcce9c26],\n.label select[data-v-dcce9c26] {\n    display: block;\n}\n.logo[data-v-dcce9c26] {\n    background: linear-gradient(to bottom, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);\n    background-clip: text;\n    font-family: Orbitron, sans-serif;\n    padding-right: .5em;\n    position: relative;\n    text-decoration: none;\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n}\n.logo[data-v-dcce9c26]:hover::after {\n    animation: shine-data-v-dcce9c26 .5s ease-in-out;\n    color: #fff;\n    content: 'audioMotion-analyzer';\n    left: 0;\n    mask-image: linear-gradient(-75deg, transparent 45%, #000 50%, transparent 55%);\n    mask-size: 200%;\n    position: absolute;\n    top: 0;\n    -webkit-mask-position: -50%;\n    -webkit-text-fill-color: #fff;\n}\n@keyframes shine-data-v-dcce9c26 {\n0% { -webkit-mask-position: 110%;\n}\n100% { -webkit-mask-position: -10%;\n}\n}\n#audio[data-v-dcce9c26],\n#video[data-v-dcce9c26] {\n    display: block;\n    width: 100%;\n}\n.analyzer-configuration[data-v-dcce9c26] {\n    background: #fff1;\n    border: 1px solid #ccc8;\n    margin-bottom: 20px;\n    padding: 10px 0;\n}\n.credits[data-v-dcce9c26] {\n    font-size: 12px;\n    padding: 0 0 20px 0;\n    text-align: center;\n}\n.header-nav[data-v-dcce9c26] {\n    position: absolute;\n    right: 0;\n    top: 0;\n}\n.header-nav li[data-v-dcce9c26] {\n    display: inline;\n    margin-right: .5em;\n}\n.header-nav li[data-v-dcce9c26]:not(:last-child)::after {\n    content: ' |';\n    margin-left: .5em;\n}\n\n/* fluid full-width analyzer (single instance demo) */\n#container[data-v-dcce9c26] {\n    height: 45vh;\n    margin: 0 calc( 50% - 50vw );\n}\n#container1[data-v-dcce9c26] {\n    margin-bottom: 15px;\n}\n.center[data-v-dcce9c26] {\n    text-align: center;\n}\n.main[data-v-dcce9c26] {\n    display: inline-block;\n    margin-right: 20px;\n    width: 640px;\n}\n.aside[data-v-dcce9c26] {\n    display: inline-block;\n    vertical-align: top;\n    width: 320px;\n}\n.selector[data-v-dcce9c26] {\n    margin-bottom: 20px;\n}\n.selected[data-v-dcce9c26] {\n    outline: 3px solid #c00;\n}\n\n/* overlay */\n#container.overlay[data-v-dcce9c26] {\n    height: 563px;\n    margin: 0 auto;\n    position: relative;\n    width: 100%;\n}\n.overlay canvas[data-v-dcce9c26] {\n    bottom: 0;\n    pointer-events: none; /* let mouse clicks pass to the underlying video element */\n    position: absolute;\n    touch-action: none; /* ditto for touch events */\n}\n.overlay:not(:fullscreen):hover canvas[data-v-dcce9c26] {\n    opacity: .5;\n}\n\n",
       map: {
         "version": 3,
         "sources": ["/Users/wouter/git/audio/vue-audiomotion-analyzer/src/AudioMotionConfigDisplay.vue"],
         "names": [],
-        "mappings": ";AAsJA;IACA,gBAAA;IACA,WAAA;IACA,wFAAA;IACA,eAAA;IACA,cAAA;IACA,eAAA;IACA,WAAA;AACA;AAEA;IACA,cAAA;AACA;AACA;IACA,WAAA;IACA,oFAAA;AACA;AAEA;IACA,WAAA;IACA,YAAA;IACA,sBAAA;AACA;AACA;IACA,gBAAA;IACA,YAAA;IACA,gCAAA;IACA,WAAA;IACA,YAAA;IACA,qDAAA;AACA;AAEA;IACA,cAAA;IACA,WAAA;AACA;AAEA;IACA,YAAA;IACA,qBAAA;IACA,SAAA;IACA,UAAA;IACA,mBAAA;AACA;AACA;IACA,aAAA;AACA;AAEA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,mCAAA;AACA;AACA;IACA,mBAAA;AACA;AAEA;IACA,mBAAA;IACA,qBAAA;AACA;AAEA;IACA,eAAA;AACA;AAEA;IACA,WAAA;AACA;AAEA;;IAEA,aAAA;IACA,YAAA;AACA;AAEA;IACA,gBAAA;AACA;AAEA;IACA,eAAA;AACA;AAEA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,cAAA;IACA,iBAAA;AACA;AAEA;IACA,qBAAA;IACA,eAAA;IACA,aAAA;IACA,mBAAA;AACA;AACA;;IAEA,cAAA;AACA;AAEA;IACA,0FAAA;IACA,qBAAA;IACA,iCAAA;IACA,mBAAA;IACA,kBAAA;IACA,qBAAA;IACA,6BAAA;IACA,oCAAA;AACA;AAEA;IACA,gDAAA;IACA,WAAA;IACA,+BAAA;IACA,OAAA;IACA,+EAAA;IACA,eAAA;IACA,kBAAA;IACA,MAAA;IACA,2BAAA;IACA,6BAAA;AACA;AAEA;AACA,KAAA,2BAAA;AAAA;AACA,OAAA,2BAAA;AAAA;AACA;AAEA;;IAEA,cAAA;IACA,WAAA;AACA;AAEA;IACA,iBAAA;IACA,uBAAA;IACA,mBAAA;IACA,eAAA;AACA;AAEA;IACA,eAAA;IACA,mBAAA;IACA,kBAAA;AACA;AAEA;IACA,kBAAA;IACA,QAAA;IACA,MAAA;AACA;AACA;IACA,eAAA;IACA,kBAAA;AACA;AACA;IACA,aAAA;IACA,iBAAA;AACA;;AAEA,qDAAA;AACA;IACA,YAAA;IACA,4BAAA;AACA;AAEA;IACA,mBAAA;AACA;AAEA;IACA,kBAAA;AACA;AAEA;IACA,qBAAA;IACA,kBAAA;IACA,YAAA;AACA;AAEA;IACA,qBAAA;IACA,mBAAA;IACA,YAAA;AACA;AAEA;IACA,mBAAA;AACA;AAEA;IACA,uBAAA;AACA;;AAEA,YAAA;AACA;IACA,aAAA;IACA,cAAA;IACA,kBAAA;IACA,WAAA;AACA;AAEA;IACA,SAAA;IACA,oBAAA,EAAA,0DAAA;IACA,kBAAA;IACA,kBAAA,EAAA,2BAAA;AACA;AAEA;IACA,WAAA;AACA",
+        "mappings": ";AAsKA;IACA,gBAAA;IACA,WAAA;IACA,wFAAA;IACA,eAAA;IACA,cAAA;IACA,eAAA;IACA,WAAA;AACA;AAEA;IACA,cAAA;AACA;AACA;IACA,WAAA;IACA,oFAAA;AACA;AAEA;IACA,aAAA;IACA,wBAAA;IACA,sBAAA;IACA,iBAAA;AACA;AACA;IACA,gBAAA;IACA,YAAA;IACA,gCAAA;IACA,WAAA;IACA,YAAA;IACA,qDAAA;AACA;AACA;IACA,eAAA;AACA;AAEA;IACA,cAAA;IACA,WAAA;AACA;AAEA;IACA,YAAA;IACA,qBAAA;IACA,SAAA;IACA,UAAA;IACA,mBAAA;AACA;AACA;IACA,aAAA;AACA;AAEA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,mCAAA;AACA;AACA;IACA,mBAAA;AACA;AAEA;IACA,mBAAA;IACA,qBAAA;AACA;AAEA;IACA,eAAA;AACA;AAEA;IACA,WAAA;AACA;AAEA;;IAEA,aAAA;IACA,YAAA;AACA;AAEA;IACA,gBAAA;AACA;AAEA;IACA,eAAA;AACA;AAEA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,cAAA;IACA,iBAAA;AACA;AAEA;IACA,qBAAA;IACA,eAAA;IACA,aAAA;IACA,mBAAA;AACA;AACA;;IAEA,cAAA;AACA;AAEA;IACA,0FAAA;IACA,qBAAA;IACA,iCAAA;IACA,mBAAA;IACA,kBAAA;IACA,qBAAA;IACA,6BAAA;IACA,oCAAA;AACA;AAEA;IACA,gDAAA;IACA,WAAA;IACA,+BAAA;IACA,OAAA;IACA,+EAAA;IACA,eAAA;IACA,kBAAA;IACA,MAAA;IACA,2BAAA;IACA,6BAAA;AACA;AAEA;AACA,KAAA,2BAAA;AAAA;AACA,OAAA,2BAAA;AAAA;AACA;AAEA;;IAEA,cAAA;IACA,WAAA;AACA;AAEA;IACA,iBAAA;IACA,uBAAA;IACA,mBAAA;IACA,eAAA;AACA;AAEA;IACA,eAAA;IACA,mBAAA;IACA,kBAAA;AACA;AAEA;IACA,kBAAA;IACA,QAAA;IACA,MAAA;AACA;AACA;IACA,eAAA;IACA,kBAAA;AACA;AACA;IACA,aAAA;IACA,iBAAA;AACA;;AAEA,qDAAA;AACA;IACA,YAAA;IACA,4BAAA;AACA;AAEA;IACA,mBAAA;AACA;AAEA;IACA,kBAAA;AACA;AAEA;IACA,qBAAA;IACA,kBAAA;IACA,YAAA;AACA;AAEA;IACA,qBAAA;IACA,mBAAA;IACA,YAAA;AACA;AAEA;IACA,mBAAA;AACA;AAEA;IACA,uBAAA;AACA;;AAEA,YAAA;AACA;IACA,aAAA;IACA,cAAA;IACA,kBAAA;IACA,WAAA;AACA;AAEA;IACA,SAAA;IACA,oBAAA,EAAA,0DAAA;IACA,kBAAA;IACA,kBAAA,EAAA,2BAAA;AACA;AAEA;IACA,WAAA;AACA",
         "file": "AudioMotionConfigDisplay.vue",
-        "sourcesContent": ["<template>\n    <div id=\"audiomotion-config\">\n        <div class=\"analyzer-configuration\" v-if=\"options\">\n            <div class=\"box center\">\n                <label class=\"label\">Visualization Mode\n                    <select id=\"mode\" v-model=\"options.mode\" @change=\"updateOptions\">\n                        <option value=\"0\">Discrete frequencies</option>\n                        <option value=\"10\">Line / Area graph</option>\n                        <option value=\"1\">1/24th octave bands</option>\n                        <option value=\"2\">1/12th octave bands</option>\n                        <option value=\"3\">1/8th octave bands</option>\n                        <option value=\"4\">1/6th octave bands</option>\n                        <option value=\"5\">1/4th octave bands</option>\n                        <option value=\"6\">1/3rd octave bands</option>\n                        <option value=\"7\">Half octave bands</option>\n                        <option value=\"8\">Full octave bands</option>\n                    </select>\n                </label>\n\n                <fieldset id=\"area_options\">\n                    <label class=\"label\">lineWidth\n                        <input type=\"range\" id=\"line_width\" min=\"0\" max=\"9\" step=\"1\" v-model=\"options.lineWidth\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n\n                    <label class=\"label\">fillAlpha\n                        <input type=\"range\" id=\"fill_alpha\" min=\"0\" max=\"1\" step=\".1\" v-model=\"options.fillAlpha\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n                </fieldset>\n\n                <fieldset id=\"bar_options\">\n                    <label class=\"label\">Bar spacing\n                        <select id=\"bar_space\" v-model=\"options.barSpace\" @change=\"updateOptions\">\n                            <option value=\"0\">None</option>\n                            <option value=\"1\">1px (legacy)</option>\n                            <option value=\"2\">2px</option>\n                            <option value=\"0.1\">10% (default)</option>\n                            <option value=\"0.2\">20%</option>\n                            <option value=\"0.25\">25%</option>\n                            <option value=\"0.4\">40%</option>\n                            <option value=\"0.5\">50%</option>\n                            <option value=\"0.75\">75%</option>\n                            <option value=\"0.9\">90%</option>\n                        </select>\n                    </label>\n                </fieldset>\n\n                <label class=\"label\">Gradient\n                    <select id=\"gradient\" v-model=\"options.gradient\" @change=\"updateOptions\">\n                        <option value=\"classic\">Classic</option>\n                        <option value=\"prism\">Prism</option>\n                        <option value=\"rainbow\">Rainbow</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">reflexRatio\n                    <input type=\"range\" id=\"reflex_ratio\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.reflexRatio\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">reflexAlpha\n                    <input type=\"range\" id=\"reflex_alpha\" min=\"0\" max=\"1\" step=\".05\" v-model=\"options.reflexAlpha\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">FFT size\n                    <select id=\"fft\" v-model=\"options.fftSize\" @change=\"updateOptions\">\n                        <option value=\"1024\">1024</option>\n                        <option value=\"2048\">2048</option>\n                        <option value=\"4096\">4096</option>\n                        <option value=\"8192\">8192</option>\n                        <option value=\"16384\">16384</option>\n                        <option value=\"32768\">32768</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">Frequency range\n                    <select id=\"range\">\n                        <option v-for=\"freqRange in freqRanges\" :value=\"freqRange.id\" @click=\"updateFreqRange(freqRange)\">{{freqRange.display}}</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">sensitivity\n                    <input type=\"range\" id=\"sensitivity\" min=\"0\" max=\"4\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">smoothing\n                    <input type=\"range\" id=\"smoothing\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.smoothing\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n            </div>\n\n            <div class=\"box center\">\n                <input type=\"checkbox\" id=\"btn_bgcolor\" v-model=\"options.showBgColor\" @change=\"updateOptions\">showBgColor</input>\n                <input type=\"checkbox\" id=\"btn_peaks\" v-model=\"options.showPeaks\" @change=\"updateOptions\">showPeaks</input>\n                <input type=\"checkbox\" id=\"btn_leds\" v-model=\"options.showLeds\" @change=\"updateOptions\">showLeds</input>\n                <input type=\"checkbox\" id=\"btn_lumi\" v-model=\"options.lumiBars\" @change=\"updateOptions\">lumiBars</input>\n                <input type=\"checkbox\" id=\"btn_reflex\" v-model=\"options.reflexFit\" @change=\"updateOptions\">reflexFit</input>\n                <input type=\"checkbox\" id=\"btn_scale\" v-model=\"options.showScale\" @change=\"updateOptions\">showScale</input>\n                <input type=\"checkbox\" id=\"btn_lores\" v-model=\"options.loRes\" @change=\"updateOptions\">loRes</input>\n                <input type=\"checkbox\" id=\"btn_fps\" v-model=\"options.showFPS\" @change=\"updateOptions\">showFPS</input>\n                <input type=\"checkbox\" id=\"btn_logo\" v-model=\"options.showLogo\" @change=\"updateOptions\">Logo</input>\n                <input type=\"checkbox\" id=\"btn_freeze\" v-model=\"options.isOn\"  @change=\"audioMotion.toggleAnalyzer\">Freeze</input>\n                <input type=\"checkbox\" id=\"btn_fullscr\" @change=\"audioMotion.toggleFullscreen\">Fullscreen</input>\n            </div>\n        </div>\n\n        <div class=\"credits\">\n            <strong>audioMotion-analyzer v<span id=\"version\"></span></strong> Copyright &copy; 2018-2020 Henrique Avila Vianna.\tSource code available on <a href=\"https://github.com/hvianna/audioMotion-analyzer\">GitHub</a>.\n        </div>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"AudioMotionConfigDisplay\",\n        props: {\n            audioMotion: {\n                required: true\n            }\n        },\n        data () {\n            return {\n                options: undefined,\n                freqRanges: [\n                    { id: 0, min: 20, max: 22000, display: '20Hz - 22KHz' },\n                    { id: 1, min: 30, max: 16000, display: '30Hz - 16KHz' },\n                    { id: 2, min: 100, max: 10000, display: '100Hz - 10KHz' }\n                ]\n            }\n        },\n        methods: {\n            updateOptions: function() {\n                this.audioMotion.setOptions(this.options)\n            },\n            updateFreqRange: function (freqRange) {\n                this.options.minFreq = freqRange.min\n                this.options.maxFreq = freqRange.max\n                this.updateOptions()\n            }\n        },\n        mounted() {\n            this.options = this.audioMotion.getOptions()\n        }\n    }\n</script>\n\n<style scoped>\n    #audiomotion-config {\n        background: #222;\n        color: #ccc;\n        font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;\n        font-size: 13px;\n        margin: 0 auto;\n        max-width: 100%;\n        width: 100%;\n    }\n\n    a {\n        color: #b5c6d0;\n    }\n    a:not([class]):hover {\n        color: #fff;\n        filter: drop-shadow(.07em .07em .14em #f0fc) drop-shadow( -.07em -.07em .14em #f0fc);\n    }\n\n    button {\n        margin: 6px;\n        padding: 6px;\n        vertical-align: bottom;\n    }\n    button.active {\n        background: #444;\n        border: none;\n        box-shadow: inset 1px 1px 0 #000;\n        color: #0f0;\n        padding: 8px;\n        text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;\n    }\n\n    canvas {\n        display: block;\n        width: 100%;\n    }\n\n    fieldset {\n        border: none;\n        display: inline-block;\n        margin: 0;\n        padding: 0;\n        vertical-align: top;\n    }\n    fieldset:disabled {\n        display: none;\n    }\n\n    header {\n        position: relative;\n    }\n    h1 {\n        color: #dfe6eb;\n        filter: drop-shadow(2px 2px 0 #000);\n    }\n    h2 {\n        margin: 1.5em 0 1em;\n    }\n\n    hr {\n        border-color: #8888;\n        border-width: 0 0 1px;\n    }\n\n    img {\n        max-width: 100%;\n    }\n\n    input[type=\"range\"] {\n        width: 60px;\n    }\n\n    input[type=\"text\"],\n    select {\n        margin: 6px 0;\n        padding: 6px;\n    }\n\n    ul {\n        line-height: 1.6;\n    }\n\n    .big {\n        font-size: 120%;\n    }\n\n    .box {\n        margin-top: 10px;\n    }\n    .box .title {\n        font-weight: bold;\n        line-height: 2;\n        margin-right: 1em;\n    }\n\n    .label {\n        display: inline-block;\n        font-size: 12px;\n        margin: 0 6px;\n        vertical-align: top;\n    }\n    .label input,\n    .label select {\n        display: block;\n    }\n\n    .logo {\n        background: linear-gradient(to bottom, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);\n        background-clip: text;\n        font-family: Orbitron, sans-serif;\n        padding-right: .5em;\n        position: relative;\n        text-decoration: none;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .logo:hover::after {\n        animation: shine .5s ease-in-out;\n        color: #fff;\n        content: 'audioMotion-analyzer';\n        left: 0;\n        mask-image: linear-gradient(-75deg, transparent 45%, #000 50%, transparent 55%);\n        mask-size: 200%;\n        position: absolute;\n        top: 0;\n        -webkit-mask-position: -50%;\n        -webkit-text-fill-color: #fff;\n    }\n\n    @keyframes shine {\n        0% { -webkit-mask-position: 110%; }\n        100% { -webkit-mask-position: -10%; }\n    }\n\n    #audio,\n    #video {\n        display: block;\n        width: 100%;\n    }\n\n    .analyzer-configuration {\n        background: #fff1;\n        border: 1px solid #ccc8;\n        margin-bottom: 20px;\n        padding: 10px 0;\n    }\n\n    .credits {\n        font-size: 12px;\n        padding: 0 0 20px 0;\n        text-align: center;\n    }\n\n    .header-nav {\n        position: absolute;\n        right: 0;\n        top: 0;\n    }\n    .header-nav li {\n        display: inline;\n        margin-right: .5em;\n    }\n    .header-nav li:not(:last-child)::after {\n        content: ' |';\n        margin-left: .5em;\n    }\n\n    /* fluid full-width analyzer (single instance demo) */\n    #container {\n        height: 45vh;\n        margin: 0 calc( 50% - 50vw );\n    }\n\n    #container1 {\n        margin-bottom: 15px;\n    }\n\n    .center {\n        text-align: center;\n    }\n\n    .main {\n        display: inline-block;\n        margin-right: 20px;\n        width: 640px;\n    }\n\n    .aside {\n        display: inline-block;\n        vertical-align: top;\n        width: 320px;\n    }\n\n    .selector {\n        margin-bottom: 20px;\n    }\n\n    .selected {\n        outline: 3px solid #c00;\n    }\n\n    /* overlay */\n    #container.overlay {\n        height: 563px;\n        margin: 0 auto;\n        position: relative;\n        width: 100%;\n    }\n\n    .overlay canvas {\n        bottom: 0;\n        pointer-events: none; /* let mouse clicks pass to the underlying video element */\n        position: absolute;\n        touch-action: none; /* ditto for touch events */\n    }\n\n    .overlay:not(:fullscreen):hover canvas {\n        opacity: .5;\n    }\n\n</style>\n"]
+        "sourcesContent": ["<template>\n    <div id=\"audiomotion-config\">\n        <div class=\"analyzer-configuration\" v-if=\"options\">\n            <div class=\"box center\">\n                <label class=\"label\">Visualization Mode\n                    <select id=\"mode\" v-model=\"options.mode\" @change=\"updateOptions\">\n                        <option value=\"0\">Discrete frequencies</option>\n                        <option value=\"10\">Line / Area graph</option>\n                        <option value=\"1\">1/24th octave bands</option>\n                        <option value=\"2\">1/12th octave bands</option>\n                        <option value=\"3\">1/8th octave bands</option>\n                        <option value=\"4\">1/6th octave bands</option>\n                        <option value=\"5\">1/4th octave bands</option>\n                        <option value=\"6\">1/3rd octave bands</option>\n                        <option value=\"7\">Half octave bands</option>\n                        <option value=\"8\">Full octave bands</option>\n                    </select>\n                </label>\n\n                <fieldset id=\"area_options\">\n                    <label class=\"label\">lineWidth\n                        <input type=\"range\" id=\"line_width\" min=\"0\" max=\"9\" step=\"1\" v-model=\"options.lineWidth\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n\n                    <label class=\"label\">fillAlpha\n                        <input type=\"range\" id=\"fill_alpha\" min=\"0\" max=\"1\" step=\".1\" v-model=\"options.fillAlpha\" @change=\"updateOptions\"/>\n                        <div class=\"value\"></div>\n                    </label>\n                </fieldset>\n\n                <fieldset id=\"bar_options\">\n                    <label class=\"label\">Bar spacing\n                        <select id=\"bar_space\" v-model=\"options.barSpace\" @change=\"updateOptions\">\n                            <option value=\"0\">None</option>\n                            <option value=\"1\">1px (legacy)</option>\n                            <option value=\"2\">2px</option>\n                            <option value=\"0.1\">10% (default)</option>\n                            <option value=\"0.2\">20%</option>\n                            <option value=\"0.25\">25%</option>\n                            <option value=\"0.4\">40%</option>\n                            <option value=\"0.5\">50%</option>\n                            <option value=\"0.75\">75%</option>\n                            <option value=\"0.9\">90%</option>\n                        </select>\n                    </label>\n                </fieldset>\n\n                <label class=\"label\">Gradient\n                    <select id=\"gradient\" v-model=\"options.gradient\" @change=\"updateOptions\">\n                        <option value=\"classic\">Classic</option>\n                        <option value=\"prism\">Prism</option>\n                        <option value=\"rainbow\">Rainbow</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">reflexRatio\n                    <input type=\"range\" id=\"reflex_ratio\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.reflexRatio\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">reflexAlpha\n                    <input type=\"range\" id=\"reflex_alpha\" min=\"0\" max=\"1\" step=\".05\" v-model=\"options.reflexAlpha\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">FFT size\n                    <select id=\"fft\" v-model=\"options.fftSize\" @change=\"updateOptions\">\n                        <option value=\"1024\">1024</option>\n                        <option value=\"2048\">2048</option>\n                        <option value=\"4096\">4096</option>\n                        <option value=\"8192\">8192</option>\n                        <option value=\"16384\">16384</option>\n                        <option value=\"32768\">32768</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">Frequency range\n                    <select id=\"range\">\n                        <option v-for=\"freqRange in freqRanges\" :value=\"freqRange.id\" @click=\"updateFreqRange(freqRange)\">{{freqRange.display}}</option>\n                    </select>\n                </label>\n\n                <label class=\"label\">sensitivity\n                    <input type=\"range\" id=\"sensitivity\" min=\"0\" max=\"4\"/>\n                    <div class=\"value\"></div>\n                </label>\n\n                <label class=\"label\">smoothing\n                    <input type=\"range\" id=\"smoothing\" min=\"0\" max=\".9\" step=\".1\" v-model=\"options.smoothing\" @change=\"updateOptions\"/>\n                    <div class=\"value\"></div>\n                </label>\n            </div>\n\n            <div class=\"box center\" id=\"checkboxes\">\n                <input type=\"checkbox\" id=\"btn_bgcolor\" v-model=\"options.showBgColor\" @change=\"updateOptions\"><span @click=\"updateCheckbox('showBgColor')\">showBgColor</span></input>\n                <input type=\"checkbox\" id=\"btn_peaks\" v-model=\"options.showPeaks\" @change=\"updateOptions\"><span @click=\"updateCheckbox('showPeaks')\">showPeaks</span></input>\n                <input type=\"checkbox\" id=\"btn_leds\" v-model=\"options.showLeds\" @change=\"updateOptions\"><span @click=\"updateCheckbox('showLeds')\">showLeds</span></input>\n                <input type=\"checkbox\" id=\"btn_lumi\" v-model=\"options.lumiBars\" @change=\"updateOptions\"><span @click=\"updateCheckbox('lumiBars')\">lumiBars</span></input>\n                <input type=\"checkbox\" id=\"btn_reflex\" v-model=\"options.reflexFit\" @change=\"updateOptions\"><span @click=\"updateCheckbox('reflexFit')\">reflexFit</span></input>\n                <input type=\"checkbox\" id=\"btn_scale\" v-model=\"options.showScale\" @change=\"updateOptions\"><span @click=\"updateCheckbox('showScale')\">showScale</span></input>\n                <input type=\"checkbox\" id=\"btn_lores\" v-model=\"options.loRes\" @change=\"updateOptions\"><span @click=\"updateCheckbox('loRes')\">loRes</span></input>\n                <input type=\"checkbox\" id=\"btn_fps\" v-model=\"options.showFPS\" @change=\"updateOptions\"><span @click=\"updateCheckbox('showFPS')\">showFPS</span></input>\n                <input type=\"checkbox\" id=\"btn_logo\" v-model=\"options.showLogo\" @change=\"updateOptions\"><span @click=\"updateCheckbox('showLogo')\">Logo</span></input>\n                <input type=\"checkbox\" id=\"btn_freeze\" v-model=\"options.frozen\"  @change=\"toggleAnalyzer\"><span @click=\"toggleAnalyzer\">Freeze</span></input>\n                <button id=\"btn_fullscr\" @click=\"toggleFullscreen\">\n                    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\">\n                        <title>fullscreen</title>\n                        <path fill-rule=\"evenodd\" d=\"M1 1v6h2V3h4V1H1zm2 12H1v6h6v-2H3v-4zm14 4h-4v2h6v-6h-2v4zm0-16h-4v2h4v4h2V1h-2z\"/>\n                    </svg>\n                </button>\n            </div>\n        </div>\n\n        <div class=\"credits\">\n            <strong>audioMotion-analyzer v<span id=\"version\"></span></strong> Copyright &copy; 2018-2020 Henrique Avila Vianna.\tSource code available on <a href=\"https://github.com/hvianna/audioMotion-analyzer\">GitHub</a>.\n        </div>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"AudioMotionConfigDisplay\",\n        props: {\n            audioMotion: {\n                required: true\n            }\n        },\n        data() {\n            return {\n                options: undefined,\n                freqRanges: [\n                    { id: 0, min: 20, max: 22000, display: '20Hz - 22KHz' },\n                    { id: 1, min: 30, max: 16000, display: '30Hz - 16KHz' },\n                    { id: 2, min: 100, max: 10000, display: '100Hz - 10KHz' }\n                ]\n            }\n        },\n        methods: {\n            updateOptions: function() {\n                this.audioMotion.setOptions(this.options)\n            },\n            updateFreqRange: function (freqRange) {\n                this.options.minFreq = freqRange.min\n                this.options.maxFreq = freqRange.max\n                this.updateOptions()\n            },\n            toggleAnalyzer: function () {\n                this.audioMotion.toggleAnalyzer()\n                this.options.frozen = !this.options.frozen\n            },\n            toggleFullscreen: function () {\n                this.audioMotion.toggleFullscreen()\n            },\n            updateCheckbox(name) {\n                this.options[name] = !this.options[name]\n                this.updateOptions()\n            }\n        },\n        mounted() {\n            this.options = this.audioMotion.getOptions()\n        }\n    }\n</script>\n\n<style scoped>\n    #audiomotion-config {\n        background: #222;\n        color: #ccc;\n        font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif;\n        font-size: 13px;\n        margin: 0 auto;\n        max-width: 100%;\n        width: 100%;\n    }\n\n    a {\n        color: #b5c6d0;\n    }\n    a:not([class]):hover {\n        color: #fff;\n        filter: drop-shadow(.07em .07em .14em #f0fc) drop-shadow( -.07em -.07em .14em #f0fc);\n    }\n\n    button {\n        margin: 0 6px;\n        padding: 4px 4px 1px 4px;\n        vertical-align: bottom;\n        background: white;\n    }\n    button.active {\n        background: #444;\n        border: none;\n        box-shadow: inset 1px 1px 0 #000;\n        color: #0f0;\n        padding: 8px;\n        text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;\n    }\n    #checkboxes span:hover {\n        cursor: pointer;\n    }\n\n    canvas {\n        display: block;\n        width: 100%;\n    }\n\n    fieldset {\n        border: none;\n        display: inline-block;\n        margin: 0;\n        padding: 0;\n        vertical-align: top;\n    }\n    fieldset:disabled {\n        display: none;\n    }\n\n    header {\n        position: relative;\n    }\n    h1 {\n        color: #dfe6eb;\n        filter: drop-shadow(2px 2px 0 #000);\n    }\n    h2 {\n        margin: 1.5em 0 1em;\n    }\n\n    hr {\n        border-color: #8888;\n        border-width: 0 0 1px;\n    }\n\n    img {\n        max-width: 100%;\n    }\n\n    input[type=\"range\"] {\n        width: 60px;\n    }\n\n    input[type=\"text\"],\n    select {\n        margin: 6px 0;\n        padding: 6px;\n    }\n\n    ul {\n        line-height: 1.6;\n    }\n\n    .big {\n        font-size: 120%;\n    }\n\n    .box {\n        margin-top: 10px;\n    }\n    .box .title {\n        font-weight: bold;\n        line-height: 2;\n        margin-right: 1em;\n    }\n\n    .label {\n        display: inline-block;\n        font-size: 12px;\n        margin: 0 6px;\n        vertical-align: top;\n    }\n    .label input,\n    .label select {\n        display: block;\n    }\n\n    .logo {\n        background: linear-gradient(to bottom, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);\n        background-clip: text;\n        font-family: Orbitron, sans-serif;\n        padding-right: .5em;\n        position: relative;\n        text-decoration: none;\n        -webkit-background-clip: text;\n        -webkit-text-fill-color: transparent;\n    }\n\n    .logo:hover::after {\n        animation: shine .5s ease-in-out;\n        color: #fff;\n        content: 'audioMotion-analyzer';\n        left: 0;\n        mask-image: linear-gradient(-75deg, transparent 45%, #000 50%, transparent 55%);\n        mask-size: 200%;\n        position: absolute;\n        top: 0;\n        -webkit-mask-position: -50%;\n        -webkit-text-fill-color: #fff;\n    }\n\n    @keyframes shine {\n        0% { -webkit-mask-position: 110%; }\n        100% { -webkit-mask-position: -10%; }\n    }\n\n    #audio,\n    #video {\n        display: block;\n        width: 100%;\n    }\n\n    .analyzer-configuration {\n        background: #fff1;\n        border: 1px solid #ccc8;\n        margin-bottom: 20px;\n        padding: 10px 0;\n    }\n\n    .credits {\n        font-size: 12px;\n        padding: 0 0 20px 0;\n        text-align: center;\n    }\n\n    .header-nav {\n        position: absolute;\n        right: 0;\n        top: 0;\n    }\n    .header-nav li {\n        display: inline;\n        margin-right: .5em;\n    }\n    .header-nav li:not(:last-child)::after {\n        content: ' |';\n        margin-left: .5em;\n    }\n\n    /* fluid full-width analyzer (single instance demo) */\n    #container {\n        height: 45vh;\n        margin: 0 calc( 50% - 50vw );\n    }\n\n    #container1 {\n        margin-bottom: 15px;\n    }\n\n    .center {\n        text-align: center;\n    }\n\n    .main {\n        display: inline-block;\n        margin-right: 20px;\n        width: 640px;\n    }\n\n    .aside {\n        display: inline-block;\n        vertical-align: top;\n        width: 320px;\n    }\n\n    .selector {\n        margin-bottom: 20px;\n    }\n\n    .selected {\n        outline: 3px solid #c00;\n    }\n\n    /* overlay */\n    #container.overlay {\n        height: 563px;\n        margin: 0 auto;\n        position: relative;\n        width: 100%;\n    }\n\n    .overlay canvas {\n        bottom: 0;\n        pointer-events: none; /* let mouse clicks pass to the underlying video element */\n        position: absolute;\n        touch-action: none; /* ditto for touch events */\n    }\n\n    .overlay:not(:fullscreen):hover canvas {\n        opacity: .5;\n    }\n\n</style>\n"]
       },
       media: undefined
     });
@@ -15224,7 +15312,7 @@
   /* scoped */
 
 
-  var __vue_scope_id__ = "data-v-75c2771c";
+  var __vue_scope_id__ = "data-v-dcce9c26";
   /* module identifier */
 
   var __vue_module_identifier__ = undefined;
@@ -15267,7 +15355,6 @@
       var audioMotion = new AudioMotionClass(options);
       Vue.component('audioMotionAnalyzer', AudioMotionComponent(audioMotion));
       Vue.component('audioMotionConfig', AudioMotionConfig(audioMotion));
-      Vue.prototype.$audioMotion = audioMotion;
     }
   };
 
