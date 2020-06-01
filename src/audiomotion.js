@@ -37,12 +37,10 @@ export default function () {
                 start: true,
                 width: undefined
             }
-            this.initialized = false
         }
         init (el, options) {
             this.options = {...this.defaultOptions, ...options }
             this.audioMotionObj = new AudioMotionAnalyzer(el, options);
-            this.initialized = true
         }
         getAnalyzer() {
             return this.audioMotionObj._analyzer
