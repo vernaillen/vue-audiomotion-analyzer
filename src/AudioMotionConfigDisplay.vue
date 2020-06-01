@@ -92,18 +92,23 @@
                 </label>
             </div>
 
-            <div class="box center">
-                <input type="checkbox" id="btn_bgcolor" v-model="options.showBgColor" @change="updateOptions">showBgColor</input>
-                <input type="checkbox" id="btn_peaks" v-model="options.showPeaks" @change="updateOptions">showPeaks</input>
-                <input type="checkbox" id="btn_leds" v-model="options.showLeds" @change="updateOptions">showLeds</input>
-                <input type="checkbox" id="btn_lumi" v-model="options.lumiBars" @change="updateOptions">lumiBars</input>
-                <input type="checkbox" id="btn_reflex" v-model="options.reflexFit" @change="updateOptions">reflexFit</input>
-                <input type="checkbox" id="btn_scale" v-model="options.showScale" @change="updateOptions">showScale</input>
-                <input type="checkbox" id="btn_lores" v-model="options.loRes" @change="updateOptions">loRes</input>
-                <input type="checkbox" id="btn_fps" v-model="options.showFPS" @change="updateOptions">showFPS</input>
-                <input type="checkbox" id="btn_logo" v-model="options.showLogo" @change="updateOptions">Logo</input>
-                <input type="checkbox" id="btn_freeze" v-model="options.isOn"  @change="audioMotion.toggleAnalyzer">Freeze</input>
-                <input type="checkbox" id="btn_fullscr" @change="audioMotion.toggleFullscreen">Fullscreen</input>
+            <div class="box center" id="checkboxes">
+                <input type="checkbox" id="btn_bgcolor" v-model="options.showBgColor" @change="updateOptions"><span @click="updateCheckbox('showBgColor')">showBgColor</span></input>
+                <input type="checkbox" id="btn_peaks" v-model="options.showPeaks" @change="updateOptions"><span @click="updateCheckbox('showPeaks')">showPeaks</span></input>
+                <input type="checkbox" id="btn_leds" v-model="options.showLeds" @change="updateOptions"><span @click="updateCheckbox('showLeds')">showLeds</span></input>
+                <input type="checkbox" id="btn_lumi" v-model="options.lumiBars" @change="updateOptions"><span @click="updateCheckbox('lumiBars')">lumiBars</span></input>
+                <input type="checkbox" id="btn_reflex" v-model="options.reflexFit" @change="updateOptions"><span @click="updateCheckbox('reflexFit')">reflexFit</span></input>
+                <input type="checkbox" id="btn_scale" v-model="options.showScale" @change="updateOptions"><span @click="updateCheckbox('showScale')">showScale</span></input>
+                <input type="checkbox" id="btn_lores" v-model="options.loRes" @change="updateOptions"><span @click="updateCheckbox('loRes')">loRes</span></input>
+                <input type="checkbox" id="btn_fps" v-model="options.showFPS" @change="updateOptions"><span @click="updateCheckbox('showFPS')">showFPS</span></input>
+                <input type="checkbox" id="btn_logo" v-model="options.showLogo" @change="updateOptions"><span @click="updateCheckbox('showLogo')">Logo</span></input>
+                <input type="checkbox" id="btn_freeze" v-model="options.frozen"  @change="toggleAnalyzer"><span @click="toggleAnalyzer">Freeze</span></input>
+                <button id="btn_fullscr" @click="toggleFullscreen">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <title>fullscreen</title>
+                        <path fill-rule="evenodd" d="M1 1v6h2V3h4V1H1zm2 12H1v6h6v-2H3v-4zm14 4h-4v2h6v-6h-2v4zm0-16h-4v2h4v4h2V1h-2z"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
@@ -121,7 +126,7 @@
                 required: true
             }
         },
-        data () {
+        data() {
             return {
                 options: undefined,
                 freqRanges: [
@@ -138,6 +143,17 @@
             updateFreqRange: function (freqRange) {
                 this.options.minFreq = freqRange.min
                 this.options.maxFreq = freqRange.max
+                this.updateOptions()
+            },
+            toggleAnalyzer: function () {
+                this.audioMotion.toggleAnalyzer()
+                this.options.frozen = !this.options.frozen
+            },
+            toggleFullscreen: function () {
+                this.audioMotion.toggleFullscreen()
+            },
+            updateCheckbox(name) {
+                this.options[name] = !this.options[name]
                 this.updateOptions()
             }
         },
@@ -167,9 +183,10 @@
     }
 
     button {
-        margin: 6px;
-        padding: 6px;
+        margin: 0 6px;
+        padding: 4px 4px 1px 4px;
         vertical-align: bottom;
+        background: white;
     }
     button.active {
         background: #444;
@@ -178,6 +195,9 @@
         color: #0f0;
         padding: 8px;
         text-shadow: 2px 2px 10px #0f08, -2px -2px 10px #0f08;
+    }
+    #checkboxes span:hover {
+        cursor: pointer;
     }
 
     canvas {
