@@ -35,7 +35,8 @@ export default function () {
                 smoothing: 0.5,
                 source: undefined,
                 start: true,
-                width: undefined
+                width: undefined,
+                frozen: false
             }
         }
         init (el, options) {

@@ -16,6 +16,7 @@ export default (audioMotion) => {
         mounted () {
             this.el = this.$el
             audioMotion.init(this.el, this.options)
+            this.$emit('audioMotion', audioMotion)
         }
     }
 }

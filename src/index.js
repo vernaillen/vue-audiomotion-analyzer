@@ -9,7 +9,6 @@ const VueAudioMotionAnalyzer = {
 
         Vue.component('audioMotionAnalyzer', AudioMotionComponent(audioMotion))
         Vue.component('audioMotionConfig', AudioMotionConfig(audioMotion))
-        Vue.prototype.$audioMotion = audioMotion
     }
 }
 

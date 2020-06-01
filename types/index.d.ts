@@ -1,5 +1,8 @@
 import "./vue";
 
 export interface AudioMotion {
-    getAnalyzer(): AnalyserNode;
+    getAnalyzer(): AnalyserNode
+    getOptions(): any
+    toggleFullscreen(): void
+    toggleAnalyzer(): void
 }
