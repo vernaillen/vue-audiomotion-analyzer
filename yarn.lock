@@ -1630,10 +1630,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-audiomotion-analyzer@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/audiomotion-analyzer/-/audiomotion-analyzer-2.2.0.tgz#38e51315d89d6cddc178d1a934762c6b7be78f9c"
-  integrity sha512-DGtKFgl4YRCW8y6NNMh2jYNhT9b1wa6am2+J51N71B+AHi52tLh1Qc5AY2hBBqx6iKZztdrebMvGG4FANLoo/g==
+audiomotion-analyzer@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/audiomotion-analyzer/-/audiomotion-analyzer-2.2.1.tgz#aefc101d3cf36e9c2f787af717a579666af9373d"
+  integrity sha512-gfmLRMrSpXX5UJteRkKHkLx+B9WpDaDPZRWRdVcYAhL5J2pMyZKbcgOA1++UQm7G9vFy/a2+Am2X8gbfBvUJ7Q==
 
 autoprefixer@^9.8.0:
   version "9.8.0"
