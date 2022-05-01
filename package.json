@@ -1,0 +1,67 @@
+{
+    "name": "vue-audiomotion-analyzer",
+    "version": "0.1.0",
+    "description": "Audiomotion Analyzer plugin for Vue3",
+    "author": {
+        "name": "Wouter Vernaillen",
+        "email": "wouter@vernaillen.com",
+        "url": "https://github.com/vernaillen"
+    },
+    "homepage": "https://github.com/vernaillen/vue-audiomotion-analyzer",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vernaillen/vue-audiomotion-analyzer.git"
+    },
+    "scripts": {
+        "build": "npm run build:clean && npm run build:compile && npm run build:bundle",
+        "build:clean": "rimraf dist && rimraf dist-transpiled",
+        "build:compile": "tsc -p .",
+        "build:bundle": "rollup --config rollup.config.js",
+        "lint": "eslint src --ext .ts,vue",
+        "format": "npm run prettier:write",
+        "prettier:write": "prettier --write \"./src\"",
+        "prettier:check": "prettier --check \"./src\"",
+        "release": "semantic-release",
+        "test": "jest",
+        "test:watch": "jest --watchAll"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.esm.js",
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "dist/"
+    ],
+    "keywords": [
+        "vue",
+        "composition-api",
+        "audiomotion",
+        "audiomotion-analyzer"
+    ],
+    "license": "Apache-2.0",
+    "peerDependencies": {
+        "audiomotion-analyzer": "^3.6.0",
+        "vue": "^3.2.33"
+    },
+    "devDependencies": {
+        "@semantic-release/changelog": "^6.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/github": "^8.0.4",
+        "@semantic-release/npm": "^9.0.1",
+        "@types/jest": "^27.4.1",
+        "@typescript-eslint/eslint-plugin": "^5.21.0",
+        "@typescript-eslint/parser": "^5.21.0",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "@vue/eslint-config-typescript": "^10.0.0",
+        "eslint": "^8.14.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-vue": "^8.7.1",
+        "jest": "^28.0.3",
+        "prettier": "^2.2.1",
+        "rimraf": "^3.0.2",
+        "rollup": "^2.43.0",
+        "semantic-release": "^19.0.2",
+        "ts-jest": "^28.0.0-next.3",
+        "typescript": "^4.2.3",
+        "vue": "^3.2.33"
+    }
+}
