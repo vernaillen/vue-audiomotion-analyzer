@@ -1,6 +1,6 @@
 {
     "name": "vue-audiomotion-analyzer",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Audiomotion Analyzer plugin for Vue3",
     "author": {
         "name": "Wouter Vernaillen",
@@ -11,6 +11,9 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/vernaillen/vue-audiomotion-analyzer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/vernaillen/vue-audiomotion-analyzer/issues"
     },
     "scripts": {
         "build": "npm run build:clean && npm run build:compile && npm run build:bundle",
@@ -38,8 +41,10 @@
         "audiomotion-analyzer"
     ],
     "license": "Apache-2.0",
+    "dependencies": {
+        "audiomotion-analyzer": "^3.6.0"
+    },
     "peerDependencies": {
-        "audiomotion-analyzer": "^3.6.0",
         "vue": "^3.2.33"
     },
     "devDependencies": {
