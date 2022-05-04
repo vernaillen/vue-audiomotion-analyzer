@@ -21,14 +21,21 @@
         "declarationDir": "dist/types",
         "removeComments": false,
         "sourceMap": true,
-        "jsx": "react",
+        "jsx": "preserve",
         "types": [
-            "@types/jest"
-        ]
+            "@types/jest",
+        ],
+        "paths": {
+            "@/*": [
+                "./src/*",
+                "./dist/*"
+            ],
+        },
     },
     "include": [
         "src/**/*.ts",
-        "src/**/*.tsx"
+        "src/**/*.tsx",
+        "src/**/*.vue",
     ],
     "exclude": [
         "node_modules",
