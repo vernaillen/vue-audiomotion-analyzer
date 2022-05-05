@@ -15,9 +15,6 @@ class AudioMotion {
     this.audioMotionObj.registerGradient('my-gradient', gradientOptions)
     this.audioMotionObj.setOptions({ gradient: 'my-gradient' })
   }
-  /*getAnalyzer() {
-    if (this.audioMotionObj) return this.audioMotionObj._analyzer[0]
-  }*/
   toggleFullscreen() {
     if (this.audioMotionObj) this.audioMotionObj.toggleFullscreen()
   }

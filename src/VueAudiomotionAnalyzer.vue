@@ -11,11 +11,17 @@ interface Props {
   options?: Options
   audioCtx?: AudioContext
 }
+interface Emits {
+  analyzer: unknown
+}
 const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
+
 const audioMotionAnalyzer = ref<HTMLDivElement | null>(null)
 const renderAudiomotionAnalyzer = () => {
   const extOptions = { audioCtx: props.audioCtx, ...props.options }
   audioMotion.init(audioMotionAnalyzer.value, extOptions)
+  emit('analyzer', audioMotion.audioMotionObj._analyzer[0])
 }
 onMounted(() => renderAudiomotionAnalyzer())
 onUpdated(() => renderAudiomotionAnalyzer())
