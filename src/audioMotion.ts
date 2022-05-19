@@ -1,8 +1,8 @@
 import AudioMotionAnalyzer, { GradientOptions, Options } from 'audiomotion-analyzer'
 
-class AudioMotion {
+export default class AudioMotion {
   private audioMotionObj: AudioMotionAnalyzer | undefined
-  init(el: HTMLElement, options: Options) {
+  constructor(el: HTMLElement, options: Options) {
     this.audioMotionObj = new AudioMotionAnalyzer(el, options)
 
     const gradientOptions: GradientOptions = {
@@ -15,6 +15,9 @@ class AudioMotion {
     this.audioMotionObj.registerGradient('my-gradient', gradientOptions)
     this.audioMotionObj.setOptions({ gradient: 'my-gradient' })
   }
+  connectAudioNode(audioNode: AudioNode) {
+    if (this.audioMotionObj) this.audioMotionObj.connectInput(audioNode)
+  }
   toggleFullscreen() {
     if (this.audioMotionObj) this.audioMotionObj.toggleFullscreen()
   }
@@ -22,5 +25,3 @@ class AudioMotion {
     if (this.audioMotionObj) this.audioMotionObj.toggleAnalyzer()
   }
 }
-
-export default new AudioMotion()

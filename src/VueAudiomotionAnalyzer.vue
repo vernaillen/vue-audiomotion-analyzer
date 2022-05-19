@@ -1,27 +1,25 @@
 <template>
-  <div ref="audioMotionAnalyzer" id="audioMotionAnalyzer" />
+  <div id="audioMotionAnalyzer" ref="audioMotionAnalyzer" />
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUpdated, ref } from 'vue'
 import { Options } from 'audiomotion-analyzer'
-import audioMotion from './audioMotion'
+import AudioMotion from './audioMotion'
 
-interface Props {
+const props = defineProps<{
   options?: Options
   audioCtx?: AudioContext
-}
-interface Emits {
-  analyzer: unknown
-}
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+  audioNode?: AudioNode
+}>()
 
 const audioMotionAnalyzer = ref<HTMLDivElement | null>(null)
 const renderAudiomotionAnalyzer = () => {
   const extOptions = { audioCtx: props.audioCtx, ...props.options }
-  audioMotion.init(audioMotionAnalyzer.value, extOptions)
-  emit('analyzer', audioMotion.audioMotionObj._analyzer[0])
+  const audioMotion = new AudioMotion(audioMotionAnalyzer.value, extOptions)
+  if (props.audioNode) {
+    audioMotion.connectAudioNode(props.audioNode)
+  }
 }
 onMounted(() => renderAudiomotionAnalyzer())
 onUpdated(() => renderAudiomotionAnalyzer())
