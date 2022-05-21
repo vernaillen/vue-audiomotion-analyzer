@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DemoIntro from './components/DemoIntro.vue'
-import DemoAudiomotionAnalyzerVue from './components/DemoAudiomotionAnalyzer.vue'
+import DemoAudiomotionAnalyzer from './components/DemoAudiomotionAnalyzer.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import DemoAudiomotionAnalyzerVue from './components/DemoAudiomotionAnalyzer.vue
   </header>
 
   <main>
-    <DemoAudiomotionAnalyzerVue />
+    <DemoAudiomotionAnalyzer />
   </main>
 </template>
 
