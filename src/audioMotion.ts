@@ -18,6 +18,9 @@ export default class AudioMotion {
   connectAudioNode(audioNode: AudioNode) {
     if (this.audioMotionObj) this.audioMotionObj.connectInput(audioNode)
   }
+  connectHTMLMediaElement(source: HTMLMediaElement) {
+    if (this.audioMotionObj) this.audioMotionObj.connectInput(source)
+  }
   toggleFullscreen() {
     if (this.audioMotionObj) this.audioMotionObj.toggleFullscreen()
   }
