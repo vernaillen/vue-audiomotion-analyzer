@@ -20,6 +20,7 @@
         "build:clean": "rimraf dist && rimraf dist-transpiled",
         "build:compile": "tsc -p .",
         "build:bundle": "rollup --config rollup.config.js",
+        "build:demo": "cd demo && npm install && npm run build",
         "lint": "eslint src --ext .ts,vue",
         "format": "npm run prettier:write",
         "prettier:write": "prettier --write \"./src\"",
