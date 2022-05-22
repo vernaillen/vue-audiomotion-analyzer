@@ -6,12 +6,8 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "esModuleInterop": true,
-        "lib": [
-            "dom",
-            "es2020"
-        ],
-        "module": "es2015",
-        "target": "es2017",
+        "module": "esnext",
+        "target": "esnext",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -23,7 +19,7 @@
         "sourceMap": true,
         "jsx": "preserve",
         "types": [
-            "@types/jest",
+            "@types/jest"
         ],
         "paths": {
             "@/*": [
