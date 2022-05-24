@@ -15,3 +15,7 @@ footer: MIT Licensed | Copyright © 2022 Wouter Vernaillen
 ---
 
 This Vue plugin is a wrapper around Henrique Vianna's brilliant [audioMotion-analyzer](https://audiomotion.dev)
+
+## Work in progress
+
+if you have question, contact me through [github](https://github.com/vernaillen/)
