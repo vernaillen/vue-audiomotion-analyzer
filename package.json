@@ -20,7 +20,6 @@
         "build:clean": "rimraf dist && rimraf dist-transpiled",
         "build:compile": "vue-tsc --noEmit -p .",
         "build:bundle": "rollup --config rollup.config.js",
-        "build:demo": "cd demo && npm install && npm run build",
         "lint": "eslint src --ext .ts,vue",
         "format": "npm run prettier:write",
         "prettier:write": "prettier --write \"./src\"",
@@ -28,7 +27,12 @@
         "release": "semantic-release",
         "test": "jest",
         "test:watch": "jest --watchAll",
-        "all": "npm run format && npm run lint && npm run build"
+        "all": "npm run format && npm run lint && npm run build && npm run build:demo && serve -s ./demo/dist",
+        "dev": "npm run format && npm run lint && npm run build && npm run dev --prefix demo",
+        "docs:dev": "vitepress dev docs",
+        "docs:build": "vitepress build docs",
+        "docs:serve": "vitepress serve docs",
+        "demo:build": "cd demo && npm install && npm run build"
     },
     "main": "./dist/index.esm.js",
     "module": "./dist/index.esm.js",
@@ -71,6 +75,7 @@
         "ts-jest": "^28.0.0-next.3",
         "tslib": "^2.4.0",
         "typescript": "^4.6.4",
+        "vitepress": "^0.22.4",
         "vue": "^3.2.33",
         "vue-eslint-parser": "^9.0.1",
         "vue-ts": "^1.0.11"

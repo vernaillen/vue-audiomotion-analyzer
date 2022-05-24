@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Options } from 'audiomotion-analyzer'
+import { ref, reactive } from 'vue'
 import * as Tone from 'tone'
+import OptionsComponent from './OptionsComponent.vue'
+import { Options } from 'audiomotion-analyzer'
+
+const options: Options = reactive({
+  mode: 1,
+  height: 300,
+  showScale: false,
+})
 
 const tonePlayer = new Tone.Player('/music/RackNomad-MeditativeMelody.mp3').toDestination().sync().start(0)
-const options: Options = {
-  mode: 2,
-  height: 200,
-}
+
 const start = () => {
   Tone.start()
   Tone.Transport.start()
@@ -28,7 +32,10 @@ checkIsBufferLoaded()
   <button @click="start" v-if="isLoaded">Play</button>
   <button @click="stop" v-if="isLoaded">Stop</button>
   <br />
-  <VueAudiomotionAnalyzer :options="options" :input="tonePlayer" />
+  <OptionsComponent :modelValue="options" />
+  <VueAudiomotionAnalyzer :modelValue="options" :input="tonePlayer" />
+  {{ options }}<br />
+  <button @click="options.mode = options.mode + 1">{{ options.mode }}</button>
 </template>
 
 <style scoped></style>

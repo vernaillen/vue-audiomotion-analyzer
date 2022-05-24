@@ -108,3 +108,6 @@ dist-transpiled
 .idea
 /ui-library.iml
 /temp
+
+# custom deploy-dist folder (to put docs & demo in same deploy folder
+/deploy-dist
