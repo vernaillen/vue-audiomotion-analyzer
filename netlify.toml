@@ -2,8 +2,8 @@
   NODE_VERSION = "16"
 
 [build]
-  command = "npm run build && npm run demo:build && npm run docs:build"
-  publish = "/deploy-dist"
+  command = "npm run docs:build"
+  publish = "/docs/.vitepress/dist"
 
 [[redirects]]
   from = "/*"
