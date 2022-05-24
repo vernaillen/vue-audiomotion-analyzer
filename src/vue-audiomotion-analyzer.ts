@@ -21,12 +21,9 @@ export default defineComponent({
     }
   },
   updated() {
-    console.log('updated')
     const allOptions = { audioCtx: this.audioCtx, source: this.input, ...this.modelValue }
     console.log(allOptions)
     this.audioMotionanalyze.setOptions(allOptions)
-    console.log('modelValue:')
-    console.log(this.modelValue)
   },
   setup(props) {
     console.log(props)
@@ -36,7 +33,6 @@ export default defineComponent({
 
     const options = ref(props.modelValue)
     watch(options, newOptions => {
-      console.log('options changed!')
       if (audioMotionanalyzer) audioMotionanalyzer.setOptions(newOptions)
     })
     return { divElement, audioMotionanalyzer }
