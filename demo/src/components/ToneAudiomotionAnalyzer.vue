@@ -1,3 +1,10 @@
+<template>
+  <button v-if="!isLoaded" :class="buttonStyle">Loading buffer...</button>
+  <button @click="start" v-if="isLoaded && !isPlaying" :class="buttonStyle">Play</button>
+  <button @click="stop" v-if="isLoaded && isPlaying" :class="buttonStyle">Stop</button>
+  <VueAudioMotionAnalyzer :options="options" :source="tonePlayer" />
+  <OptionsComponent :modelValue="options" />
+</template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import * as Tone from 'tone'
@@ -7,16 +14,20 @@ import { DefaultOptions } from 'vue-audiomotion-analyzer'
 
 const options: Options = reactive({
   ...DefaultOptions,
+  mode: 2,
+  alphaBars: true,
+  height: 400,
 })
-
 const tonePlayer = new Tone.Player('/music/RackNomad-MeditativeMelody.mp3').toDestination().sync().start(0)
-
+const isPlaying = ref(false)
 const start = () => {
   Tone.start()
   Tone.Transport.start()
+  isPlaying.value = true
 }
 const stop = () => {
   Tone.Transport.stop()
+  isPlaying.value = false
 }
 let isLoaded = ref(false)
 async function checkIsBufferLoaded() {
@@ -24,20 +35,12 @@ async function checkIsBufferLoaded() {
   isLoaded.value = true
 }
 checkIsBufferLoaded()
+const buttonStyle = 'px-3 py-1 bg-gray-50 font-medium text-sm hover:bg-gray-200 text-black rounded'
 </script>
-
-<template>
-  <span v-if="!isLoaded">Loading buffer...</span>
-  <button @click="start" v-if="isLoaded">Play</button>
-  <button @click="stop" v-if="isLoaded">Stop</button>
-
-  <VueAudioMotionAnalyzer :options="options" :source="tonePlayer" />
-  <OptionsComponent :modelValue="options" />
-</template>
 
 <style scoped>
 #audioMotionAnalyzer {
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 20px;
 }
 </style>
