@@ -13,7 +13,7 @@
   "dependencies": {
     "tone": "^14.8.40",
     "vue": "^3.2.33",
-    "vue-audiomotion-analyzer": "^0.3.0"
+    "vue-audiomotion-analyzer": "^0.4.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",

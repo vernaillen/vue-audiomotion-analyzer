@@ -1,10 +1,12 @@
 import { App, Plugin } from 'vue'
-import VueAudiomotionAnalyzer from './vue-audiomotion-analyzer'
+import VueAudioMotionAnalyzer from './VueAudioMotionAnalyzer.vue'
+import type { Options, GradientOptions } from 'audiomotion-analyzer'
+import DefaultOptions from './defaults'
 
-const VueAudiomotionAnalyzerPlugin: Plugin = {
+const VueAudioMotionAnalyzerPlugin: Plugin = {
   install(app: App) {
-    app.component('VueAudiomotionAnalyzer', VueAudiomotionAnalyzer)
+    app.component('VueAudioMotionAnalyzer', VueAudioMotionAnalyzer)
   },
 }
-export default VueAudiomotionAnalyzerPlugin
-export { VueAudiomotionAnalyzer }
+export default VueAudioMotionAnalyzerPlugin
+export { VueAudioMotionAnalyzer, Options, GradientOptions, DefaultOptions }

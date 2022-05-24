@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import VueAudiomotionAnalyzerPlugin from 'vue-audiomotion-analyzer'
+import VueAudioMotionAnalyzerPlugin from 'vue-audiomotion-analyzer'
 
 const app = createApp(App)
-app.use(VueAudiomotionAnalyzerPlugin)
+app.use(VueAudioMotionAnalyzerPlugin)
 app.mount('#app')

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GradientOptions, Options } from 'audiomotion-analyzer'
+import type { GradientOptions, Options } from 'vue-audiomotion-analyzer'
 
 const options: Options = {
   mode: 2,
@@ -13,12 +13,12 @@ const gradientOptions: GradientOptions = {
     { pos: 1, color: '#9C8E1B' },
   ],
 }
-const audioEl = ref(null)
+const audio = ref(null)
 </script>
 
 <template>
-  <audio ref="audioEl" src="https://icecast2.ufpel.edu.br/live" controls crossorigin="anonymous"></audio>
-  <VueAudiomotionAnalyzer :options="options" :gradient="gradientOptions" :input="audioEl" />
+  <audio id="audio" ref="audio" src="https://icecast2.ufpel.edu.br/live" controls crossorigin="anonymous"></audio>
+  <VueAudioMotionAnalyzer :options="options" :gradient="gradientOptions" :source="audio" />
 </template>
 
 <style scoped></style>

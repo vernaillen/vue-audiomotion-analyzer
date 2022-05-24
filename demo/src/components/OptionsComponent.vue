@@ -1,18 +1,31 @@
 <template>
-  <button @click="options.mode = options.mode + 1">{{ options.mode }}</button>
-  <button @click="options.height = options.height + 100">{{ options.height }}</button>
-  <input type="checkbox" :checked="options.showScale" @click="options.showScale = !options.showScale" />
+  <label>mode:</label>
+  <select v-model="options.mode">
+    <option v-for="mode in modes" :key="mode">{{ mode }}</option>
+  </select>
+  <br />
+  <label>height:</label>
+  <select v-model="options.height">
+    <option v-for="height in heights" :key="height">{{ height }}</option>
+  </select>
+  <br />
+  <label>showScaleX:</label>
+  <input v-model="options.showScaleX" type="checkbox" />
+  <br />
+  <label>showScaleY:</label>
+  <input v-model="options.showScaleY" type="checkbox" />
+  <br />
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from 'vue'
-import type { Options } from 'audiomotion-analyzer'
+import { ref } from 'vue'
+import type { PropType } from 'vue'
+import type { Options } from 'vue-audiomotion-analyzer'
 
 const props = defineProps({
   modelValue: { type: Object as PropType<Options>, required: true },
 })
-
-const options = computed({
-  get: () => props.modelValue,
-})
+const options = ref(props.modelValue)
+const modes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+const heights: number[] = [200, 250, 300, 350, 400]
 </script>
