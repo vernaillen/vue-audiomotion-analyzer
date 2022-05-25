@@ -34,11 +34,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: npm install
-      - run:
-          command: npm run lint
-      - run:
-          command: npm run build
+          command: npm run demo:build
 
 workflows:
   version: 2
