@@ -30,7 +30,7 @@ jobs:
   demo:
     executor:
       name: node/default
-    working_directory: ~/demo
+    working_directory: ~/project/demo
     steps:
       - checkout
       - run:
