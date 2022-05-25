@@ -1,0 +1,49 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:16.14
+        auth:
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+
+jobs:
+  plugin-and-docs:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:
+          command: npm install
+      - run:
+          command: npm run lint
+      - run:
+          command: npm run build
+      - run:
+          command: npm run docs:build
+      - sonarcloud/scan
+  demo:
+    executor:
+      name: node/default
+    working_directory: ~/demo
+    steps:
+      - checkout
+      - run:
+          command: npm install
+      - run:
+          command: npm run lint
+      - run:
+          command: npm run build
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - plugin-and-docs:
+          context: SonarCloud
+      - demo
