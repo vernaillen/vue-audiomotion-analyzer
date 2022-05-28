@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUpdated, ref, watch } from 'vue'
 import AudioMotionAnalyzer, { Options, GradientOptions } from 'audiomotion-analyzer'
 const props = defineProps<{
   options?: Options
@@ -23,6 +23,9 @@ onMounted(() => {
   } catch (e) {
     console.error('error mounting VueAudiomotionAnalyzer: ', e)
   }
+})
+onUpdated(() => {
+  if (audioMotionAnalyzer) audioMotionAnalyzer.setOptions(props.options)
 })
 watch(props.options, async newOptions => {
   if (audioMotionAnalyzer) audioMotionAnalyzer.setOptions(newOptions)
