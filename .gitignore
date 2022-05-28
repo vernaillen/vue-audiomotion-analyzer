@@ -83,6 +83,7 @@ typings/
 .nuxt
 dist
 dist-transpiled
+dist-netlify
 
 
 # Gatsby files
