@@ -15,7 +15,7 @@
     "pinia": "^2.0.14",
     "tone": "^14.8.40",
     "vue": "^3.2.33",
-    "vue-audiomotion-analyzer": "^0.4.1"
+    "vue-audiomotion-analyzer": "^0.4.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",

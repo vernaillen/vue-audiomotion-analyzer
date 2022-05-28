@@ -43,14 +43,13 @@ const modes: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const selectedPreset = ref(0)
 const updatedPreset = ref(false)
-const setPreset = presetId => {
+const setPreset = (presetId: number) => {
   const newOptions = { ...DefaultOptions, ...presets[presetId].options }
   optionsStore.updateOptions(newOptions)
   selectedPreset.value = presetId
   updatedPreset.value = true
 }
 watch(optionsStore.options, () => {
-  console.log('watched optionsStore.options change')
   if (!updatedPreset.value) selectedPreset.value = -1
   updatedPreset.value = false
 })

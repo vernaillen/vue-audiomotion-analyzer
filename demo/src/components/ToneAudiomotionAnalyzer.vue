@@ -34,7 +34,7 @@ const buttonStyle = 'px-3 py-1 bg-gray-50 font-medium text-sm hover:bg-gray-300 
 </script>
 
 <style scoped>
-#audioMotionAnalyzer {
+#vueAudioMotionAnalyzer {
   padding-top: 10px;
   padding-bottom: 20px;
 }

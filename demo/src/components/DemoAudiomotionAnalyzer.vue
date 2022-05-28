@@ -1,24 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { GradientOptions, Options } from 'vue-audiomotion-analyzer'
+import OptionsComponent from './OptionsComponent.vue'
+import { useOptionsStore } from '@/stores/options'
 
-const options: Options = {
-  mode: 2,
-  height: 200,
-}
-const gradientOptions: GradientOptions = {
-  bgColor: '#000000',
-  colorStops: [
-    { pos: 0, color: '#9C8E1B' },
-    { pos: 1, color: '#9C8E1B' },
-  ],
-}
-const audio = ref(null)
+const optionsStore = useOptionsStore()
+const audio = ref<HTMLMediaElement>()
+onMounted(() => {
+  audio.value = <HTMLMediaElement> document.getElementById('audio')
+})
 </script>
 
 <template>
-  <audio id="audio" ref="audio" src="https://icecast2.ufpel.edu.br/live" controls crossorigin="anonymous"></audio>
-  <VueAudioMotionAnalyzer :options="options" :gradient="gradientOptions" :source="audio" />
+  <audio id="audio" ref="audioRef" src="https://23613.live.streamtheworld.com/TOPZEN_SC" controls crossorigin="anonymous"></audio>
+  Live stream: <a href="https://www.topradio.be/playlist/topzen" target="_blank">Zen FM</a><br />
+  <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" />
+  <OptionsComponent />
 </template>
 
-<style scoped></style>
+<style scoped>
+#audio, #vueAudioMotionAnalyzer {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+</style>
