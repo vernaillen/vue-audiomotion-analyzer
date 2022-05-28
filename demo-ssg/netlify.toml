@@ -2,8 +2,9 @@
   NODE_VERSION = "16"
 
 [build]
-  command = "npm run docs:build"
-  publish = "/docs/.vitepress/dist"
+  base = "demo-ssg/"
+  command = "npm run build"
+  publish = "/dist"
 
 [[redirects]]
   from = "/*"
