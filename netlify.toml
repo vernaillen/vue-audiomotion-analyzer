@@ -2,12 +2,17 @@
   NODE_VERSION = "16"
 
 [build]
-  command = "npm run docs:build"
-  publish = "/docs/.vitepress/dist"
+  command = "npm run docs:build && npm run demo-ssg:build && npm run copy-dist-folders-netlify"
+  publish = "/dist-netlify"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo-ssg/*"
+  to = "/demo-ssg/dist"
   status = 200
 
 # Opting your Website out of Google's FLoC Network

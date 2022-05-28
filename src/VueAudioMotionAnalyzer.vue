@@ -1,10 +1,12 @@
 <template>
-  <div id="audioMotionAnalyzer" ref="audioMotionAnalyzerRef" />
+  <div id="vueAudioMotionAnalyzer" ref="audioMotionAnalyzerRef" />
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUpdated, ref, watch } from 'vue'
-import AudioMotionAnalyzer, { Options, GradientOptions } from 'audiomotion-analyzer'
+import AudioMotionAnalyzer, { GradientOptions, type Options } from 'audiomotion-analyzer'
+import DefaultOptions from './defaults'
+
 const props = defineProps<{
   options?: Options
   gradient?: GradientOptions
@@ -12,9 +14,28 @@ const props = defineProps<{
 }>()
 const audioMotionAnalyzerRef = ref<HTMLDivElement | null>(null)
 let audioMotionAnalyzer: AudioMotionAnalyzer = null
-onMounted(() => {
+
+onMounted(async () => {
+  if (props.source) {
+    initAnalyzer()
+  } else {
+    // wait for source to be available onUpdated
+  }
+})
+onUpdated(() => {
+  if (!audioMotionAnalyzer && props.source) {
+    initAnalyzer()
+  } else if (audioMotionAnalyzer && props.source) {
+    const allOptions = { ...DefaultOptions, source: props.source, ...props.options }
+    audioMotionAnalyzer.setOptions(allOptions)
+  } else {
+    console.error('no audio source available')
+    initAnalyzer()
+  }
+})
+const initAnalyzer = () => {
   try {
-    const allOptions = { source: props.source, ...props.options }
+    const allOptions = { ...DefaultOptions, source: props.source, ...props.options }
     audioMotionAnalyzer = new AudioMotionAnalyzer(audioMotionAnalyzerRef.value, allOptions)
     if (props.gradient) {
       audioMotionAnalyzer.registerGradient('custom-gradient', props.gradient)
@@ -23,11 +44,10 @@ onMounted(() => {
   } catch (e) {
     console.error('error mounting VueAudiomotionAnalyzer: ', e)
   }
-})
-onUpdated(() => {
-  if (audioMotionAnalyzer) audioMotionAnalyzer.setOptions(props.options)
-})
-watch(props.options, async newOptions => {
+}
+
+const options = ref(props.options)
+watch(options.value, async newOptions => {
   if (audioMotionAnalyzer) audioMotionAnalyzer.setOptions(newOptions)
 })
 </script>

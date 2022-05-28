@@ -36,6 +36,6 @@ const DefaultOptions: Options = {
   stereo: false,
   useCanvas: true,
   volume: 1,
-  height: 200,
+  height: 270,
 }
 export default DefaultOptions
