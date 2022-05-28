@@ -1,11 +1,27 @@
-# demo-ssg
+# Vue AduiMotion Analyzer SSG Demo
 
-## Executed steps to create this demo
+## Dev
+
+```sh
+npm install
+npm run dev
+```
+
+## Build & Serve SSG app
+
+```sh
+npm install
+npm run build
+npm run serve
+```
+
+## Executed steps to (re-)create this demo
 
 ```sh
 npm init vue@latest demo-ssg
 
 ```
+
 chosen options:
 
 ✔ Add TypeScript? … Yes
@@ -17,10 +33,9 @@ chosen options:
 ✔ Add ESLint for code quality? … Yes
 ✔ Add Prettier for code formatting? … Yes
 
-
 ```sh
 cd demo-ssg 
-npm i -D vite-ssg @vueuse/head
+npm i -D vite-ssg @vueuse/head serve
 npm i vue-audiomotion-analyzer
 ```
 
@@ -31,12 +46,13 @@ npm i vue-audiomotion-analyzer
     "dev": "vite",
 -   "build": "vue-tsc --noEmit && vite build",
 +   "build": "vue-tsc --noEmit && vite-ssg build",
++   "serve": "serve ./dist",
   }
 }
 ```
 
 ```ts
-// src/main.ts
+// replace src/main.ts
 import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import routes from './router'
@@ -52,7 +68,7 @@ export const createApp = ViteSSG(
 ```
 
 ```ts
-// src/router/index.ts
+// replace src/router/index.ts
 import HomeView from '../views/HomeView.vue'
 
 const routes = [
@@ -68,4 +84,44 @@ const routes = [
   }
 ]
 export default routes
+```
+
+```ts
+// add src/components/DemoAnalyzer.vue
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
+const audio = ref<HTMLMediaElement>()
+onMounted(() => {
+  audio.value = <HTMLMediaElement> document.getElementById('audio')
+})
+</script>
+
+<template>
+  <audio id="audio" ref="audioRef" src="https://23613.live.streamtheworld.com/TOPZEN_SC" control crossorigin="anonymous"></audio>
+  <div>Live stream: <a href="https://www.topradio.be/playlist/topzen" target="_blank">Zen FM</a></div>
+  <VueAudioMotionAnalyzer :source="audio" />
+</template>
+
+<style scoped>
+#audio,
+#vueAudioMotionAnalyzer {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+</style>
+
+```
+
+```ts
+// update src/views/HomeView.vue
+<script setup lang="ts">
+import DemoAnalyzer from '@/components/DemoAnalyzer.vue'
+</script>
+
+<template>
+  <main>
+    <DemoAnalyzer />
+  </main>
+</template>
 ```

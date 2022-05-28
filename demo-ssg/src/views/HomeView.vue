@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '@/components/TheWelcome.vue'
+import DemoAnalyzer from '@/components/DemoAnalyzer.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <DemoAnalyzer />
   </main>
 </template>
