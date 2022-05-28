@@ -2,7 +2,7 @@
   NODE_VERSION = "16"
 
 [build]
-  command = "npm run docs:build && npm run demo-ssg:build && npm run copy-dist-folders-netlify"
+  command = "npm run docs:build && npm run demo-ssg:build"
   publish = "/dist-netlify"
 
 [[redirects]]

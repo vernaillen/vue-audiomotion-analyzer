@@ -33,8 +33,7 @@
         "docs:build": "vitepress build docs",
         "docs:serve": "vitepress serve docs",
         "demo:build": "cd demo && npm install && npm run build",
-        "demo-ssg:build": "cd demo-ssg && npm install && npm run build",
-        "copy-dist-folders-netlify": "cp -R /docs/.vitepress/dist /dist-netlify/ && cp -R /demo-ssg/dist /dist-netlify/demo-ssg"
+        "demo-ssg:build": "cd demo-ssg && npm install && npm run build"
     },
     "main": "./dist/index.esm.js",
     "module": "./dist/index.esm.js",
