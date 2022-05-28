@@ -2,22 +2,17 @@
   <button v-if="!isLoaded" :class="buttonStyle">Loading buffer...</button>
   <button @click="start" v-if="isLoaded && !isPlaying" :class="buttonStyle">Play</button>
   <button @click="stop" v-if="isLoaded && isPlaying" :class="buttonStyle">Stop</button>
-  <VueAudioMotionAnalyzer :options="options" :source="tonePlayer" />
-  <OptionsComponent :modelValue="options" />
+  <VueAudioMotionAnalyzer :options="optionsStore.options" :source="tonePlayer" />
+  <OptionsComponent />
 </template>
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import * as Tone from 'tone'
 import OptionsComponent from './OptionsComponent.vue'
-import type { Options } from 'vue-audiomotion-analyzer'
-import { DefaultOptions } from 'vue-audiomotion-analyzer'
+import { useOptionsStore } from '@/stores/options'
 
-const options: Options = reactive({
-  ...DefaultOptions,
-  mode: 2,
-  alphaBars: true,
-  height: 400,
-})
+const optionsStore = useOptionsStore()
+
 const tonePlayer = new Tone.Player('/music/RackNomad-MeditativeMelody.mp3').toDestination().sync().start(0)
 const isPlaying = ref(false)
 const start = () => {
@@ -35,7 +30,7 @@ async function checkIsBufferLoaded() {
   isLoaded.value = true
 }
 checkIsBufferLoaded()
-const buttonStyle = 'px-3 py-1 bg-gray-50 font-medium text-sm hover:bg-gray-200 text-black rounded'
+const buttonStyle = 'px-3 py-1 bg-gray-50 font-medium text-sm hover:bg-gray-300 text-black rounded'
 </script>
 
 <style scoped>

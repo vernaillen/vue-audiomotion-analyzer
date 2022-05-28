@@ -6,14 +6,16 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "serve": "serve -s dist"
   },
   "dependencies": {
+    "pinia": "^2.0.14",
     "tone": "^14.8.40",
     "vue": "^3.2.33",
-    "vue-audiomotion-analyzer": "^0.4.0"
+    "vue-audiomotion-analyzer": "^0.4.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",
