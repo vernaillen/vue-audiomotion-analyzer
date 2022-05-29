@@ -9,6 +9,7 @@
     <div>
       <div class="green pr-2">Common:</div>
       <div class="pl-5">
+        <RangeSelector option="barSpace" min="0" max="0.9" step="0.1" />
         <RangeSelector option="mirror" min="-1" max="1" step="1" />
         <RangeSelector option="smoothing" min="0" max="0.9" step="0.1" />
         <RangeSelector option="volume" min="0" max="1" step="0.1" />
