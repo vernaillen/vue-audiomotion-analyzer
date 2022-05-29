@@ -1,6 +1,5 @@
 <template>
-  <div class="presets">
-    <label>presets:</label>
+  <div class="mt-2">
     <button
       v-for="(preset, index) in presets"
       :key="index"
@@ -87,7 +86,7 @@ const presets = [
     name: 'Lumi Bars',
     options: {
       mode: 1,
-      barSpace: 0.1,
+      barSpace: 0,
       gradient: 'classic',
       alphaBars: true,
       ledBars: false,
@@ -102,6 +101,8 @@ const presets = [
       showScaleX: false,
       overlay: false,
       fillAlpha: 0.6,
+      mirror: 1,
+      smoothing: 0.9,
     },
   },
 ]

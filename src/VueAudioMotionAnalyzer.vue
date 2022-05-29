@@ -10,7 +10,7 @@ import DefaultOptions from './defaults'
 const props = defineProps<{
   options?: Options
   gradient?: GradientOptions
-  source?: HTMLMediaElement | AudioNode
+  source: HTMLMediaElement | AudioNode
 }>()
 const audioMotionAnalyzerRef = ref<HTMLDivElement | null>(null)
 let audioMotionAnalyzer: AudioMotionAnalyzer = null

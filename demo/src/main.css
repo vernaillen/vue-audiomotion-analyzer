@@ -24,6 +24,15 @@ header {
   margin: 0 auto 2rem;
 }
 
+.slider-thumb::-webkit-slider-thumb {
+  @apply appearance-none w-3 h-3 rounded-full cursor-pointer;
+  background-color: hsla(160, 100%, 37%, 0.8);
+}
+
+.slider-thumb::-webkit-slider-thumb:hover {
+  background-color: hsla(160, 100%, 37%, 1);
+}
+
 a,
 .green {
   text-decoration: none;
@@ -31,7 +40,7 @@ a,
   transition: 0.4s;
 }
 .btnBgSelected {
-  background-color: hsla(160, 100%, 37%, 1);
+  background-color: hsla(160, 100%, 50%, 1);
 }
 
 @media (hover: hover) {
