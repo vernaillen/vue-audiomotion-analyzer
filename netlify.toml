@@ -2,8 +2,9 @@
   NODE_VERSION = "16"
 
 [build]
+  base = "docs/"
   command = "npm run docs:build"
-  publish = "/docs/.vitepress/dist"
+  publish = "/docs/.vuepress/dist"
 
 [[redirects]]
   from = "/*"
