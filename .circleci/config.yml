@@ -14,41 +14,37 @@ executors:
 
 jobs:
   plugin:
-    executor:
-      name: node/default
+    executor: node/default
     steps:
-      - checkout
-      - run:
-          command: npm install
-      - run:
-          command: npm run lint
-      - run:
-          command: npm run build
+      - node/run:
+          npm-run: build
+      - run: npm run lint
       - sonarcloud/scan
   docs:
-    executor:
-      name: node/default
-    working_directory: ~/project/docs
+    executor: node/default
     steps:
-      - checkout
-      - run:
-          command: npm install
-      - run:
-          command: npm run build
+      - node/run:
+          app-dir: docs
+          npm-run: build
   demo:
-    executor:
-      name: node/default
-    working_directory: ~/project/demo
+    executor: node/default
     steps:
-      - checkout
-      - run:
-          command: npm run demo:build
+      - node/run:
+          app-dir: demo
+          npm-run: build
+  demo-ssg:
+    executor: node/default
+    steps:
+      - node/run:
+          app-dir: demo-ssg
+          npm-run: build
 
 workflows:
   version: 2
-  build_and_test:
+  build_all:
     jobs:
       - plugin:
           context: SonarCloud
       - docs
       - demo
+      - demo-ssg
