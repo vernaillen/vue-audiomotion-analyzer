@@ -23,7 +23,7 @@ jobs:
       - sonarcloud/scan
   docs:
     executor: node/default
-    working_directory: docs
+    working_directory: ~/docs
     steps:
       - checkout
       - run: npm install
