@@ -3,7 +3,7 @@
 
 [build]
   base = "docs/"
-  command = "npm run docs:build"
+  command = "npm run build"
   publish = ".vuepress/dist"
 
 [[redirects]]

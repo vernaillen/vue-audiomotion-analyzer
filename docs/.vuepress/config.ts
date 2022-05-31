@@ -4,7 +4,7 @@ const { defaultTheme } = require('vuepress')
 export default defineUserConfig({
   lang: 'en-US',
   title: 'Vue AudioMotion Analyzer',
-  description: 'Documentation',
+  description: "a Vue plugin wrapping Henrique Vianna's audioMotion-analyzer",
 
   theme: defaultTheme({
     navbar: [
@@ -13,7 +13,7 @@ export default defineUserConfig({
       {
         text: 'Demo',
         link: 'https://vue-audiomotion-analyzer-demo.netlify.app/',
-      }
+      },
     ],
     sidebar: {
       '/': getGuideSidebar(),

@@ -11,9 +11,12 @@ actions:
 - text: Demo
   link: https://vue-audiomotion-analyzer-demo.netlify.app/
   type: secondary
+- text: audioMotion analyzer
+  link: https://audiomotion.dev/#/
+  type: secondary
 features:
 - title: Simplicity First
-  details: Minimal setup, easy to add to your vue project
+  details: Minimal setup, easy to add to your Vue project
 - title: Vue-Powered
   details: Enjoy both the dev experience of Vue as the full functionality of the audioMotion Analyzer
 - title: Customizable

@@ -1,15 +1,14 @@
 {
-  "name": "docs",
+  "name": "vue-audiomotion-analyzer-docs",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "documentation for the vue-audiomotion-analyzer plugin",
+  "author": "Wouter Vernaillen",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
+  },
   "devDependencies": {
     "vuepress": "^2.0.0-beta.46"
-  },
-  "scripts": {
-    "docs:dev": "vuepress dev .",
-    "docs:build": "vuepress build ."
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
