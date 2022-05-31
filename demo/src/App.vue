@@ -12,7 +12,7 @@ import DemoAudiomotionAnalyzer from './components/DemoAudiomotionAnalyzer.vue'
           This Vue plugin is just a wrapper around Henrique Vianna's brilliant
           <a href="https://audiomotion.dev" target="_blank">audioMotion-analyzer</a>
           <br />
-          <a href="https://vue-audiomotion-analyzer.netlify.app">docs</a> -
+          <a href="https://vue-audiomotion-analyzer.netlify.app">documentation</a> -
           <a href="https://github.com/vernaillen/vue-audiomotion-analyzer">github</a>
         </p>
       </div>
