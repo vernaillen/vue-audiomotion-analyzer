@@ -29,6 +29,7 @@
         "test:watch": "jest --watchAll",
         "all": "npm run format && npm run lint && npm run build && npm run build:demo && serve -s ./demo/dist",
         "dev": "npm run format && npm run lint && npm run build && npm run dev --prefix demo",
+        "docs:build": "cd docs && npm install && npm run build",
         "demo:build": "cd demo && npm install && npm run build",
         "demo-ssg:build": "cd demo-ssg && npm install && npm run build"
     },

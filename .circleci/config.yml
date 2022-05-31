@@ -23,11 +23,19 @@ jobs:
       - sonarcloud/scan
   docs:
     executor: node/default
-    working_directory: ~/docs
     steps:
       - checkout
-      - run: npm install
-      - run: npm run build
+      - run: npm run docs:build
+  demo:
+    executor: node/default
+    steps:
+      - checkout
+      - run: npm run demo:build
+  demo-ssg:
+    executor: node/default
+    steps:
+      - checkout
+      - run: npm run demo-ssg:build
 
 workflows:
   version: 2
@@ -36,3 +44,5 @@ workflows:
       - plugin:
           context: SonarCloud
       - docs
+      - demo
+      - demo-ssg
