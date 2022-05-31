@@ -16,10 +16,18 @@ jobs:
   plugin:
     executor: node/default
     steps:
-      - node/run:
-          npm-run: build
+      - checkout
+      - run: npm install
       - run: npm run lint
+      - run: npm run build
       - sonarcloud/scan
+  docs:
+    executor: node/default
+    working_directory: docs
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
 
 workflows:
   version: 2
@@ -27,3 +35,4 @@ workflows:
     jobs:
       - plugin:
           context: SonarCloud
+      - docs
