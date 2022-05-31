@@ -20,24 +20,6 @@ jobs:
           npm-run: build
       - run: npm run lint
       - sonarcloud/scan
-  docs:
-    executor: node/default
-    steps:
-      - node/run:
-          app-dir: docs
-          npm-run: build
-  demo:
-    executor: node/default
-    steps:
-      - node/run:
-          app-dir: demo
-          npm-run: build
-  demo-ssg:
-    executor: node/default
-    steps:
-      - node/run:
-          app-dir: demo-ssg
-          npm-run: build
 
 workflows:
   version: 2
@@ -45,6 +27,3 @@ workflows:
     jobs:
       - plugin:
           context: SonarCloud
-      - docs
-      - demo
-      - demo-ssg
