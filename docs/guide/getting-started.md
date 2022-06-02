@@ -33,11 +33,11 @@ pnpm install vue-audiomotion-analyzer
   </CodeGroupItem>
 </CodeGroup>
 
-- **Step. 2:** Initialize the plugin in main.js or main.ts:
+- **Step. 2:** Initialize the plugin in main script:
 
-```ts
-// main.ts
-import { createApp, type DirectiveBinding } from 'vue'
+```js
+// main.js or main.ts
+import { createApp } from 'vue'
 import App from './App.vue'
 import VueAudioMotionAnalyzerPlugin from 'vue-audiomotion-analyzer'
 
@@ -47,6 +47,29 @@ app.mount('#app')
 ```
 
 - **Step. 3:** Add the VueAudioMotionAnalyzer component and pass an audio source as prop:
+
+<CodeGroup>
+  <CodeGroupItem title="JS" active>
+
+```js
+<script setup>
+import { onMounted, ref } from 'vue'
+
+const audio = ref()
+onMounted(() => {
+    audio.value = document.getElementById('audio')
+})
+</script>
+
+<template>
+    <audio id="audio" ref="audioRef" src="https://ice5.somafm.com/deepspaceone-128-mp3" control crossorigin="anonymous"></audio>
+    <VueAudioMotionAnalyzer :source="audio" />
+</template>
+```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="TS">
 
 ```ts
 <script setup lang="ts">
@@ -59,7 +82,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <audio id="audio" ref="audioRef" src="https://23613.live.streamtheworld.com/TOPZEN_SC" control crossorigin="anonymous"></audio>
+    <audio id="audio" ref="audioRef" src="https://ice5.somafm.com/deepspaceone-128-mp3" control crossorigin="anonymous"></audio>
     <VueAudioMotionAnalyzer :source="audio" />
 </template>
 ```
+
+  </CodeGroupItem>
+</CodeGroup>
