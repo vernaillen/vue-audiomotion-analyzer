@@ -12,6 +12,7 @@
     "test": "pnpm recursive run test",
     "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
     "plugin:build": "pnpm --filter ./plugin/ run build",
+    "plugin:publish": "pnpm --filter ./plugin/ run publish",
     "docs:build": "pnpm --filter ./docs/ run build",
     "docs:dev": "pnpm --filter ./docs/ run dev",
     "demo:build": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run build",

@@ -27,7 +27,8 @@
         "test": "jest",
         "test:watch": "jest --watchAll",
         "all": "pnpm run format && pnpm run lint && pnpm run build && pnpm run build:demo && serve -s ./demo/dist",
-        "dev": "pnpm run format && pnpm run lint && pnpm run build && pnpm run dev --prefix demo"
+        "dev": "pnpm run format && pnpm run lint && pnpm run build && pnpm run dev --prefix demo",
+        "publish": "pnpm publish"
     },
     "main": "./dist/index.esm.js",
     "module": "./dist/index.esm.js",
