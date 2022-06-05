@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DemoAnalyzer from '@/components/DemoAnalyzer.vue'
+import DemoAnalyzer from "@/components/DemoAnalyzer.vue";
 </script>
 
 <template>

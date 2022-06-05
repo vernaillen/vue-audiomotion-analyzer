@@ -8,23 +8,24 @@
         :min="props.min"
         :max="props.max"
         :step="props.step"
-        class="w-full h-1 bg-green-200 appearance-none slider-thumb" />
+        class="w-full h-1 bg-green-200 appearance-none slider-thumb"
+      />
     </span>
     <span class="inline-flex w-5">{{ options[props.option] }}</span>
   </span>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useOptionsStore } from '@/stores/options'
+import { ref } from "vue";
+import { useOptionsStore } from "@/stores/options";
 
 const props = defineProps<{
-  option: string
-  min: string
-  max: string
-  step: string
-}>()
+  option: string;
+  min: string;
+  max: string;
+  step: string;
+}>();
 
-const optionsStore = useOptionsStore()
-const options = ref(optionsStore.options)
+const optionsStore = useOptionsStore();
+const options = ref(optionsStore.options);
 </script>

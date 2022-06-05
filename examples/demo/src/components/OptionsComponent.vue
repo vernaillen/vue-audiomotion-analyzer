@@ -14,17 +14,31 @@
         <RangeSelector option="smoothing" min="0" max="0.9" step="0.1" />
         <RangeSelector option="volume" min="0" max="1" step="0.1" />
         <br />
-        <button v-btnClass="options.alphaBars" @click="toggle">alphaBars</button>
+        <button v-btnClass="options.alphaBars" @click="toggle">
+          alphaBars
+        </button>
         <button v-btnClass="options.ledBars" @click="toggle">ledBars</button>
         <button v-btnClass="options.loRes" @click="toggle">loRes</button>
         <button v-btnClass="options.lumiBars" @click="toggle">lumiBars</button>
-        <button v-btnClass="options.outlineBars" @click="toggle">outlineBars</button>
-        <button v-btnClass="options.showBgColor" @click="toggle">showBgColor</button>
+        <button v-btnClass="options.outlineBars" @click="toggle">
+          outlineBars
+        </button>
+        <button v-btnClass="options.showBgColor" @click="toggle">
+          showBgColor
+        </button>
         <button v-btnClass="options.showFPS" @click="toggle">showFPS</button>
-        <button v-btnClass="options.showPeaks" @click="toggle">showPeaks</button>
-        <button v-btnClass="options.showScaleX" @click="toggle">showScaleX</button>
-        <button v-btnClass="options.showScaleY" @click="toggle">showScaleY</button>
-        <button v-btnClass="options.splitGradient" @click="toggle">splitGradient</button>
+        <button v-btnClass="options.showPeaks" @click="toggle">
+          showPeaks
+        </button>
+        <button v-btnClass="options.showScaleX" @click="toggle">
+          showScaleX
+        </button>
+        <button v-btnClass="options.showScaleY" @click="toggle">
+          showScaleY
+        </button>
+        <button v-btnClass="options.splitGradient" @click="toggle">
+          splitGradient
+        </button>
         <button v-btnClass="options.stereo" @click="toggle">stereo</button>
       </div>
     </div>
@@ -46,16 +60,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useOptionsStore } from '@/stores/options'
-import RangeSelector from './RangeSelector.vue'
-import PresetSelector from './PresetSelector.vue'
-import ModeSelector from './ModeSelector.vue'
+import { ref } from "vue";
+import { useOptionsStore } from "@/stores/options";
+import RangeSelector from "./RangeSelector.vue";
+import PresetSelector from "./PresetSelector.vue";
+import ModeSelector from "./ModeSelector.vue";
 
-const optionsStore = useOptionsStore()
-const options = ref(optionsStore.options)
+const optionsStore = useOptionsStore();
+const options = ref(optionsStore.options);
 
 const toggle = (event: Event) => {
-  optionsStore.options[event.target.innerText] = !optionsStore.options[event.target.innerText]
-}
+  optionsStore.options[event.target.innerText] =
+    !optionsStore.options[event.target.innerText];
+};
 </script>

@@ -5,28 +5,29 @@
       :key="index"
       :value="index"
       v-btnClass="index == selectedPreset"
-      @click="setPreset(index)">
+      @click="setPreset(index)"
+    >
       {{ preset.name }}
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { DefaultOptions } from 'vue-audiomotion-analyzer'
-import { useOptionsStore } from '@/stores/options'
+import { ref, watch } from "vue";
+import { DefaultOptions } from "vue-audiomotion-analyzer";
+import { useOptionsStore } from "@/stores/options";
 
 const presets = [
   {
-    name: 'Defaults',
+    name: "Defaults",
     options: DefaultOptions,
   },
   {
-    name: 'Classic LEDs',
+    name: "Classic LEDs",
     options: {
       mode: 3,
       barSpace: 0.4,
-      gradient: 'classic',
+      gradient: "classic",
       ledBars: true,
       lumiBars: false,
       radial: false,
@@ -36,11 +37,11 @@ const presets = [
     },
   },
   {
-    name: 'Mirror wave',
+    name: "Mirror wave",
     options: {
       mode: 10,
       fillAlpha: 0.6,
-      gradient: 'rainbow',
+      gradient: "rainbow",
       lineWidth: 2,
       mirror: -1,
       radial: false,
@@ -51,11 +52,11 @@ const presets = [
     },
   },
   {
-    name: 'Radial overlay',
+    name: "Radial overlay",
     options: {
       mode: 5,
       barSpace: 0.1,
-      gradient: 'prism',
+      gradient: "prism",
       ledBars: false,
       radial: true,
       showBgColor: true,
@@ -65,11 +66,11 @@ const presets = [
     },
   },
   {
-    name: 'Reflex Bars',
+    name: "Reflex Bars",
     options: {
       mode: 5,
       barSpace: 0.25,
-      gradient: 'rainbow',
+      gradient: "rainbow",
       ledBars: false,
       lumiBars: false,
       radial: false,
@@ -83,11 +84,11 @@ const presets = [
     },
   },
   {
-    name: 'Lumi Bars',
+    name: "Lumi Bars",
     options: {
       mode: 1,
       barSpace: 0,
-      gradient: 'classic',
+      gradient: "classic",
       alphaBars: true,
       ledBars: false,
       lumiBars: true,
@@ -105,19 +106,19 @@ const presets = [
       smoothing: 0.9,
     },
   },
-]
+];
 
-const selectedPreset = ref(0)
-const updatedPreset = ref(false)
-const optionsStore = useOptionsStore()
+const selectedPreset = ref(0);
+const updatedPreset = ref(false);
+const optionsStore = useOptionsStore();
 const setPreset = (presetId: number) => {
-  const newOptions = { ...DefaultOptions, ...presets[presetId].options }
-  optionsStore.updateOptions(newOptions)
-  selectedPreset.value = presetId
-  updatedPreset.value = true
-}
+  const newOptions = { ...DefaultOptions, ...presets[presetId].options };
+  optionsStore.updateOptions(newOptions);
+  selectedPreset.value = presetId;
+  updatedPreset.value = true;
+};
 watch(optionsStore.options, () => {
-  if (!updatedPreset.value) selectedPreset.value = -1
-  updatedPreset.value = false
-})
+  if (!updatedPreset.value) selectedPreset.value = -1;
+  updatedPreset.value = false;
+});
 </script>

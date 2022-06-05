@@ -1,5 +1,5 @@
-import { defineConfig } from 'windicss/helpers'
+import { defineConfig } from "windicss/helpers";
 
 export default defineConfig({
-  plugins: [require('windicss/plugin/forms')],
-})
+  plugins: [require("windicss/plugin/forms")],
+});
