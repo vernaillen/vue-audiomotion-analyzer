@@ -1,6 +1,5 @@
 {
-  "name": "vue-audiomotion-analyzer-docs",
-  "version": "1.0.0",
+  "name": "@vama/docs",
   "description": "documentation for the vue-audiomotion-analyzer plugin",
   "author": "Wouter Vernaillen",
   "license": "ISC",

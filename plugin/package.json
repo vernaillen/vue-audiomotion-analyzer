@@ -1,6 +1,5 @@
 {
-    "name": "vue-audiomotion-analyzer",
-    "version": "0.4.4",
+    "name": "@vama/vue-audiomotion-analyzer",
     "description": "Audiomotion Analyzer plugin for Vue3",
     "author": {
         "name": "Wouter Vernaillen",

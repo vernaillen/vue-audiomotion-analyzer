@@ -1,6 +1,6 @@
 {
-  "name": "vue-audiomotion-analyzer-parent",
-  "version": "1.0.0",
+  "name": "vama",
+  "version": "0.5.0",
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -10,6 +10,13 @@
     "dev": "pnpm recursive run dev",
     "lint": "pnpm recursive run lint",
     "test": "pnpm recursive run test",
-    "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules"
+    "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
+    "docs:build": "pnpm --filter ./docs/ run build",
+    "demo:build": "pnpm --filter ./examples/demo/ run build",
+    "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=6"
   }
 }
