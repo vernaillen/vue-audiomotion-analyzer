@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, ref, watch } from 'vue'
 import AudioMotionAnalyzer, { GradientOptions, type Options } from 'audiomotion-analyzer'
-import DefaultOptions from './defaults'
+import DefaultOptions from './DefaultOptions'
 
 const props = defineProps<{
   options?: Options
