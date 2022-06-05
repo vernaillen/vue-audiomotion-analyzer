@@ -1,0 +1,77 @@
+{
+    "name": "vue-audiomotion-analyzer",
+    "version": "0.4.4",
+    "description": "Audiomotion Analyzer plugin for Vue3",
+    "author": {
+        "name": "Wouter Vernaillen",
+        "email": "wouter@vernaillen.com",
+        "url": "https://github.com/vernaillen"
+    },
+    "homepage": "https://github.com/vernaillen/vue-audiomotion-analyzer",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vernaillen/vue-audiomotion-analyzer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/vernaillen/vue-audiomotion-analyzer/issues"
+    },
+    "scripts": {
+        "build": "pnpm run build:clean && pnpm run build:compile && pnpm run build:bundle",
+        "build:clean": "rimraf dist && rimraf dist-transpiled",
+        "build:compile": "vue-tsc --noEmit -p .",
+        "build:bundle": "rollup -c --environment BUILD:production",
+        "lint": "eslint src --ext .ts,vue",
+        "format": "pnpm run prettier:write",
+        "prettier:write": "prettier --write \"./src\"",
+        "prettier:check": "prettier --check \"./src\"",
+        "release": "semantic-release",
+        "test": "jest",
+        "test:watch": "jest --watchAll",
+        "all": "pnpm run format && pnpm run lint && pnpm run build && pnpm run build:demo && serve -s ./demo/dist",
+        "dev": "pnpm run format && pnpm run lint && pnpm run build && pnpm run dev --prefix demo"
+    },
+    "main": "./dist/index.esm.js",
+    "module": "./dist/index.esm.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/"
+    ],
+    "keywords": [
+        "vue",
+        "composition-api",
+        "audiomotion",
+        "audiomotion-analyzer"
+    ],
+    "license": "Apache-2.0",
+    "dependencies": {
+        "audiomotion-analyzer": "^3.6.0",
+        "vue": "^3.2.36"
+    },
+    "devDependencies": {
+        "@rollup/plugin-node-resolve": "^13.3.0",
+        "@rushstack/eslint-patch": "^1.1.3",
+        "@semantic-release/changelog": "^6.0.1",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/github": "^8.0.4",
+        "@semantic-release/npm": "^9.0.1",
+        "@types/jest": "^27.5.2",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "@vue/eslint-config-typescript": "^10.0.0",
+        "eslint": "^8.17.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-vue": "^8.7.1",
+        "jest": "^28.1.0",
+        "prettier": "^2.6.2",
+        "rimraf": "^3.0.2",
+        "rollup": "^2.75.5",
+        "rollup-plugin-typescript2": "^0.32.0",
+        "rollup-plugin-vue": "^6.0.0",
+        "semantic-release": "^19.0.2",
+        "ts-jest": "^28.0.4",
+        "tslib": "^2.4.0",
+        "typescript": "^4.7.3",
+        "vue-eslint-parser": "^9.0.2",
+        "vue-ts": "^1.0.11",
+        "vue-tsc": "^0.35.2"
+    }
+}

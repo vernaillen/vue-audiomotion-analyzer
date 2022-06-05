@@ -1,4 +1,4 @@
-import vuePlugin from 'rollup-plugin-vue'
+import vue from 'rollup-plugin-vue'
 import typescript from 'rollup-plugin-typescript2'
 
 export default {
@@ -12,6 +12,6 @@ export default {
       sourcemap: true,
     },
   ],
-  plugins: [typescript(), vuePlugin({ template: { optimizeSSR: true } })],
+  plugins: [typescript(), vue()],
   external: ['audiomotion-analyzer', 'vue'],
 }
