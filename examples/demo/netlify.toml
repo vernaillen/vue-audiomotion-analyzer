@@ -1,9 +1,10 @@
 [build.environment]
+  NPM_FLAGS = "--version"
   NODE_VERSION = "16"
 
 [build]
   base = "examples/demo/"
-  publish = "examples/demo/dist"
+  publish = "dist"
   command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm build"
 
 [[redirects]]
