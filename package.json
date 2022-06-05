@@ -11,9 +11,10 @@
     "lint": "pnpm recursive run lint",
     "test": "pnpm recursive run test",
     "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
+    "plugin:build": "pnpm --filter ./plugin/ run build",
     "docs:build": "pnpm --filter ./docs/ run build",
-    "demo:build": "pnpm --filter ./examples/demo/ run build",
-    "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build"
+    "demo:build": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run build",
+    "demo-ssg:build": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run build"
   },
   "engines": {
     "node": ">=16",

@@ -5,7 +5,7 @@
 [build]
   base = "examples/demo-ssg/"
   publish = "dist"
-  command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm build"
+  command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && pnpm -w run demo-ssg:build"
 
 [[redirects]]
   from = "/*"
