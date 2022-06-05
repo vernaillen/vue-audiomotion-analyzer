@@ -1,5 +1,6 @@
 {
-    "name": "@vama/vue-audiomotion-analyzer",
+    "name": "vue-audiomotion-analyzer",
+    "version": "0.5.0",
     "description": "Audiomotion Analyzer plugin for Vue3",
     "author": {
         "name": "Wouter Vernaillen",
@@ -28,7 +29,7 @@
         "test:watch": "jest --watchAll",
         "all": "pnpm run format && pnpm run lint && pnpm run build && pnpm run build:demo && serve -s ./demo/dist",
         "dev": "pnpm run format && pnpm run lint && pnpm run build && pnpm run dev --prefix demo",
-        "publish": "pnpm publish"
+        "publish": "npm publish"
     },
     "main": "./dist/index.esm.js",
     "module": "./dist/index.esm.js",
