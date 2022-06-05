@@ -2,9 +2,9 @@
   NODE_VERSION = "16"
 
 [build]
-  base = "demo-ssg/"
-  command = "npm run build"
-  publish = "/dist"
+  base = "examples/demo-ssg/"
+  publish = "examples/demo-ssg/dist"
+  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm build"
 
 [[redirects]]
   from = "/*"

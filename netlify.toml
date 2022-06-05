@@ -3,8 +3,8 @@
 
 [build]
   base = "docs/"
-  command = "npm run build"
-  publish = ".vuepress/dist"
+  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm build"
+  publish = "docs/.vuepress/dist"
 
 [[redirects]]
   from = "/*"
