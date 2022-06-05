@@ -13,8 +13,11 @@
     "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
     "plugin:build": "pnpm --filter ./plugin/ run build",
     "docs:build": "pnpm --filter ./docs/ run build",
+    "docs:dev": "pnpm --filter ./docs/ run dev",
     "demo:build": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run build",
-    "demo-ssg:build": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run build"
+    "demo:dev": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run dev",
+    "demo-ssg:build": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run build",
+    "demo-ssg:dev": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run dev"
   },
   "engines": {
     "node": ">=16",

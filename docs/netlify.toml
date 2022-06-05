@@ -7,11 +7,6 @@
   command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm -w run docs:build"
   publish = ".vuepress/dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 # Opting your Website out of Google's FLoC Network
 [[headers]]
   for = "/*"
