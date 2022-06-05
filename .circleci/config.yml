@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - run: pnpm config set auto-install-peers true
-      - run: pnpm install
+      - run: pnpm install --shamefully-hoist=true
       - run: pnpm run build
       - run: pnpm run test
       - sonarcloud/scan
