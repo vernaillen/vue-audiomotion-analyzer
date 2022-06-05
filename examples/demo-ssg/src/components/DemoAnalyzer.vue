@@ -8,13 +8,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <audio
-    id="audio"
-    ref="audioRef"
-    src="https://23613.live.streamtheworld.com/TOPZEN_SC"
-    controls
+  <audio id="audio" ref="audioRef" src="https://23613.live.streamtheworld.com/TOPZEN_SC" controls
     crossorigin="anonymous"></audio>
-  <div>Live stream: <a href="https://www.topradio.be/playlist/topzen" target="_blank">Zen FM</a></div>
+  <div>Live stream: <a href="https://www.topradio.be/playlist/topzen" rel="noopener" target="_blank">Zen FM</a></div>
   <VueAudioMotionAnalyzer :source="audio" />
 </template>
 
