@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "vue": "^3.2.33",
-    "vue-audiomotion-analyzer": "^0.4.4",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue-audiomotion-analyzer": "workspace:../plugin"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
