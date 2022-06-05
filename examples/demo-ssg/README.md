@@ -1,4 +1,4 @@
-# Vue AduiMotion Analyzer SSG Demo
+# Vue AdioMotion Analyzer SSG Demo
 
 ## Dev
 
@@ -76,11 +76,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/AboutView.vue')
   }
 ]
 export default routes
