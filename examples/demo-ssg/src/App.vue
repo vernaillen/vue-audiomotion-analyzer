@@ -13,16 +13,24 @@ import { RouterView } from "vue-router";
     />
 
     <div class="wrapper">
-      <h1 class="green">Vue AudioMotion Analyzer Demo</h1>
+      <h1 class="green">Vue AudioMotion Analyzer Demo SSG</h1>
       <p>
         This Vue plugin is just a wrapper around Henrique Vianna's brilliant
-        <a href="https://audiomotion.dev" target="_blank"
+        <a href="https://audiomotion.dev" target="_blank" rel="noopener"
           >audioMotion-analyzer</a
         >
         <br /><br />
-        <a href="https://vue-audiomotion-analyzer.dev">documentation</a>
+        <a
+          href="https://vue-audiomotion-analyzer.dev"
+          rel="noopener"
+          target="_blank"
+          >documentation</a
+        >
         -
-        <a href="https://github.com/vernaillen/vue-audiomotion-analyzer"
+        <a
+          href="https://github.com/vernaillen/vue-audiomotion-analyzer"
+          rel="noopener"
+          target="_blank"
           >github</a
         >
       </p>
