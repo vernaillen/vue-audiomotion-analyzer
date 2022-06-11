@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
   sonarcloud: sonarsource/sonarcloud@1.1.0
+  slack: circleci/slack@4.10.1
 
 jobs:
   build_test_all:
@@ -15,10 +16,15 @@ jobs:
       - run: pnpm run build
       - run: pnpm run test
       - sonarcloud/scan
+      - slack/notify:
+          channel: circleci-netlify
+          event: always
 
 workflows:
   version: 2
   build_test_all:
     jobs:
       - build_test_all:
-          context: SonarCloud
+          context: 
+            - SonarCloud
+            - Slack

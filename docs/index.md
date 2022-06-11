@@ -25,7 +25,7 @@ features:
 
 ## Introduction
 
-This Vue plugin is just a wrapper around Henrique Vianna's brilliant [audioMotion-analyzer](https://audiomotion.dev)
+This Vue plugin is just a wrapper around Henrique Vianna's [audioMotion-analyzer](https://audiomotion.dev)
 
 ### Work in progress
 

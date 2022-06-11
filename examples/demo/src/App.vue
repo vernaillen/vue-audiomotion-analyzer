@@ -15,7 +15,7 @@ import DemoAudiomotionAnalyzer from "./components/DemoAudiomotionAnalyzer.vue";
       <div class="wrapper">
         <h1 class="green">Vue AudioMotion Analyzer Demo</h1>
         <p>
-          This Vue plugin is just a wrapper around Henrique Vianna's brilliant
+          This Vue plugin is just a wrapper around Henrique Vianna's
           <a href="https://audiomotion.dev" rel="noopener" target="_blank"
             >audioMotion-analyzer</a
           >
