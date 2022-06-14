@@ -11,9 +11,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <audio id="audio" ref="audioRef" src="https://23613.live.streamtheworld.com/TOPZEN_SC" controls
+  <audio id="audio" ref="audioRef" src="http://ice5.somafm.com/groovesalad-256-mp3" controls
     crossorigin="anonymous"></audio>
-  <div>Live stream: <a href="https://www.topradio.be/playlist/topzen" rel="noopener" target="_blank">Zen FM</a></div>
+  <div>Live stream: <a href="https://somafm.com/groovesalad/" rel="noopener" target="_blank">Soma FM Groove Salad</a></div>
   <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" />
   <OptionsComponent />
 </template>
