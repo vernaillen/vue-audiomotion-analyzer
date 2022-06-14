@@ -4,8 +4,11 @@
     Play
   </button>
   <button @click="stop" v-if="isLoaded && isPlaying" :class="buttonStyle">
-    Stop
-  </button>
+    Stop</button
+  ><br />
+  music by
+  <a href="https://www.youtube.com/watch?v=whKBW_hu4nE">Wouter Vernaillen</a
+  ><br />
   <VueAudioMotionAnalyzer
     :options="optionsStore.options"
     :source="tonePlayer"
