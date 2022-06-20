@@ -15,6 +15,7 @@
     "plugin:publish": "pnpm --filter ./plugin/ run publish",
     "docs:build": "pnpm --filter ./docs/ run build",
     "docs:dev": "pnpm --filter ./docs/ run dev",
+    "newdocs:dev": "pnpm --filter ./newdocs/ run dev",
     "demo:build": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run build",
     "demo:dev": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run dev",
     "demo-ssg:build": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run build",

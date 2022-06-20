@@ -1,0 +1,14 @@
+[build.environment]
+  NPM_FLAGS = "--version"
+  NODE_VERSION = "16"
+
+[build]
+  base = "newdocs/"
+  command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm -w run newdocs:build"
+  publish = ".vitepress/dist"
+
+# Opting your Website out of Google's FLoC Network
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Permissions-Policy = "interest-cohort=()"
