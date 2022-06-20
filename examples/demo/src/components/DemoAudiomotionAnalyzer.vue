@@ -7,18 +7,27 @@ import { DefaultOptions } from "vue-audiomotion-analyzer";
 const optionsStore = useOptionsStore();
 const audio = ref<HTMLMediaElement>();
 onMounted(() => {
-  audio.value = <HTMLMediaElement>document.getElementById('audio');
-  audio.value.onplaying = (event) => {
-    console.log("started playing")
-    optionsStore.updateOptions({...DefaultOptions});
+  audio.value = document.getElementById("audio");
+  audio.value.onplaying = () => {
+    console.log("started playing");
+    optionsStore.updateOptions({ ...DefaultOptions });
   };
 });
 </script>
 
 <template>
-  <audio id="audio" ref="audioRef" src="http://ice5.somafm.com/groovesalad-256-mp3" controls
-    crossorigin="anonymous"></audio>
-  <div>Live stream: <a href="https://somafm.com/groovesalad/" rel="noopener" target="_blank">Soma FM Groove Salad</a>
+  <audio
+    id="audio"
+    ref="audioRef"
+    src="http://ice5.somafm.com/groovesalad-256-mp3"
+    controls
+    crossorigin="anonymous"
+  ></audio>
+  <div>
+    Live stream:
+    <a href="https://somafm.com/groovesalad/" rel="noopener" target="_blank"
+      >Soma FM Groove Salad</a
+    >
   </div>
   <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" />
   <OptionsComponent />
