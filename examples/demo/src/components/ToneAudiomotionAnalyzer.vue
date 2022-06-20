@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import * as Tone from "tone";
-import OptionsComponent from "./OptionsComponent.vue";
+import OptionsComponent from "@/components/OptionsComponent.vue";
 import { useOptionsStore } from "@/stores/options";
 
 const optionsStore = useOptionsStore();

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import OptionsComponent from "./OptionsComponent.vue";
+import OptionsComponent from "@/components/OptionsComponent.vue";
 import { useOptionsStore } from "@/stores/options";
 import { DefaultOptions } from "vue-audiomotion-analyzer";
 

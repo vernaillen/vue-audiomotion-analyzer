@@ -62,9 +62,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useOptionsStore } from "@/stores/options";
-import RangeSelector from "./RangeSelector.vue";
-import PresetSelector from "./PresetSelector.vue";
-import ModeSelector from "./ModeSelector.vue";
+import RangeSelector from "@/components/RangeSelector.vue";
+import PresetSelector from "@/components/PresetSelector.vue";
+import ModeSelector from "@/components/ModeSelector.vue";
 
 const optionsStore = useOptionsStore();
 const options = ref(optionsStore.options);
