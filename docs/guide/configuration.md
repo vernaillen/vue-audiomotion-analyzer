@@ -1,6 +1,6 @@
 # Configuration
 
-All the available [options of the audioMotion Analyzer](https://audiomotion.dev/#/?id=options-object) can be passed as an object using the options prop of the Vue plugin:
+All the available [options of the audioMotion-analyzer](https://audiomotion.dev/#/?id=options-object) can be passed as an object using the options prop of the Vue plugin:
 
 ```js
 <script setup>

@@ -42,7 +42,7 @@ const initAnalyzer = () => {
       audioMotionAnalyzer.setOptions({ gradient: 'custom-gradient' })
     }
   } catch (e) {
-    console.error('error mounting VueAudiomotionAnalyzer: ', e)
+    console.error('error mounting VueAudioMotionAnalyzer: ', e)
   }
 }
 

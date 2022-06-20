@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ToneAudiomotionAnalyzer from "./components/ToneAudiomotionAnalyzer.vue";
+import ToneAudioMotionAnalyzer from "./components/ToneAudioMotionAnalyzer.vue";
 </script>
 
 <template>
@@ -39,6 +39,6 @@ import ToneAudiomotionAnalyzer from "./components/ToneAudiomotionAnalyzer.vue";
   </header>
 
   <main>
-    <ToneAudiomotionAnalyzer />
+    <ToneAudioMotionAnalyzer />
   </main>
 </template>
