@@ -9,7 +9,7 @@ body #app article {
 }
 
 :root {
-  --vp-home-hero-image-background-image: url('images/demo.gif')
+  --vp-home-hero-image-background-image: url('/demo.gif')
 }
 .VPHero .image-container .image-bg {
     border-radius: 1%;
