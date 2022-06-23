@@ -8,16 +8,6 @@ body #app article {
     transition: background-color 0.4s;
 }
 
-:root {
-  --vp-home-hero-image-background-image: url('/demo.gif')
-}
-.VPHero .image-container .image-bg {
-    border-radius: 1%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-}
 .VPHero h1.name {
     font-size: 40px;
 }
