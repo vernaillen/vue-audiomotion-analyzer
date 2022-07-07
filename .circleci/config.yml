@@ -17,7 +17,7 @@ jobs:
       - run: pnpm run test
       - sonarcloud/scan
       - slack/notify:
-          channel: circleci-netlify
+          channel: circleci
           event: always
 
 workflows:
