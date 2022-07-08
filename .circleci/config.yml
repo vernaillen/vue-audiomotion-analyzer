@@ -2,13 +2,13 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.2
-  sonarcloud: sonarsource/sonarcloud@1.1.0
+  sonarcloud: sonarsource/sonarcloud@1.1.1
   slack: circleci/slack@4.10.1
 
 jobs:
   build_test_all:
     docker:
-      - image: vernaillen/circleci-pnpm:18.2.0
+      - image: vernaillen/circleci-pnpm:18.4.0
     steps:
       - checkout
       - run: pnpm config set auto-install-peers true
