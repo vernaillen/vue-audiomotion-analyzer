@@ -5,32 +5,35 @@ This section will help you add the Vue AudioMotion Analyzer plugin to your Vue p
 - **Step. 1:** Install uing your preferred package manager;
 
 <CodeGroup>
-  <CodeGroupItem title="yarn" active>
-
-```bash
+  <template #tab1-title>yarn</template>
+  <template #tab1-content>
+  
+```bash [yarn]
 # install in your project
-yarn add  vue-audiomotion-analyzer
+yarn add vue-audiomotion-analyzer
 ```
+  
+  </template>
 
-  </CodeGroupItem>
+  <template #tab2-title>npm</template>
+  <template #tab2-content>
 
-  <CodeGroupItem title="npm">
-
-```bash
+```bash [npm]
 # install in your project
 npm install vue-audiomotion-analyzer
 ```
 
-  </CodeGroupItem>
+  </template>
 
-  <CodeGroupItem title="pnpm">
+  <template #tab3-title>pnpm</template>
+  <template #tab3-content>
 
-```bash
+```bash [pnpm]
 # install in your project
 pnpm install vue-audiomotion-analyzer
 ```
 
-  </CodeGroupItem>
+  </template>
 </CodeGroup>
 
 - **Step. 2:** Initialize the plugin in main script:
@@ -49,7 +52,8 @@ app.mount('#app')
 - **Step. 3:** Add the VueAudioMotionAnalyzer component and pass an audio source as prop:
 
 <CodeGroup>
-  <CodeGroupItem title="JS" active>
+  <template #tab1-title>js</template>
+  <template #tab1-content>
 
 ```js
 <script setup>
@@ -67,9 +71,9 @@ onMounted(() => {
 </template>
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="TS">
+  </template>
+  <template #tab2-title>ts</template>
+  <template #tab2-content>
 
 ```ts
 <script setup lang="ts">
@@ -87,5 +91,5 @@ onMounted(() => {
 </template>
 ```
 
-  </CodeGroupItem>
+  </template>
 </CodeGroup>

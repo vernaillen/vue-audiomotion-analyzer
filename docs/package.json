@@ -1,13 +1,19 @@
 {
-  "name": "@vama/docs",
-  "description": "documentation for the vue-audiomotion-analyzer plugin",
-  "author": "Wouter Vernaillen",
-  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "vuepress build ."
+    "dev": "vitepress",
+    "build": "vitepress build",
+    "serve": "vitepress serve",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "dependencies": {
+    "vitepress": "1.0.0-alpha.4",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
-    "vuepress": "2.0.0-beta.45"
+    "@types/markdown-it": "^12.2.3",
+    "@types/node": "^18.0.3"
   }
 }

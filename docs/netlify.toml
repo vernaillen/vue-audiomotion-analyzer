@@ -3,9 +3,9 @@
   NODE_VERSION = "16"
 
 [build]
-  base = "docs/"
-  command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm -w run docs:build"
-  publish = ".vuepress/dist"
+  base = "newdocs/"
+  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm -w run newdocs:build"
+  publish = ".vitepress/dist"
 
 # Opting your Website out of Google's FLoC Network
 [[headers]]

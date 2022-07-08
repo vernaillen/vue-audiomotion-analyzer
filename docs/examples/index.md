@@ -1,4 +1,3 @@
-
 # Examples
 
 The code of 2 sample applications can be found in the [project's GitHub repository](https://github.com/vernaillen/vue-audiomotion-analyzer)
