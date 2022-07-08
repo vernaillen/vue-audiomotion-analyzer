@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "vitepress": "1.0.0-alpha.4",
-    "vue": "^3.2.37"
+    "vue": "3.2.37"
   },
   "devDependencies": {
-    "@types/markdown-it": "^12.2.3",
-    "@types/node": "^18.0.0"
+    "@types/markdown-it": "12.2.3",
+    "@types/node": "18.0.3"
   }
 }
