@@ -3,8 +3,8 @@
   NODE_VERSION = "16"
 
 [build]
-  base = "newdocs/"
-  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm -w run newdocs:build"
+  base = "docs/"
+  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm -w run docs:build"
   publish = ".vitepress/dist"
 
 # Opting your Website out of Google's FLoC Network

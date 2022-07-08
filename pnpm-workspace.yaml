@@ -2,4 +2,3 @@ packages:
  - 'plugin'
  - 'examples/**'
  - 'docs'
- - 'newdocs'
