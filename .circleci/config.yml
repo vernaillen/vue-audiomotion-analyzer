@@ -8,7 +8,7 @@ orbs:
 jobs:
   build_test_all:
     docker:
-      - image: vernaillen/circleci-pnpm:18.2.0
+      - image: vernaillen/circleci-pnpm:18.4.0
     steps:
       - checkout
       - run: pnpm config set auto-install-peers true
