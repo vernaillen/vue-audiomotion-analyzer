@@ -37,11 +37,7 @@ function nav() {
     {
         text: 'Demo',
         link: 'https://vue-audiomotion-analyzer-demo.netlify.app/',
-    },
-    {
-        text: 'Demo SSG',
-        link: 'https://vue-audiomotion-analyzer-demo-ssg.netlify.app/',
-    },
+    }
   ]
 }
 
