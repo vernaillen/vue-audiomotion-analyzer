@@ -17,6 +17,9 @@ onMounted(() => {
     crossorigin="anonymous"
   ></audio>
   <div>
+    <button @click="audio?.play()">Play</button>
+    <button @click="audio?.pause()">Pause</button>
+    <br />
     Live stream:
     <a href="https://somafm.com/groovesalad/" rel="noopener" target="_blank"
       >Soma FM Groove Salad</a
