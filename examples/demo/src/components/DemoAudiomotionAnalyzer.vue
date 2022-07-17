@@ -7,7 +7,7 @@ import { DefaultOptions } from "vue-audiomotion-analyzer";
 const optionsStore = useOptionsStore();
 const audio = ref<HTMLMediaElement>();
 onMounted(() => {
-  audio.value = document.getElementById("audio");
+  audio.value = document.getElementById("audio") as HTMLMediaElement;
   audio.value.onplaying = () => {
     console.log("started playing");
     optionsStore.updateOptions({ ...DefaultOptions });

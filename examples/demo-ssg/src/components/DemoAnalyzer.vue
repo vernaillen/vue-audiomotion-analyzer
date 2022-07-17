@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { DefaultOptions } from "vue-audiomotion-analyzer";
 
-const audio = ref<HTMLElement | null>();
+const audio = ref<HTMLMediaElement>();
 onMounted(() => {
-  const audioElement = document.getElementById("audio");
-  if (typeof audioElement == HTMLMediaElement.name) {
-    audio.value = audioElement;
-  }
+  audio.value = document.getElementById("audio") as HTMLMediaElement;
 });
 </script>
 
@@ -14,20 +12,17 @@ onMounted(() => {
   <audio
     id="audio"
     ref="audioRef"
-    src="https://23613.live.streamtheworld.com/TOPZEN_SC"
+    src="http://ice5.somafm.com/groovesalad-256-mp3"
     controls
     crossorigin="anonymous"
   ></audio>
   <div>
     Live stream:
-    <a
-      href="https://www.topradio.be/playlist/topzen"
-      rel="noopener"
-      target="_blank"
-      >Zen FM</a
+    <a href="https://somafm.com/groovesalad/" rel="noopener" target="_blank"
+      >Soma FM Groove Salad</a
     >
   </div>
-  <VueAudioMotionAnalyzer :source="audio" />
+  <VueAudioMotionAnalyzer :options="DefaultOptions" :source="audio" />
 </template>
 
 <style scoped>
