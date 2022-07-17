@@ -8,5 +8,4 @@ const VueAudioMotionAnalyzerPlugin: Plugin = {
     app.component('VueAudioMotionAnalyzer', VueAudioMotionAnalyzer)
   },
 }
-export default VueAudioMotionAnalyzerPlugin
-export { VueAudioMotionAnalyzer, Options, GradientOptions, DefaultOptions }
+export { VueAudioMotionAnalyzerPlugin, VueAudioMotionAnalyzer, Options, GradientOptions, DefaultOptions }

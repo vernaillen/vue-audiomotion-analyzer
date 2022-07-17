@@ -1,6 +1,6 @@
 {
     "name": "vue-audiomotion-analyzer",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Audiomotion Analyzer plugin for Vue3",
     "author": {
         "name": "Wouter Vernaillen",
@@ -15,6 +15,33 @@
     "bugs": {
         "url": "https://github.com/vernaillen/vue-audiomotion-analyzer/issues"
     },
+    "type": "commonjs",
+    "main": "index.js",
+    "unpkg": "dist/vue-audiomotion-analyzer.global.js",
+    "jsdelivr": "dist/vue-audiomotion-analyzer.global.js",
+    "module": "dist/vue-audiomotion-analyzer.mjs",
+    "types": "dist/vue-audiomotion-analyzer.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/vue-audiomotion-analyzer.d.ts",
+            "node": {
+                "import": {
+                    "production": "./dist/vue-audiomotion-analyzer.prod.cjs",
+                    "development": "./dist/vue-audiomotion-analyzer.node.mjs",
+                    "default": "./dist/vue-audiomotion-analyzer.node.mjs"
+                },
+                "require": {
+                    "production": "./dist/vue-audiomotion-analyzer.prod.cjs",
+                    "development": "./dist/vue-audiomotion-analyzer.cjs",
+                    "default": "./index.js"
+                }
+            },
+            "import": "./dist/vue-audiomotion-analyzer.mjs",
+            "require": "./index.js"
+        },
+        "./dist/*": "./dist/*",
+        "./package.json": "./package.json"
+    },
     "scripts": {
         "build": "pnpm run build:clean && pnpm run build:compile && pnpm run build:bundle",
         "build:clean": "rimraf dist && rimraf dist-transpiled",
@@ -24,6 +51,7 @@
         "format": "pnpm run prettier:write",
         "prettier:write": "prettier --write \"./src\"",
         "prettier:check": "prettier --check \"./src\"",
+        "typecheck": "vue-tsc --noEmit -p tsconfig.json --composite false",
         "release": "semantic-release",
         "test": "jest",
         "test:watch": "jest --watchAll",
@@ -31,11 +59,11 @@
         "dev": "pnpm run format && pnpm run lint && pnpm run build && pnpm run dev --prefix demo",
         "publish": "npm publish"
     },
-    "main": "./dist/index.esm.js",
-    "module": "./dist/index.esm.js",
-    "types": "./dist/index.d.ts",
     "files": [
-        "dist/"
+        "index.js",
+        "dist/*.{js,cjs,mjs}",
+        "dist/vue-audiomotion-analyzer.d.ts",
+        "README.md"
     ],
     "keywords": [
         "vue",
@@ -43,36 +71,42 @@
         "audiomotion",
         "audiomotion-analyzer"
     ],
-    "license": "Apache-2.0",
-    "dependencies": {
-        "audiomotion-analyzer": "^3.6.0",
+    "license": "MIT",
+    "peerDependencies": {
         "vue": "^3.2.37"
     },
+    "dependencies": {
+        "audiomotion-analyzer": "^3.6.0"
+    },
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^22.0.1",
         "@rollup/plugin-node-resolve": "^13.3.0",
+        "@rollup/plugin-replace": "^4.0.0",
         "@rushstack/eslint-patch": "^1.1.4",
         "@semantic-release/changelog": "^6.0.1",
         "@semantic-release/git": "^10.0.1",
         "@semantic-release/github": "^8.0.5",
         "@semantic-release/npm": "^9.0.1",
-        "@types/jest": "^28.1.4",
+        "@types/jest": "^28.1.6",
+        "@types/node": "^18.0.5",
         "@vue/eslint-config-prettier": "^7.0.0",
         "@vue/eslint-config-typescript": "^11.0.0",
-        "eslint": "^8.19.0",
+        "eslint": "^8.20.0",
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-vue": "^9.2.0",
-        "jest": "^28.1.2",
+        "jest": "^28.1.3",
         "prettier": "^2.7.1",
         "rimraf": "^3.0.2",
-        "rollup": "^2.75.7",
+        "rollup": "^2.77.0",
+        "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.32.1",
         "rollup-plugin-vue": "^6.0.0",
         "semantic-release": "^19.0.3",
-        "ts-jest": "^28.0.5",
+        "ts-jest": "^28.0.7",
         "tslib": "^2.4.0",
         "typescript": "^4.7.4",
         "vue-eslint-parser": "^9.0.3",
         "vue-ts": "^1.0.11",
-        "vue-tsc": "^0.38.3"
+        "vue-tsc": "^0.38.7"
     }
 }

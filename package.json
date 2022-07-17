@@ -1,10 +1,10 @@
 {
   "name": "vama",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "",
   "keywords": [],
   "license": "ISC",
-  "author": "",
+  "author": "Wouter Vernaillen",
   "scripts": {
     "build": "pnpm recursive run build",
     "dev": "pnpm recursive run dev",
@@ -19,6 +19,7 @@
     "demo:dev": "pnpm run plugin:build && pnpm --filter ./examples/demo/ run dev",
     "demo-ssg:build": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run build",
     "demo-ssg:dev": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run dev",
+    "demo-ssg:serve": "pnpm run plugin:build && pnpm --filter ./examples/demo-ssg/ run serve",
     "full-test-build": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build"
   },
   "engines": {
