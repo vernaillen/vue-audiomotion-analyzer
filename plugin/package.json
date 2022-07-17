@@ -43,7 +43,7 @@
         "./package.json": "./package.json"
     },
     "scripts": {
-        "build": "pnpm run build:clean && pnpm run build:compile && pnpm run build:bundle && pnpm run build:dts",
+        "build": "pnpm run build:clean && pnpm run build:bundle && pnpm run build:dts",
         "build:clean": "rimraf dist && rimraf dist-transpiled",
         "build:dts": "api-extractor run --local --verbose",
         "build:compile": "vue-tsc --noEmit -p .",
