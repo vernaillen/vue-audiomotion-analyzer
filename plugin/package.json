@@ -1,6 +1,6 @@
 {
     "name": "vue-audiomotion-analyzer",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "Audiomotion Analyzer plugin for Vue3",
     "author": {
         "name": "Wouter Vernaillen",
@@ -43,8 +43,9 @@
         "./package.json": "./package.json"
     },
     "scripts": {
-        "build": "pnpm run build:clean && pnpm run build:compile && pnpm run build:bundle",
+        "build": "pnpm run build:clean && pnpm run build:compile && pnpm run build:bundle && pnpm run build:dts",
         "build:clean": "rimraf dist && rimraf dist-transpiled",
+        "build:dts": "api-extractor run --local --verbose",
         "build:compile": "vue-tsc --noEmit -p .",
         "build:bundle": "rollup -c --environment BUILD:production",
         "lint": "eslint src --ext .ts,vue",
@@ -79,6 +80,7 @@
         "audiomotion-analyzer": "^3.6.0"
     },
     "devDependencies": {
+        "@microsoft/api-extractor": "^7.28.4",
         "@rollup/plugin-commonjs": "^22.0.1",
         "@rollup/plugin-node-resolve": "^13.3.0",
         "@rollup/plugin-replace": "^4.0.0",
