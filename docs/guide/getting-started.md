@@ -42,7 +42,7 @@ pnpm install vue-audiomotion-analyzer
 // main.js or main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import VueAudioMotionAnalyzerPlugin from 'vue-audiomotion-analyzer'
+import { VueAudioMotionAnalyzerPlugin } from 'vue-audiomotion-analyzer'
 
 const app = createApp(App)
 app.use(VueAudioMotionAnalyzerPlugin)

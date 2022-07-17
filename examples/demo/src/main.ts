@@ -1,7 +1,7 @@
 import { createApp, type DirectiveBinding } from "vue";
 import App from "./App.vue";
 import { createPinia } from "pinia";
-import VueAudioMotionAnalyzerPlugin from "vue-audiomotion-analyzer";
+import { VueAudioMotionAnalyzerPlugin } from "vue-audiomotion-analyzer";
 import "virtual:windi.css";
 import "./main.css";
 

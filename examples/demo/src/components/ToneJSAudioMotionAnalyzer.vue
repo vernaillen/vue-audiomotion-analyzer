@@ -37,7 +37,7 @@ const stop = () => {
   Tone.Transport.stop();
   isPlaying.value = false;
 };
-let isLoaded = ref(false);
+const isLoaded = ref(false);
 async function checkIsBufferLoaded() {
   await Tone.ToneAudioBuffer.loaded();
   isLoaded.value = true;
