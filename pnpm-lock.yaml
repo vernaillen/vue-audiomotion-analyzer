@@ -138,11 +138,13 @@ importers:
       ts-jest: ^28.0.7
       tslib: ^2.4.0
       typescript: ^4.7.4
+      vue: ^3.2.37
       vue-eslint-parser: ^9.0.3
       vue-ts: ^1.0.11
       vue-tsc: ^0.38.7
     dependencies:
       audiomotion-analyzer: 3.6.0
+      vue: 3.2.37
     devDependencies:
       '@microsoft/api-extractor': 7.28.4
       '@rollup/plugin-commonjs': 22.0.1_rollup@2.77.0
