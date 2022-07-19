@@ -5,40 +5,58 @@ orbs:
   sonarcloud: sonarsource/sonarcloud@1.1.1
   slack: circleci/slack@4.10.1
 
-jobs:
-  prepare:
+executors:
+  pnpm-executor:
     docker:
       - image: vernaillen/circleci-pnpm:18.4.0
+    working_directory: /tmp/workspace
+
+jobs:
+  prepare:
+    executor: pnpm-executor
     steps:
+      - run: mkdir -p workspace
+
       - checkout
       - run: pnpm config set auto-install-peers true
       - run: pnpm install --shamefully-hoist=true
       - run: pnpm run build
       - run: pnpm run test
       - sonarcloud/scan
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - package.json
+            - pnpm-lock.yaml
+            - pnpm-workspace.yaml
+            - examples
+            - docs
   plugin:
-    docker:
-      - image: vernaillen/circleci-pnpm:18.4.0
+    executor: pnpm-executor
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run: pnpm run plugin:build
   demo:
-    docker:
-      - image: vernaillen/circleci-pnpm:18.4.0
+    executor: pnpm-executor
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run: pnpm run demo:build
   demo-ssg:
-    docker:
-      - image: vernaillen/circleci-pnpm:18.4.0
+    executor: pnpm-executor
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run: pnpm run demo:build
   docs:
-    docker:
-      - image: vernaillen/circleci-pnpm:18.4.0
+    executor: pnpm-executor
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run: pnpm run docs:build
   deploy:
-    docker:
-      - image: vernaillen/circleci-pnpm:18.4.0
+    executor: pnpm-executor
     steps:
       - slack/notify:
           channel: circleci
