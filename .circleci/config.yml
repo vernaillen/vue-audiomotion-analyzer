@@ -18,19 +18,11 @@ jobs:
       - checkout
       - run: pnpm config set auto-install-peers true
       - run: pnpm install --shamefully-hoist=true
-      - run: pnpm run build
+  test-all:
+    executor: pnpm-executor
+    steps:
       - run: pnpm run test
       - sonarcloud/scan
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - package.json
-            - pnpm-lock.yaml
-            - pnpm-workspace.yaml
-            - node_modules
-            - plugin
-            - examples
-            - docs
   plugin:
     executor: pnpm-executor
     steps:
@@ -43,18 +35,18 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run: pnpm run demo:build
-  demo-ssg:
-    executor: pnpm-executor
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: pnpm run demo:build
   docs:
     executor: pnpm-executor
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - run: pnpm run docs:build
+  demo-ssg:
+    executor: pnpm-executor
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: pnpm run demo:build
   deploy:
     executor: pnpm-executor
     steps:
@@ -66,28 +58,26 @@ workflows:
   version: 2
   build_test_all:
     jobs:
-      - prepare:
+      - prepare
+      - test-all:
+          requires:
+            - prepare
           context: 
             - SonarCloud
       - plugin:
           requires:
             - prepare
-      - demo:
-          requires:
-            - prepare
-            - plugin
-      - demo-ssg:
-          requires:
-            - prepare
-            - plugin
       - docs:
           requires:
             - prepare
+      - demo:
+          requires:
+            - plugin
+      - demo-ssg:
+          requires:
             - plugin
       - deploy:
           requires:
-            - prepare
-            - plugin
             - demo
             - demo-ssg
             - docs
