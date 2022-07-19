@@ -12,12 +12,14 @@ executors:
     working_directory: /tmp/workspace
 
 jobs:
-  prepare:
+  prepare-and-test:
     executor: pnpm-executor
     steps:
       - checkout
       - run: pnpm config set auto-install-peers true
       - run: pnpm install --shamefully-hoist=true
+      - run: pnpm run test
+      - sonarcloud/scan
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
@@ -32,17 +34,7 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  test-all:
-    executor: pnpm-executor
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: pnpm run test
-      - sonarcloud/scan
-      - slack/notify:
-          channel: circleci
-          event: fail
-  plugin:
+  build-plugin:
     executor: pnpm-executor
     steps:
       - attach_workspace:
@@ -55,7 +47,7 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  demo:
+  build-demo:
     executor: pnpm-executor
     steps:
       - attach_workspace:
@@ -64,7 +56,7 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  docs:
+  build-docs:
     executor: pnpm-executor
     steps:
       - attach_workspace:
@@ -73,7 +65,7 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  demo-ssg:
+  build-demo-ssg:
     executor: pnpm-executor
     steps:
       - attach_workspace:
@@ -93,37 +85,34 @@ workflows:
   version: 2
   build_test_all:
     jobs:
-      - prepare
-      - test-all:
-          requires:
-            - prepare
+      - prepare-and-test:
           context: 
             - SonarCloud
             - Slack
-      - plugin:
+      - build-plugin:
           requires:
-            - test-all
+            - prepare-and-test
           context: 
             - Slack
-      - docs:
+      - build-docs:
           requires:
-            - test-all
+            - prepare-and-test
           context: 
             - Slack
-      - demo:
+      - build-demo:
           requires:
-            - plugin
+            - build-plugin
           context: 
             - Slack
-      - demo-ssg:
+      - build-demo-ssg:
           requires:
-            - plugin
+            - build-plugin
           context: 
             - Slack
-      - deploy:
+      - build-deploy:
           requires:
-            - demo
-            - demo-ssg
-            - docs
+            - build-demo
+            - build-demo-ssg
+            - build-docs
           context: 
             - Slack
