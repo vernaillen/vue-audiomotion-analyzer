@@ -27,6 +27,8 @@ jobs:
             - package.json
             - pnpm-lock.yaml
             - pnpm-workspace.yaml
+            - node_modules
+            - plugin
             - examples
             - docs
   plugin:
