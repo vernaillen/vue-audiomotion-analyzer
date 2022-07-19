@@ -6,7 +6,7 @@ orbs:
   slack: circleci/slack@4.10.1
 
 jobs:
-  build_test_all:
+  prepare:
     docker:
       - image: vernaillen/circleci-pnpm:18.4.0
     steps:
@@ -16,6 +16,30 @@ jobs:
       - run: pnpm run build
       - run: pnpm run test
       - sonarcloud/scan
+  plugin:
+    docker:
+      - image: vernaillen/circleci-pnpm:18.4.0
+    steps:
+      - run: pnpm run plugin:build
+  demo:
+    docker:
+      - image: vernaillen/circleci-pnpm:18.4.0
+    steps:
+      - run: pnpm run demo:build
+  demo-ssg:
+    docker:
+      - image: vernaillen/circleci-pnpm:18.4.0
+    steps:
+      - run: pnpm run demo:build
+  docs:
+    docker:
+      - image: vernaillen/circleci-pnpm:18.4.0
+    steps:
+      - run: pnpm run docs:build
+  deploy:
+    docker:
+      - image: vernaillen/circleci-pnpm:18.4.0
+    steps:
       - slack/notify:
           channel: circleci
           event: always
@@ -24,7 +48,30 @@ workflows:
   version: 2
   build_test_all:
     jobs:
-      - build_test_all:
+      - prepare:
           context: 
             - SonarCloud
+      - plugin:
+          requires:
+            - prepare
+      - demo:
+          requires:
+            - prepare
+            - plugin
+      - demo-ssg:
+          requires:
+            - prepare
+            - plugin
+      - docs:
+          requires:
+            - prepare
+            - plugin
+      - deploy:
+          requires:
+            - prepare
+            - plugin
+            - demo
+            - demo-ssg
+            - docs
+          context: 
             - Slack
