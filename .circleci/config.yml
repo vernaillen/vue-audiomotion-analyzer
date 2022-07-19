@@ -15,8 +15,6 @@ jobs:
   prepare:
     executor: pnpm-executor
     steps:
-      - run: mkdir -p workspace
-
       - checkout
       - run: pnpm config set auto-install-peers true
       - run: pnpm install --shamefully-hoist=true
