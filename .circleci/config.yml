@@ -25,7 +25,7 @@ jobs:
             - pnpm-lock.yaml
             - pnpm-workspace.yaml
             - node_modules
-            - sonar-scanner.properties
+            - sonar-project.properties
             - plugin
             - examples
             - docs
