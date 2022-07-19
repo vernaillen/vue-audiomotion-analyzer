@@ -109,7 +109,7 @@ workflows:
             - build-plugin
           context: 
             - Slack
-      - build-deploy:
+      - deploy:
           requires:
             - build-demo
             - build-demo-ssg
