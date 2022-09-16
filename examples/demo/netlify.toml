@@ -5,7 +5,7 @@
 [build]
   base = "examples/demo/"
   publish = "dist"
-  command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm -w run demo:build"
+  command = "npx pnpm install --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm run plugin:build && npx pnpm run demo:build"
 
 [[redirects]]
   from = "/*"
