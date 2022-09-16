@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.28.4",
+    "toolVersion": "7.31.1",
     "schemaVersion": 1009,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -197,6 +197,127 @@
         },
         {
           "kind": "Variable",
+          "canonicalReference": "vue-audiomotion-analyzer!VueAudioMotionAnalyzer:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "_default: "
+            },
+            {
+              "kind": "Content",
+              "text": "import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "DefineComponent",
+              "canonicalReference": "@vue/runtime-core!DefineComponent:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    options: any;\n    gradient: any;\n    source: any;\n}, (_ctx: any, _cache: any) => import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VNode",
+              "canonicalReference": "@vue/runtime-core!VNode:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "RendererNode",
+              "canonicalReference": "@vue/runtime-core!RendererNode:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "RendererElement",
+              "canonicalReference": "@vue/runtime-core!RendererElement:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n    [key: string]: any;\n}>, unknown, {}, {}, import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ComponentOptionsMixin",
+              "canonicalReference": "@vue/runtime-core!ComponentOptionsMixin:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ComponentOptionsMixin",
+              "canonicalReference": "@vue/runtime-core!ComponentOptionsMixin:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {}, string, import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VNodeProps",
+              "canonicalReference": "@vue/runtime-core!VNodeProps:type"
+            },
+            {
+              "kind": "Content",
+              "text": " & import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "AllowedComponentProps",
+              "canonicalReference": "@vue/runtime-core!AllowedComponentProps:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " & import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ComponentCustomProps",
+              "canonicalReference": "@vue/runtime-core!ComponentCustomProps:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "Readonly",
+              "canonicalReference": "!Readonly:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"vue\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ExtractPropTypes",
+              "canonicalReference": "@vue/runtime-core!ExtractPropTypes:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    options: any;\n    gradient: any;\n    source: any;\n}>>, {\n    options: any;\n    gradient: any;\n    source: any;\n}>"
+            }
+          ],
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "VueAudioMotionAnalyzer",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 24
+          }
+        },
+        {
+          "kind": "Variable",
           "canonicalReference": "vue-audiomotion-analyzer!VueAudioMotionAnalyzerPlugin:var",
           "docComment": "",
           "excerptTokens": [
@@ -207,7 +328,7 @@
             {
               "kind": "Reference",
               "text": "Plugin",
-              "canonicalReference": "@vue/runtime-core!~Plugin_2:type"
+              "canonicalReference": "@vue/runtime-core!Plugin_2:type"
             }
           ],
           "isReadonly": true,

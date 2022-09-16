@@ -128,24 +128,6 @@ function createConfig(buildName, output, plugins = []) {
       ),
       ...nodePlugins,
       ...plugins,
-      {
-        async writeBundle() {
-          const stub = stubs[output.file]
-          if (!stub) return
-
-          const contents =
-            buildName === 'cjs' ? `module.exports = require('../${output.file}')` : `export * from '../${output.file}'`
-
-          await fsp.writeFile(path.resolve(__dirname, `dist/${stub}`), contents)
-          console.log(`created stub ${chalk.bold(`dist/${stub}`)}`)
-          // add the node specific version
-          if (buildName === 'mjs') {
-            const outfile = `dist/${stub}`.replace('esm-bundler.js', 'node.mjs')
-            await fsp.writeFile(path.resolve(__dirname, outfile), `global.__VUE_PROD_DEVTOOLS__ = false;\n` + contents)
-            console.log(`created stub ${chalk.bold(outfile)}`)
-          }
-        },
-      },
     ],
     output,
     // onwarn: (msg, warn) => {
