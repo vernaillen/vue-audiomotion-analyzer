@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ToneJSAudioMotionAnalyzer from "@/components/ToneJSAudioMotionAnalyzer.vue";
+import ToneJSAudioMotionAnalyzer from '@/components/ToneJSAudioMotionAnalyzer.vue'
 </script>
 
 <template>
@@ -11,28 +11,26 @@ import ToneJSAudioMotionAnalyzer from "@/components/ToneJSAudioMotionAnalyzer.vu
         src="./assets/logo.svg"
         width="50"
         height="50"
-      />
+      >
       <div class="wrapper">
-        <h1 class="green">Vue AudioMotion Analyzer Demo</h1>
+        <h1 class="green">
+          Vue AudioMotion Analyzer Demo
+        </h1>
         <p>
           This Vue plugin is just a wrapper around Henrique Vianna's
-          <a href="https://audiomotion.dev" rel="noopener" target="_blank"
-            >audioMotion-analyzer</a
-          >
-          <br />
+          <a href="https://audiomotion.dev" rel="noopener" target="_blank">audioMotion-analyzer</a>
+          <br>
           <a
             href="https://vue-audiomotion-analyzer.dev"
             rel="noopener"
             target="_blank"
-            >documentation</a
-          >
+          >documentation</a>
           -
           <a
             href="https://github.com/vernaillen/vue-audiomotion-analyzer"
             rel="noopener"
             target="_blank"
-            >github</a
-          >
+          >github</a>
         </p>
       </div>
     </div>

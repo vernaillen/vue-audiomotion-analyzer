@@ -20,7 +20,7 @@
     "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build",
     "demo-ssg:dev": "pnpm --filter ./examples/demo-ssg/ run dev",
     "demo-ssg:serve": "pnpm --filter ./examples/demo-ssg/ run serve",
-    "full-test-build": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build"
+    "prepushtest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-ssg:serve"
   },
   "engines": {
     "node": ">=16",

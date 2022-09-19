@@ -1,16 +1,16 @@
-import { DefaultOptions } from "vue-audiomotion-analyzer";
+import { DefaultOptions } from 'vue-audiomotion-analyzer'
 
 export const presets = [
   {
-    name: "Defaults",
+    name: 'Defaults',
     options: DefaultOptions,
   },
   {
-    name: "Classic LEDs",
+    name: 'Classic LEDs',
     options: {
       mode: 3,
       barSpace: 0.4,
-      gradient: "classic",
+      gradient: 'classic',
       ledBars: true,
       lumiBars: false,
       radial: false,
@@ -20,11 +20,11 @@ export const presets = [
     },
   },
   {
-    name: "Mirror wave",
+    name: 'Mirror wave',
     options: {
       mode: 10,
       fillAlpha: 0.6,
-      gradient: "rainbow",
+      gradient: 'rainbow',
       lineWidth: 2,
       mirror: -1,
       radial: false,
@@ -35,11 +35,11 @@ export const presets = [
     },
   },
   {
-    name: "Radial overlay",
+    name: 'Radial overlay',
     options: {
       mode: 5,
       barSpace: 0.1,
-      gradient: "prism",
+      gradient: 'prism',
       ledBars: false,
       radial: true,
       showBgColor: true,
@@ -49,11 +49,11 @@ export const presets = [
     },
   },
   {
-    name: "Reflex Bars",
+    name: 'Reflex Bars',
     options: {
       mode: 5,
       barSpace: 0.25,
-      gradient: "rainbow",
+      gradient: 'rainbow',
       ledBars: false,
       lumiBars: false,
       radial: false,
@@ -67,11 +67,11 @@ export const presets = [
     },
   },
   {
-    name: "Lumi Bars",
+    name: 'Lumi Bars',
     options: {
       mode: 1,
       barSpace: 0,
-      gradient: "classic",
+      gradient: 'classic',
       alphaBars: true,
       ledBars: false,
       lumiBars: true,
@@ -89,4 +89,4 @@ export const presets = [
       smoothing: 0.9,
     },
   },
-];
+]

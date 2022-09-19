@@ -1,10 +1,10 @@
-import HomeView from "../views/HomeView.vue";
+import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     component: HomeView,
   },
-];
-export default routes;
+]
+export default routes

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -10,29 +10,27 @@ import { RouterView } from "vue-router";
       src="@/assets/logo.svg"
       width="125"
       height="125"
-    />
+    >
 
     <div class="wrapper">
-      <h1 class="green">Vue AudioMotion Analyzer Demo SSG</h1>
+      <h1 class="green">
+        Vue AudioMotion Analyzer Demo SSG
+      </h1>
       <p>
         This Vue plugin is just a wrapper around Henrique Vianna's
-        <a href="https://audiomotion.dev" target="_blank" rel="noopener"
-          >audioMotion-analyzer</a
-        >
-        <br /><br />
+        <a href="https://audiomotion.dev" target="_blank" rel="noopener">audioMotion-analyzer</a>
+        <br><br>
         <a
           href="https://vue-audiomotion-analyzer.dev"
           rel="noopener"
           target="_blank"
-          >documentation</a
-        >
+        >documentation</a>
         -
         <a
           href="https://github.com/vernaillen/vue-audiomotion-analyzer"
           rel="noopener"
           target="_blank"
-          >github</a
-        >
+        >github</a>
       </p>
     </div>
   </header>

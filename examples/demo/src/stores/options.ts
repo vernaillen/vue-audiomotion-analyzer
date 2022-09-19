@@ -1,12 +1,12 @@
-import { defineStore } from "pinia";
-import type { Options } from "vue-audiomotion-analyzer";
+import { defineStore } from 'pinia'
+import type { Options } from 'vue-audiomotion-analyzer'
 
-export const useOptionsStore = defineStore("optionsStore", {
+export const useOptionsStore = defineStore('optionsStore', {
   state: () => ({
     options: {
       mode: 5,
       barSpace: 0.25,
-      gradient: "rainbow",
+      gradient: 'rainbow',
       ledBars: false,
       lumiBars: false,
       radial: false,
@@ -21,7 +21,7 @@ export const useOptionsStore = defineStore("optionsStore", {
   }),
   actions: {
     updateOptions(newOptions: Options) {
-      Object.assign(this.options, newOptions);
+      Object.assign(this.options, newOptions)
     },
   },
-});
+})
