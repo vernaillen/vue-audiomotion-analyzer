@@ -1,14 +1,14 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@5.0.3
   sonarcloud: sonarsource/sonarcloud@1.1.1
   slack: circleci/slack@4.10.1
 
 executors:
   pnpm-executor:
     docker:
-      - image: vernaillen/circleci-pnpm:18.7.0
+      - image: vernaillen/circleci-pnpm:18.9.1
     working_directory: /tmp/workspace
 
 jobs:
