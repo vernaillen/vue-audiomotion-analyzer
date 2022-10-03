@@ -1,6 +1,6 @@
 {
   "name": "vama",
-  "version": "0.6.3 ",
+  "version": "0.6.4",
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -17,6 +17,7 @@
     "docs:dev": "pnpm --filter ./docs/ run dev",
     "demo:build": "pnpm --filter ./examples/demo/ run build",
     "demo:dev": "pnpm --filter ./examples/demo/ run dev",
+    "demo:serve": "pnpm --filter ./examples/demo/ run serve",
     "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build",
     "demo-ssg:dev": "pnpm --filter ./examples/demo-ssg/ run dev",
     "demo-ssg:serve": "pnpm --filter ./examples/demo-ssg/ run serve",

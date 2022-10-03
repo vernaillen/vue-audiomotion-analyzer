@@ -2,8 +2,15 @@
 import { onMounted, ref } from 'vue'
 
 const audio = ref<HTMLMediaElement>()
+const isPlaying = ref(false)
 onMounted(() => {
   audio.value = document.getElementById('audio') as HTMLMediaElement
+  audio.value.onplaying = () => {
+    isPlaying.value = true
+  }
+  audio.value.onpause = () => {
+    isPlaying.value = false
+  }
 })
 const options = {
   mode: 5,
@@ -27,14 +34,13 @@ const options = {
     id="audio"
     ref="audioRef"
     src="https://ice2.somafm.com/beatblender-128-mp3"
-    controls
     crossorigin="anonymous"
   />
   <div>
-    <button @click="audio?.play()">
+    <button v-if="!isPlaying" @click="audio?.play()">
       Play
     </button>
-    <button @click="audio?.pause()">
+    <button v-if="isPlaying" @click="audio?.pause()">
       Pause
     </button>
     <br>

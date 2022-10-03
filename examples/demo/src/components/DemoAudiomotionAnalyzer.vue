@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { DefaultOptions } from 'vue-audiomotion-analyzer'
 import OptionsComponent from '@/components/OptionsComponent.vue'
 import { useOptionsStore } from '@/stores/options'
 
 const optionsStore = useOptionsStore()
 const audio = ref<HTMLMediaElement>()
+const isPlaying = ref(false)
 onMounted(() => {
   audio.value = document.getElementById('audio') as HTMLMediaElement
   audio.value.onplaying = () => {
-    optionsStore.updateOptions({ ...DefaultOptions })
+    isPlaying.value = true
+  }
+  audio.value.onpause = () => {
+    isPlaying.value = false
   }
 })
 </script>
@@ -18,13 +21,18 @@ onMounted(() => {
   <audio
     id="audio"
     ref="audioRef"
-    src="http://ice5.somafm.com/groovesalad-256-mp3"
-    controls
+    src="https://ice2.somafm.com/beatblender-128-mp3"
     crossorigin="anonymous"
   />
+  <button v-if="!isPlaying" class="px-2 py-1 mr-2 font-medium text-sm text-black rounded bg-gray-50 btnHover" @click="audio?.play()">
+    Play
+  </button>
+  <button v-if="isPlaying" class="px-2 py-1 mr-2 font-medium text-sm text-black rounded bg-gray-50 btnHover" @click="audio?.pause()">
+    Pause
+  </button>
   <div>
     Live stream:
-    <a href="https://somafm.com/groovesalad/" rel="noopener" target="_blank">Soma FM Groove Salad</a>
+    <a href="https://somafm.com/beatblender/" rel="noopener" target="_blank">Soma FM Beat Blender</a>
   </div>
   <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" />
   <OptionsComponent />
