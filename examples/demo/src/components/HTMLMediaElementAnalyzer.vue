@@ -5,6 +5,7 @@ import { useOptionsStore } from '@/stores/options'
 
 const optionsStore = useOptionsStore()
 const audio = ref<HTMLMediaElement>()
+const fullScreenToggle = ref(false)
 const isPlaying = ref(false)
 onMounted(() => {
   audio.value = document.getElementById('audio') as HTMLMediaElement
@@ -34,7 +35,15 @@ onMounted(() => {
     Live stream:
     <a href="https://somafm.com/beatblender/" rel="noopener" target="_blank">Soma FM Beat Blender</a>
   </div>
-  <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" />
+  <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" :full-screen="fullScreenToggle" />
+  <div class="w-full">
+    <button
+      class="px-2 py-1 mr-2 font-medium text-sm text-black rounded bg-gray-50 btnHover right-0"
+      @click="fullScreenToggle = !fullScreenToggle"
+    >
+      FullScreen
+    </button>
+  </div>
   <OptionsComponent />
 </template>
 

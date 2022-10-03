@@ -29,16 +29,23 @@ export const VueAudioMotionAnalyzer: DefineComponent<    {
 options: any;
 gradient: any;
 source: any;
+fullScreen: {
+type: BooleanConstructor;
+};
 }, (_ctx: any, _cache: any) => VNode<RendererNode, RendererElement, {
 [key: string]: any;
 }>, unknown, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, VNodeProps & AllowedComponentProps & ComponentCustomProps, Readonly<ExtractPropTypes<    {
 options: any;
 gradient: any;
 source: any;
+fullScreen: {
+type: BooleanConstructor;
+};
 }>>, {
 options: any;
 gradient: any;
 source: any;
+fullScreen: boolean;
 }>;
 
 // @public (undocumented)

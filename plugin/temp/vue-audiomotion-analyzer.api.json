@@ -215,7 +215,16 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n    options: any;\n    gradient: any;\n    source: any;\n}, (_ctx: any, _cache: any) => import(\"vue\")."
+              "text": "<{\n    options: any;\n    gradient: any;\n    source: any;\n    fullScreen: {\n        type: "
+            },
+            {
+              "kind": "Reference",
+              "text": "BooleanConstructor",
+              "canonicalReference": "!BooleanConstructor:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    };\n}, (_ctx: any, _cache: any) => import(\"vue\")."
             },
             {
               "kind": "Reference",
@@ -305,7 +314,16 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n    options: any;\n    gradient: any;\n    source: any;\n}>>, {\n    options: any;\n    gradient: any;\n    source: any;\n}>"
+              "text": "<{\n    options: any;\n    gradient: any;\n    source: any;\n    fullScreen: {\n        type: "
+            },
+            {
+              "kind": "Reference",
+              "text": "BooleanConstructor",
+              "canonicalReference": "!BooleanConstructor:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    };\n}>>, {\n    options: any;\n    gradient: any;\n    source: any;\n    fullScreen: boolean;\n}>"
             }
           ],
           "isReadonly": true,
@@ -313,7 +331,7 @@
           "name": "VueAudioMotionAnalyzer",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 24
+            "endIndex": 28
           }
         },
         {

@@ -11,6 +11,7 @@ const props = defineProps<{
   options?: Options
   gradient?: GradientOptions
   source: HTMLMediaElement | AudioNode
+  fullScreen?: boolean
 }>()
 const audioMotionAnalyzerRef = ref<HTMLDivElement | null>(null)
 let audioMotionAnalyzer: AudioMotionAnalyzer = null
@@ -32,6 +33,7 @@ onUpdated(() => {
     console.error('no audio source available')
     initAnalyzer()
   }
+  audioMotionAnalyzer.toggleFullscreen()
 })
 const initAnalyzer = () => {
   try {
