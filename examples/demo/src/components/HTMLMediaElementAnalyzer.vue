@@ -33,7 +33,7 @@ onMounted(() => {
   </button>
   <div>
     Live stream:
-    <a href="https://somafm.com/beatblender/" rel="noopener" target="_blank">Soma FM Beat Blender</a>
+    <a href="https://somafm.com/beatblender/" rel="noopener" target="_blank">Soma FM Beat Blender</a> (<a href="https://somafm.com/beatblender/songhistory.html" rel="noopener" target="_blank">song history</a>)
   </div>
   <VueAudioMotionAnalyzer :options="optionsStore.options" :source="audio" :full-screen="fullScreenToggle" />
   <div class="w-full">
