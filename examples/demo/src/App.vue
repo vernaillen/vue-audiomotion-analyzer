@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DemoAudioMotionAnalyzer from './components/DemoAudioMotionAnalyzer.vue'
+import HTMLMediaElementAnalyzer from '@/components/HTMLMediaElementAnalyzer.vue'
 </script>
 
 <template>
@@ -37,6 +37,6 @@ import DemoAudioMotionAnalyzer from './components/DemoAudioMotionAnalyzer.vue'
   </header>
 
   <main>
-    <DemoAudioMotionAnalyzer />
+    <HTMLMediaElementAnalyzer />
   </main>
 </template>
