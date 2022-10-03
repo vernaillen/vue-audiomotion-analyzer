@@ -6,6 +6,7 @@ import WindiCSS from 'vite-plugin-windicss'
 export default defineConfig({
   plugins: [vue(), WindiCSS()],
   resolve: {
+    preserveSymlinks: true,
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
