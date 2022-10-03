@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DemoAudioMotionAnalyzer from '@/components/DemoAudioMotionAnalyzer.vue'
+import DemoAudioMotionAnalyzer from './components/DemoAudioMotionAnalyzer.vue'
 </script>
 
 <template>
