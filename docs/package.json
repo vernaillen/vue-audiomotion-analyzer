@@ -9,7 +9,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "vitepress": "1.0.0-alpha.19",
+    "vitepress": "1.0.0-alpha.26",
     "vue": "^3.2.40"
   },
   "devDependencies": {
