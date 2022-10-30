@@ -9,11 +9,11 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "vitepress": "1.0.0-alpha.19",
-    "vue": "^3.2.40"
+    "vitepress": "1.0.0-alpha.26",
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",
-    "@types/node": "^18.8.0"
+    "@types/node": "^18.11.7"
   }
 }

@@ -1,8 +1,8 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.32.0",
-    "schemaVersion": 1009,
+    "toolVersion": "7.33.5",
+    "schemaVersion": 1010,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
       "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
@@ -187,6 +187,7 @@
               "canonicalReference": "audiomotion-analyzer!Options:interface"
             }
           ],
+          "fileUrlPath": "src/DefaultOptions.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "DefaultOptions",
@@ -326,6 +327,7 @@
               "text": ";\n    };\n}>>, {\n    options: any;\n    gradient: any;\n    source: any;\n    fullScreen: boolean;\n}>"
             }
           ],
+          "fileUrlPath": "dist/VueAudioMotionAnalyzer.vue.d.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "VueAudioMotionAnalyzer",
@@ -349,6 +351,7 @@
               "canonicalReference": "@vue/runtime-core!Plugin_2:type"
             }
           ],
+          "fileUrlPath": "src/index.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "VueAudioMotionAnalyzerPlugin",
