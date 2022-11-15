@@ -87,7 +87,7 @@
         "@semantic-release/git": "^10.0.1",
         "@semantic-release/github": "^8.0.6",
         "@semantic-release/npm": "^9.0.1",
-        "@types/jest": "^29.2.2",
+        "@types/jest": "^29.2.3",
         "@types/node": "^18.11.9",
         "@vue/eslint-config-prettier": "^7.0.0",
         "@vue/eslint-config-typescript": "^11.0.2",
