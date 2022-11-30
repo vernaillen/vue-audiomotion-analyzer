@@ -7,7 +7,11 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "dependencies": {
+    "vue-audiomotion-analyzer": "workspace:0.6.4"
+  },
   "devDependencies": {
+    "@nuxt/ui": "^0.3.3",
     "nuxt": "3.0.0"
   }
 }
