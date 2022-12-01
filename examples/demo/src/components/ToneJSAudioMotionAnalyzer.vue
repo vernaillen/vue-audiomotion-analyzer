@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import * as Tone from 'tone'
+import { VueAudioMotionAnalyzer } from 'vite-plugin-vue-audiomotion'
 import OptionsComponent from '@/components/OptionsComponent.vue'
 import { useOptionsStore } from '@/stores/options'
 

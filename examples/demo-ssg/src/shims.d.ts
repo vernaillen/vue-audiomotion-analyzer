@@ -1,1 +1,1 @@
-declare module "vue-audiomotion-analyzer";
+declare module 'vite-plugin-vue-audiomotion'

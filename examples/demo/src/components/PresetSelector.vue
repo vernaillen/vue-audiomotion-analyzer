@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { DefaultOptions } from 'vue-audiomotion-analyzer'
+import { DefaultOptions } from 'vite-plugin-vue-audiomotion'
 import { useOptionsStore } from '@/stores/options'
 import { presets } from '@/presets'
 

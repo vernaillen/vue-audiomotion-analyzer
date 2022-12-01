@@ -3,12 +3,13 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "serve": "nuxt build && serve dist",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "vue-audiomotion-analyzer": "workspace:0.6.4"
+    "vite-plugin-vue-audiomotion": "workspace:0.0.2"
   },
   "devDependencies": {
     "@nuxt/ui": "^0.3.3",

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { VueAudioMotionAnalyzer } from 'vite-plugin-vue-audiomotion'
 import OptionsComponent from '@/components/OptionsComponent.vue'
 import { useOptionsStore } from '@/stores/options'
 

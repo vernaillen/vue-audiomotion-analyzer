@@ -1,6 +1,6 @@
 {
   "name": "vama",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -13,6 +13,7 @@
     "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
     "plugin:build": "pnpm --filter ./plugin/ run build",
     "plugin:publish": "pnpm --filter ./plugin/ run publish",
+    "vite-plugin:build": "pnpm --filter ./vite-plugin/ run build",
     "docs:build": "pnpm --filter ./docs/ run build",
     "docs:dev": "pnpm --filter ./docs/ run dev",
     "demo:build": "pnpm --filter ./examples/demo/ run build",
@@ -20,10 +21,11 @@
     "demo:serve": "pnpm --filter ./examples/demo/ run serve",
     "demo-nuxt:dev": "pnpm --filter ./examples/demo-nuxt/ run dev",
     "demo-nuxt:build": "pnpm --filter ./examples/demo-nuxt/ run build",
+    "demo-nuxt:serve": "pnpm --filter ./examples/demo-nuxt/ run serve",
     "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build",
     "demo-ssg:dev": "pnpm --filter ./examples/demo-ssg/ run dev",
     "demo-ssg:serve": "pnpm --filter ./examples/demo-ssg/ run serve",
-    "fulltest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-ssg:serve"
+    "fulltest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-nuxt:serve"
   },
   "engines": {
     "node": ">=16",

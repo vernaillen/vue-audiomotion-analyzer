@@ -1,4 +1,4 @@
-import { DefaultOptions } from 'vue-audiomotion-analyzer'
+import { DefaultOptions } from 'vite-plugin-vue-audiomotion'
 
 export const presets = [
   {

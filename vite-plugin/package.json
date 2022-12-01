@@ -1,0 +1,43 @@
+{
+  "name": "vite-plugin-vue-audiomotion",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vernaillen/vite-plugin-vue-audiomotion.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vite-plugin-vue-audiomotion.umd.cjs",
+  "module": "./dist/vite-plugin-vue-audiomotion.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vite-plugin-vue-audiomotion.js",
+      "require": "./dist/vite-plugin-vue-audiomotion.umd.cjs"
+    }
+  },
+  "unpkg": "./dist/audiomotion.umd.js",
+  "jsdelivr": "./dist/vite-plugin-vue-audiomotion.umd.cjs",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.1.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/compiler-sfc": "^3.2.45",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^9.8.0",
+    "prettier": "^2.8.0",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "vite": "^3.2.4",
+    "vitepress": "1.0.0-alpha.29"
+  },
+  "dependencies": {
+    "audiomotion-analyzer": "^3.6.0",
+    "vue": "^3.2.45"
+  }
+}
