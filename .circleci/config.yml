@@ -29,12 +29,13 @@ jobs:
             - node_modules
             - sonar-project.properties
             - plugin
+            - vite-plugin
             - examples
             - docs
       - slack/notify:
           channel: circleci
           event: fail
-  build-plugin:
+  build-vite-plugin:
     executor: pnpm-executor
     steps:
       - attach_workspace:
@@ -47,15 +48,6 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  build-demo:
-    executor: pnpm-executor
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: pnpm run demo:build
-      - slack/notify:
-          channel: circleci
-          event: fail
   build-docs:
     executor: pnpm-executor
     steps:
@@ -65,12 +57,30 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  build-demo-ssg:
+  build-demo:
     executor: pnpm-executor
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - run: pnpm run demo:build
+      - slack/notify:
+          channel: circleci
+          event: fail
+  build-demo-ssg:
+    executor: pnpm-executor
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: pnpm run demo-ssg:build
+      - slack/notify:
+          channel: circleci
+          event: fail
+  build-demo-nuxt:
+    executor: pnpm-executor
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: pnpm run demo-nuxt:build
       - slack/notify:
           channel: circleci
           event: fail
@@ -89,7 +99,7 @@ workflows:
           context: 
             - SonarCloud
             - Slack
-      - build-plugin:
+      - build-vite-plugin:
           requires:
             - prepare-and-test
           context: 
@@ -101,18 +111,24 @@ workflows:
             - Slack
       - build-demo:
           requires:
-            - build-plugin
+            - build-vite-plugin
           context: 
             - Slack
       - build-demo-ssg:
           requires:
-            - build-plugin
+            - build-vite-plugin
+          context: 
+            - Slack
+      - build-demo-nuxt:
+          requires:
+            - build-vite-plugin
           context: 
             - Slack
       - deploy:
           requires:
             - build-demo
             - build-demo-ssg
+            - build-demo-nuxt
             - build-docs
           context: 
             - Slack
