@@ -39,7 +39,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /tmp/workspace
-      - run: pnpm run plugin:build
+      - run: pnpm run vite-plugin:build
       - persist_to_workspace:
           root: /tmp/workspace
           paths:

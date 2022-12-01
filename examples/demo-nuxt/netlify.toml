@@ -2,4 +2,4 @@
 [build]
   base = "examples/demo-nuxt/"
   publish = "dist"
-  command = "npx pnpm -w run plugin:build && npx pnpm -w run demo-nuxt:build"
+  command = "npx pnpm -w run vite-plugin:build && npx pnpm -w run demo-nuxt:build"
