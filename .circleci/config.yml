@@ -28,7 +28,6 @@ jobs:
             - pnpm-workspace.yaml
             - node_modules
             - sonar-project.properties
-            - plugin
             - vite-plugin
             - examples
             - docs
@@ -44,7 +43,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
-            - plugin
+            - vite-plugin
       - slack/notify:
           channel: circleci
           event: fail
