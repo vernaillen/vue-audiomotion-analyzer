@@ -29,10 +29,9 @@ importers:
       jsdom: ^20.0.3
       pinia: ^2.0.27
       prettier: ^2.8.0
-      tone: ^14.8.49
       typescript: ~4.9.3
       vite: ^3.2.4
-      vite-plugin-vue-audiomotion: workspace:0.0.2
+      vite-plugin-vue-audiomotion: workspace:0.1.2
       vite-plugin-windicss: ^1.8.8
       vitest: ^0.25.3
       vue: ^3.2.45
@@ -40,7 +39,6 @@ importers:
       windicss: ^3.5.6
     dependencies:
       pinia: 2.0.27_mgnvym7yiazkylwwogi5r767ue
-      tone: 14.8.49
       vite-plugin-vue-audiomotion: link:../../vite-plugin
       vue: 3.2.45
     devDependencies:
@@ -63,7 +61,7 @@ importers:
     specifiers:
       '@nuxt/ui': ^0.3.3
       nuxt: 3.0.0
-      vite-plugin-vue-audiomotion: workspace:0.0.2
+      vite-plugin-vue-audiomotion: workspace:0.1.2
     dependencies:
       vite-plugin-vue-audiomotion: link:../../vite-plugin
     devDependencies:
@@ -81,7 +79,7 @@ importers:
       serve: ^14.1.2
       typescript: ~4.9.3
       vite: ^3.2.4
-      vite-plugin-vue-audiomotion: workspace:0.0.2
+      vite-plugin-vue-audiomotion: workspace:0.1.2
       vite-ssg: ^0.22.0
       vue: ^3.2.45
       vue-router: ^4.1.6
@@ -116,6 +114,7 @@ importers:
       vite: ^3.2.4
       vitepress: 1.0.0-alpha.29
       vue: ^3.2.45
+      vue-tsc: ^1.0.10
     dependencies:
       audiomotion-analyzer: 3.6.0
       vue: 3.2.45
@@ -129,6 +128,7 @@ importers:
       rollup-plugin-visualizer: 5.8.3
       vite: 3.2.4
       vitepress: 1.0.0-alpha.29_tbpndr44ulefs3hehwpi2mkf2y
+      vue-tsc: 1.0.10_typescript@4.9.3
 
 packages:
 
@@ -578,13 +578,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@babel/runtime/7.20.6:
-    resolution: {integrity: sha512-Q+8MqP7TiHMWzSfwiJwXCjyf4GYA4Dgw3emg/7xmwsdLJOZUp+nMqcOwOzzYheuM1rhDu8FSj2l0aoMygEuXuA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: 0.13.11
-    dev: false
 
   /@babel/standalone/7.20.6:
     resolution: {integrity: sha512-u5at/CbBLETf7kx2LOY4XdhseD79Y099WZKAOMXeT8qvd9OSR515my2UNBBLY4qIht/Qi9KySeQHQwQwxJN4Sw==}
@@ -1664,7 +1657,7 @@ packages:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.2.4
+      vite: 3.2.4_@types+node@18.11.10
       vue: 3.2.45
 
   /@volar/language-core/1.0.10:
@@ -2325,14 +2318,6 @@ packages:
 
   /audiomotion-analyzer/3.6.0:
     resolution: {integrity: sha512-3f1fuyuIjhuDn5MADwNpwyyEYj3Cg48+QSjl4O5qFtW3daVAK9fmSRI6b55lW0MlmckrQ3oNyqaocDeHZ8uwLQ==}
-    dev: false
-
-  /automation-events/4.0.24:
-    resolution: {integrity: sha512-v/c//VCE1TGU3R56cyTFnebXFR3NOOx5Kiuaz7TXwLGpYMp9VgKCwelODRW3ZZ5TP2OFymfrWsvNVuPSi6vVPQ==}
-    engines: {node: '>=12.20.1'}
-    dependencies:
-      '@babel/runtime': 7.20.6
-      tslib: 2.4.1
     dev: false
 
   /autoprefixer/10.4.13_postcss@8.4.19:
@@ -6521,10 +6506,6 @@ packages:
       redis-errors: 1.2.0
     dev: true
 
-  /regenerator-runtime/0.13.11:
-    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
-    dev: false
-
   /regexp-tree/0.1.24:
     resolution: {integrity: sha512-s2aEVuLhvnVJW6s/iPgEGK6R+/xngd2jNQ+xy4bXNDKxZKJH6jpPHY6kVeVv1IeLCHgswRj+Kl3ELaDjG6V1iw==}
     hasBin: true
@@ -6956,14 +6937,6 @@ packages:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
     dev: true
 
-  /standardized-audio-context/25.3.35:
-    resolution: {integrity: sha512-61KBkor9fOsMEl3NZllnis8KDmTJzonuuW8h6JBmxXXcUDucypGCJp+hlbyKG+olav8wgA+VKlqFmiJEbh4CfA==}
-    dependencies:
-      '@babel/runtime': 7.20.6
-      automation-events: 4.0.24
-      tslib: 2.4.1
-    dev: false
-
   /statuses/2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
@@ -7269,13 +7242,6 @@ packages:
     engines: {node: '>=0.6'}
     dev: true
 
-  /tone/14.8.49:
-    resolution: {integrity: sha512-L5YLleEFvkuBYQ83eEL0Fg5DSQS7B28v32sYejnnl8b9yXSytM1X/jNJM1DrB525JGwFb5Pmq5OYZPD9oYQbCQ==}
-    dependencies:
-      standardized-audio-context: 25.3.35
-      tslib: 2.4.1
-    dev: false
-
   /totalist/3.0.0:
     resolution: {integrity: sha512-eM+pCBxXO/njtF7vdFsHuqb+ElbxqtI4r5EAvk6grfAFyJ6IvWlSkfZ5T9ozC6xWw3Fj1fGoSmrl0gUs46JVIw==}
     engines: {node: '>=6'}
@@ -7317,6 +7283,7 @@ packages:
 
   /tslib/2.4.1:
     resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
+    dev: true
 
   /tsutils/3.21.0_typescript@4.9.3:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -7788,6 +7755,7 @@ packages:
       rollup: 2.79.1
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /vite/3.2.4_@types+node@18.11.10:
     resolution: {integrity: sha512-Z2X6SRAffOUYTa+sLy3NQ7nlHFU100xwanq1WDwqaiFiCe+25zdxP1TfCS5ojPV2oDDcXudHIoPnI1Z/66B7Yw==}

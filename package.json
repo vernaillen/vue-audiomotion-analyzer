@@ -11,9 +11,8 @@
     "lint": "pnpm recursive run lint",
     "test": "pnpm recursive run test",
     "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
-    "plugin:build": "pnpm --filter ./plugin/ run build",
-    "plugin:publish": "pnpm --filter ./plugin/ run publish",
     "vite-plugin:build": "pnpm --filter ./vite-plugin/ run build",
+    "vite-plugin:publish": "pnpm --filter ./vite-plugin/ run publish",
     "docs:build": "pnpm --filter ./docs/ run build",
     "docs:dev": "pnpm --filter ./docs/ run dev",
     "demo:build": "pnpm --filter ./examples/demo/ run build",
@@ -25,7 +24,7 @@
     "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build",
     "demo-ssg:dev": "pnpm --filter ./examples/demo-ssg/ run dev",
     "demo-ssg:serve": "pnpm --filter ./examples/demo-ssg/ run serve",
-    "fulltest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-nuxt:serve"
+    "fulltest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-nuxt:dev"
   },
   "engines": {
     "node": ">=16",

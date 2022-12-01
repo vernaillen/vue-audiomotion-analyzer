@@ -10,7 +10,7 @@
     "serve": "pnpm run build && serve -s dist"
   },
   "dependencies": {
-    "vite-plugin-vue-audiomotion": "workspace:0.0.2",
+    "vite-plugin-vue-audiomotion": "workspace:0.1.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

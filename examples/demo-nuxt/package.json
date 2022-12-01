@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "vite-plugin-vue-audiomotion": "workspace:0.0.2"
+    "vite-plugin-vue-audiomotion": "workspace:0.1.2"
   },
   "devDependencies": {
     "@nuxt/ui": "^0.3.3",
