@@ -7,7 +7,7 @@ importers:
 
   docs:
     specifiers:
-      '@nuxt-themes/docus': ^1.1.5
+      '@nuxt-themes/docus': ^1.4.5
       nuxt: ^3.0.0
     devDependencies:
       '@nuxt-themes/docus': 1.4.5_zital4y3cepzal2a5nk3pl2wrm
@@ -2190,6 +2190,10 @@ packages:
 
   /@unocss/reset/0.48.3:
     resolution: {integrity: sha512-IVydK/VbRJp2ms6Yl1M3/FzHWOj9fof1HsqKnC6nE5S1lBq7856yhTyY9TOQoA2sPOa+pblc4o6vUcgRrnl1lg==}
+    dev: true
+
+  /@unocss/reset/0.48.4:
+    resolution: {integrity: sha512-9WPoGwLrG5vZQzMxgd7/zJkUUmL06WYtrAiRdf5gYsCBbnpx6eq0II0TvU8PEzvseqgkhEpN19iSgnsuTZ34kA==}
     dev: true
 
   /@unocss/scope/0.48.3:
@@ -5413,11 +5417,10 @@ packages:
       web-namespaces: 2.0.1
     dev: true
 
-  /hast-util-from-parse5/7.1.0:
-    resolution: {integrity: sha512-m8yhANIAccpU4K6+121KpPP55sSl9/samzQSQGpb0mTExcNh2WlvjtMwSWFhg6uqD4Rr6Nfa8N6TMypQM51rzQ==}
+  /hast-util-from-parse5/7.1.1:
+    resolution: {integrity: sha512-R6PoNcUs89ZxLJmMWsVbwSWuz95/9OriyQZ3e2ybwqGsRXzhA6gv49rgGmQvLbZuSNDv9fCg7vV7gXUsvtUFaA==}
     dependencies:
       '@types/hast': 2.3.4
-      '@types/parse5': 6.0.3
       '@types/unist': 2.0.6
       hastscript: 7.2.0
       property-information: 6.2.0
@@ -5454,7 +5457,7 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/parse5': 6.0.3
-      hast-util-from-parse5: 7.1.0
+      hast-util-from-parse5: 7.1.1
       hast-util-to-parse5: 7.0.0
       html-void-elements: 2.0.1
       parse5: 6.0.1
@@ -7793,7 +7796,7 @@ packages:
   /pinceau/0.10.10_postcss@8.4.21:
     resolution: {integrity: sha512-lY9p4Mm7fiIVQ5WSy3fW6ntdnjhcCdx8neybFkfs0IwQjtsWgBcJYWwqoRrewbOzM1ZssAjvY48JUa48djLIdQ==}
     dependencies:
-      '@unocss/reset': 0.48.3
+      '@unocss/reset': 0.48.4
       '@volar/vue-language-core': 1.0.24
       acorn: 8.8.1
       chroma-js: 2.4.2

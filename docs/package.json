@@ -1,5 +1,5 @@
 {
-  "name": "docus-starter",
+  "name": "vamadocs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "preview": "nuxi preview"
   },
   "devDependencies": {
-    "nuxt": "^3.0.0",
-    "@nuxt-themes/docus": "^1.1.5"
+    "@nuxt-themes/docus": "^1.4.5",
+    "nuxt": "^3.0.0"
   }
 }
