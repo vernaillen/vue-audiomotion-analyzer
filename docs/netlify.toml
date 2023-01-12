@@ -1,5 +1,0 @@
-
-[build]
-  base = "docs/"
-  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm -w run docs:build"
-  publish = "dist"
