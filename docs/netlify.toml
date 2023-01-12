@@ -5,4 +5,4 @@
 [build]
   base = "docs"
   publish = "dist"
-  command = "pnpm run build"
+  command = "pnpm run generate"
