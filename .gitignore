@@ -114,3 +114,4 @@ dist-netlify
 .netlify
 
 docs/.vitepress/cache/
+docs/.output
