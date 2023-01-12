@@ -1,0 +1,9 @@
+body,
+body #__nuxt header,
+body #__nuxt aside,
+body #__nuxt footer,
+body #__nuxt .VPNavBar .content,
+body #__nuxt .VPNavBarTitle,
+body #__nuxt article {
+    transition: background-color 0.4s;
+}

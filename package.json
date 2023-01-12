@@ -7,7 +7,7 @@
   "author": "Wouter Vernaillen",
   "scripts": {
     "build": "pnpm recursive run build",
-    "dev": "pnpm run build && pnpm run demo:dev",
+    "dev": "pnpm run vite-plugin:build && pnpm run demo:dev",
     "lint": "pnpm recursive run lint",
     "test": "pnpm recursive run test",
     "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
