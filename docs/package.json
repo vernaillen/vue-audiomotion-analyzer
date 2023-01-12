@@ -1,19 +1,15 @@
 {
-  "engines": {
-    "node": ">=14.0.0"
-  },
+  "name": "docus-starter",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "vitepress",
-    "build": "vitepress build",
-    "serve": "vitepress serve",
-    "preinstall": "npx only-allow pnpm"
-  },
-  "dependencies": {
-    "vitepress": "1.0.0-alpha.36",
-    "vue": "^3.2.45"
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview"
   },
   "devDependencies": {
-    "@types/markdown-it": "^12.2.3",
-    "@types/node": "^18.11.18"
+    "nuxt": "^3.0.0",
+    "@nuxt-themes/docus": "^1.1.5"
   }
 }
