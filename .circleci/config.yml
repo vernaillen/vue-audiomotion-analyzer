@@ -8,7 +8,7 @@ orbs:
 executors:
   pnpm-executor:
     docker:
-      - image: vernaillen/circleci-pnpm:19.2.0
+      - image: vernaillen/circleci-pnpm:19.3.0
     working_directory: /tmp/workspace
 
 jobs:
