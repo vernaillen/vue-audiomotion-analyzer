@@ -9,7 +9,10 @@ export default defineAppConfig({
     github: {
       root: 'content',
       edit: true,
-      contributors: false
+      contributors: false,
+      owner: 'vernaillen',
+      repo: 'vue-audiomotion-analyzer',
+      branch: 'main'
     },
     layout: {
       fluid: true
