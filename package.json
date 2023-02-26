@@ -14,6 +14,7 @@
     "vite-plugin:build": "pnpm --filter ./vite-plugin/ run build",
     "vite-plugin:publish": "pnpm --filter ./vite-plugin/ run publish",
     "docs:build": "pnpm --filter ./docs/ run build",
+    "docs:generate": "pnpm --filter ./docs/ run generate",
     "docs:dev": "pnpm --filter ./docs/ run dev",
     "demo:build": "pnpm --filter ./examples/demo/ run build",
     "demo:dev": "pnpm --filter ./examples/demo/ run dev",

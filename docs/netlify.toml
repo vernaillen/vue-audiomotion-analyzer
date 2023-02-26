@@ -1,8 +1,8 @@
 [build.environment]
   NPM_FLAGS = "--version"
-  NODE_VERSION = "18"
+  NODE_VERSION = "19"
 
 [build]
   base = "docs"
   publish = "dist"
-  command = "pnpm run generate"
+  command = "npx pnpm -w run vite-plugin:build && npx pnpm -w run docs:generate"

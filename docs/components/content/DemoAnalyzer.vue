@@ -17,7 +17,7 @@
             <VueAudioMotionAnalyzer :options="options" :source="audio" />
         </div>
         <div v-else>
-            <img src="analyzerscreenreording.gif" alt="animated gif of analyzer">
+            <img src="/analyzerscreenreording.gif" alt="animated gif of analyzer">
         </div>
     </main>
 </template>
