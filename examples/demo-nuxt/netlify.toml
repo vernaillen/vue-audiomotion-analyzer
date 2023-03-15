@@ -1,4 +1,8 @@
 
+[build.environment]
+  NPM_FLAGS = "--version"
+  NODE_VERSION = "18"
+  
 [build]
   base = "examples/demo-nuxt/"
   publish = "dist"
