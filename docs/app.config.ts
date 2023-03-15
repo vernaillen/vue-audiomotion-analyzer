@@ -7,19 +7,18 @@ export default defineAppConfig({
       github: 'vernaillen/vue-audiomotion-analyzer',
     },
     github: {
-      root: 'content',
+      dir: 'content',
       edit: true,
-      contributors: false,
       owner: 'vernaillen',
       repo: 'vue-audiomotion-analyzer',
       branch: 'main'
     },
-    layout: {
-      fluid: true
-    },
     aside: {
       level: 0,
       exclude: []
+    },
+    main: {
+      fluid: false
     },
     header: {
       logo: false,
@@ -28,13 +27,21 @@ export default defineAppConfig({
     },
     footer: {
       credits: {
-        text: 'Vue plugin © 2023 Wouter Vernaillen - audioMotion-analyzer © 2018-2021 Henrique Avila Vianna',
+        icon: 'ic:baseline-copyright',
+        text: 'Vue plugin © 2023 Wouter Vernaillen',
         href: 'https://vernaillen.dev',
       },
+      textLinks: [
+        {
+          text: 'audioMotion-analyzer © 2018-2021 Henrique Avila Vianna',
+          href: 'https://audiomotion.dev/',
+          target: '_blank'
+        }
+      ],
       iconLinks: [
         {
           href: 'https://vernaillen.dev',
-          icon: 'mdi:human-greeting-variant'
+          icon: 'iconoir:developer',
         }
       ]
     }

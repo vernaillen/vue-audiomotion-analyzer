@@ -2,10 +2,10 @@
     <main id="demoAnalyzer">
         <audio id="audio" ref="audioRef" src="https://ice2.somafm.com/beatblender-128-mp3" crossorigin="anonymous" />
         <div>
-            <ButtonLink class="playButton" v-if="!isPlaying" @click="loadRealDemo()">
-                Try it!
+            <ButtonLink icon="material-symbols:play-arrow" class="playButton" v-if="!isPlaying" @click="loadRealDemo()">
+                Play
             </ButtonLink>
-            <ButtonLink class="playButton" v-if="isPlaying" @click="audio?.pause()">
+            <ButtonLink icon="material-symbols:pause" class="playButton" v-if="isPlaying" @click="audio?.pause()">
                 Pause
             </ButtonLink>
             <span>
@@ -59,7 +59,7 @@ const options = {
     showBgColor: false,
     showPeaks: true,
     overlay: false,
-    height: 250
+    height: 265
 }
 </script>
 
@@ -72,7 +72,6 @@ const options = {
 }
 .playButton {
     cursor: pointer;
-    width: 90px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;

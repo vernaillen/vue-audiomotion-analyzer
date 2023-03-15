@@ -1,5 +1,5 @@
-"use strict";
-import DefaultOptions from "./DefaultOptions"
+'use strict'
+import DefaultOptions from './DefaultOptions'
 import type { Options, GradientOptions } from 'audiomotion-analyzer'
 
 /**
@@ -7,5 +7,5 @@ import type { Options, GradientOptions } from 'audiomotion-analyzer'
  * @date 2022/11
  * @name vite-plugin-vue-audiomotion || vitePluginVueAudiomotion
  */
-export { default as VueAudioMotionAnalyzer } from "./VueAudioMotionAnalyzer.vue";
-export { DefaultOptions, Options, GradientOptions,  }
+export { default as VueAudioMotionAnalyzer } from './VueAudioMotionAnalyzer.vue'
+export { DefaultOptions, Options, GradientOptions }
