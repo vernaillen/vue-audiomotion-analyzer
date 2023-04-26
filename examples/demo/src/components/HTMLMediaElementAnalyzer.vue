@@ -22,7 +22,6 @@ onMounted(() => {
 <template>
   <audio
     id="audio"
-    ref="audioRef"
     src="https://ice2.somafm.com/beatblender-128-mp3"
     crossorigin="anonymous"
   />

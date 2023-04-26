@@ -7,7 +7,7 @@ import { presets } from '@/presets'
 const selectedPreset = ref(4)
 const updatedPreset = ref(false)
 const optionsStore = useOptionsStore()
-const setPreset = (presetId: number) => {
+function setPreset(presetId: number) {
   const newOptions = { ...DefaultOptions, ...presets[presetId].options }
   optionsStore.updateOptions(newOptions)
   selectedPreset.value = presetId

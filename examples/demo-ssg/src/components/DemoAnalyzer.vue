@@ -33,7 +33,7 @@ const options = {
 <template>
   <audio
     id="audio"
-    ref="audioRef"
+    ref="audio"
     src="https://ice2.somafm.com/beatblender-128-mp3"
     crossorigin="anonymous"
   />
@@ -48,7 +48,7 @@ const options = {
     Live stream:
     <a href="https://somafm.com/beatblender/" rel="noopener" target="_blank">Soma FM Beat Blender</a>
   </div>
-  <VueAudioMotionAnalyzer :options="options" :source="audio" />
+  <VueAudioMotionAnalyzer v-if="audio" :options="options" :source="audio" />
 </template>
 
 <style scoped>

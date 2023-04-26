@@ -8,7 +8,7 @@ import ModeSelector from '@/components/ModeSelector.vue'
 const optionsStore = useOptionsStore()
 const options = ref(optionsStore.options)
 
-const toggle = (event: Event) => {
+function toggle(event: Event) {
   optionsStore.options[event.target.innerText]
     = !optionsStore.options[event.target.innerText]
 }
