@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "pinia": "^2.0.35",
-    "vite-plugin-vue-audiomotion": "workspace:1.0.0",
+    "vite-plugin-vue-audiomotion": "workspace:1.0.1",
     "vue": "^3.2.47"
   },
   "devDependencies": {

@@ -13,7 +13,7 @@ const props = defineProps<{
   source: HTMLMediaElement | AudioNode | undefined
   fullScreen?: boolean
 }>()
-const audioMotionAnalyzerRef = ref<HTMLDivElement | null>(null)
+const audioMotionAnalyzerRef = ref<HTMLElement>()
 let audioMotionAnalyzer: AudioMotionAnalyzer = null
 
 onMounted(async () => {

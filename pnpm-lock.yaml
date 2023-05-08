@@ -7,7 +7,7 @@ importers:
   docs:
     dependencies:
       vite-plugin-vue-audiomotion:
-        specifier: workspace:1.0.0
+        specifier: workspace:1.0.1
         version: link:../vite-plugin
     devDependencies:
       '@nuxt-themes/docus':
@@ -23,7 +23,7 @@ importers:
         specifier: ^2.0.35
         version: 2.0.35(typescript@5.0.4)(vue@3.2.47)
       vite-plugin-vue-audiomotion:
-        specifier: workspace:1.0.0
+        specifier: workspace:1.0.1
         version: link:../../vite-plugin
       vue:
         specifier: ^3.2.47
@@ -75,7 +75,7 @@ importers:
   examples/demo-nuxt:
     dependencies:
       vite-plugin-vue-audiomotion:
-        specifier: workspace:1.0.0
+        specifier: workspace:1.0.1
         version: link:../../vite-plugin
     devDependencies:
       '@nuxt/ui':
@@ -88,7 +88,7 @@ importers:
   examples/demo-ssg:
     dependencies:
       vite-plugin-vue-audiomotion:
-        specifier: workspace:1.0.0
+        specifier: workspace:1.0.1
         version: link:../../vite-plugin
       vue:
         specifier: ^3.2.47
