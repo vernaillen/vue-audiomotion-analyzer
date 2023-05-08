@@ -2,12 +2,12 @@ version: 2.1
 
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.1.1
-  slack: circleci/slack@4.12.1
+  slack: circleci/slack@4.12.3
 
 executors:
   pnpm-executor:
     docker:
-      - image: vernaillen/circleci-pnpm:20.0.0
+      - image: vernaillen/circleci-pnpm:20.1.0
     working_directory: /tmp/workspace
 
 jobs:
