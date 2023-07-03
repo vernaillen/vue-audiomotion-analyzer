@@ -33,7 +33,7 @@ onUpdated(() => {
     console.error('no audio source available')
     initAnalyzer()
   }
-  // audioMotionAnalyzer.toggleFullscreen()
+  if (props.fullScreen !== audioMotionAnalyzer.isFullscreen) { audioMotionAnalyzer.toggleFullscreen() }
 })
 const initAnalyzer = () => {
   try {

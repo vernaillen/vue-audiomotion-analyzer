@@ -33,9 +33,9 @@ const DefaultOptions: Options = {
   spinSpeed: 0,
   splitGradient: false,
   start: true,
-  stereo: false,
+  channelLayout: 'single',
   useCanvas: true,
   volume: 1,
-  height: 270,
+  height: 270
 }
 export default DefaultOptions
