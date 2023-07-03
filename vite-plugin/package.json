@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-vue-audiomotion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Audiomotion Analyzer plugin for Vue3 & Vite",
   "author": {
     "name": "Wouter Vernaillen",
