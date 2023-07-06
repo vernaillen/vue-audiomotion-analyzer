@@ -28,7 +28,7 @@
     "fulltest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-nuxt:dev"
   },
   "engines": {
-    "node": ">=16",
-    "pnpm": ">=6"
+    "node": ">=18",
+    "pnpm": ">=8"
   }
 }
