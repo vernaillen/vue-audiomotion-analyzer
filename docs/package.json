@@ -9,7 +9,7 @@
     "preview": "nuxi preview"
   },
   "dependencies": {
-    "vite-plugin-vue-audiomotion": "workspace:1.0.2"
+    "vite-plugin-vue-audiomotion": "workspace:1.0.3"
   },
   "devDependencies": {
     "@nuxt-themes/docus": "^1.14.6",
