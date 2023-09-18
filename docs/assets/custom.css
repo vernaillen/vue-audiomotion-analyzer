@@ -1,9 +1,32 @@
 body,
-body #__nuxt header,
-body #__nuxt aside,
-body #__nuxt footer,
-body #__nuxt .VPNavBar .content,
-body #__nuxt .VPNavBarTitle,
-body #__nuxt article {
-    transition: background-color 0.4s;
+body header,
+body aside,
+body footer,
+body .VPNavBar .content,
+body .VPNavBarTitle,
+body article {
+    transition: background-color 0.6s;
+}
+
+article a {
+    border-bottom: 1px dashed #ccc;
+}
+
+article a:hover {
+    border-bottom: 1px solid var(--color-primary-500);
+    color: #ccc;
+}
+
+h1 a, h2 a, h3 a, a.navbar-logo {
+    border-bottom: none;
+    text-decoration: none !important;
+}
+
+h2 {
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+}
+h2 a {
+    font-weight: 700 !important;
+    font-size: 1.5em !important;
 }

@@ -66,6 +66,7 @@ const options = {
 <style>
 #demoAnalyzer {
     min-height: 330px;
+    margin-bottom: 20px;
 }
 #vueAudioMotionAnalyzer {
     margin-bottom: 20px;
