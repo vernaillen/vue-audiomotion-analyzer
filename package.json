@@ -22,9 +22,6 @@
     "demo-nuxt:dev": "pnpm --filter ./examples/demo-nuxt/ run dev",
     "demo-nuxt:build": "pnpm --filter ./examples/demo-nuxt/ run build",
     "demo-nuxt:serve": "pnpm --filter ./examples/demo-nuxt/ run serve",
-    "demo-ssg:build": "pnpm --filter ./examples/demo-ssg/ run build",
-    "demo-ssg:dev": "pnpm --filter ./examples/demo-ssg/ run dev",
-    "demo-ssg:serve": "pnpm --filter ./examples/demo-ssg/ run serve",
     "fulltest": "pnpm run clean && pnpm config set auto-install-peers true && pnpm install --shamefully-hoist=true && pnpm run lint && pnpm run test && pnpm run build && pnpm run demo-nuxt:dev"
   },
   "engines": {

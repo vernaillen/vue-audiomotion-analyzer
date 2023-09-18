@@ -64,15 +64,6 @@ jobs:
       - slack/notify:
           channel: circleci
           event: fail
-  build-demo-ssg:
-    executor: pnpm-executor
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: pnpm run demo-ssg:build
-      - slack/notify:
-          channel: circleci
-          event: fail
   build-demo-nuxt:
     executor: pnpm-executor
     steps:
@@ -111,11 +102,6 @@ workflows:
             - build-vite-plugin
           context: 
             - Slack
-      - build-demo-ssg:
-          requires:
-            - build-vite-plugin
-          context: 
-            - Slack
       - build-demo-nuxt:
           requires:
             - build-vite-plugin
@@ -124,7 +110,6 @@ workflows:
       - deploy:
           requires:
             - build-demo
-            - build-demo-ssg
             - build-demo-nuxt
             - build-docs
           context: 
