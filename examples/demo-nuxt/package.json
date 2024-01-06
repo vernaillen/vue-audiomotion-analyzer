@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "Vue AudioMotion Analyzer Nuxt Demo",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
