@@ -1,17 +1,18 @@
 <template>
-    <main>
+    <main class="mt-10">
         <audio id="audio" ref="audioRef" src="https://ice2.somafm.com/beatblender-128-mp3" crossorigin="anonymous" />
-        <div>
-            <NButton v-if="!isPlaying" @click="audio?.play()">
-                Play
-            </NButton>
-            <NButton v-if="isPlaying" @click="audio?.pause()">
-                Pause
-            </NButton>
-            <br>
-            Live stream:
-            <a href="https://somafm.com/beatblender/" rel="noopener" target="_blank">Soma FM Beat Blender</a>
-            <p><br /></p>
+        <div class="mb-5">
+            <UButton v-if="!isPlaying" icon="i-heroicons-play" @click="audio?.play()">Play</UButton>
+            <UButton v-if="isPlaying" icon="i-heroicons-pause" @click="audio?.pause()">Pause</UButton>
+            <span class=" ml-4">
+                stream: <ULink 
+                    to="https://somafm.com/beatblender/" 
+                    class="text-sm/6 hover:text-primary relative"
+                    rel="noopener" target="_blank">
+                    Soma FM Beat Blender
+                    <UIcon class="i-heroicons-arrow-up-right-20-solid w-3 h-3 absolute top-0.5 -right-3.5 text-gray-400 dark:text-gray-500" name="i-heroicons-arrow-up-right-20-solid" />
+                </ULink>
+            </span>
         </div>
         <VueAudioMotionAnalyzer :options="options" :source="audio" />
     </main>

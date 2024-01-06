@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/ui'
-  ]
+  extends: ['@nuxt/ui-pro'],
+  modules: ['@nuxt/ui'],  
+  ui: {
+    icons: ['mdi', 'simple-icons']
+  }
 })

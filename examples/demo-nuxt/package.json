@@ -12,7 +12,8 @@
     "vite-plugin-vue-audiomotion": "workspace:1.0.4"
   },
   "devDependencies": {
-    "@nuxt/ui": "2.11.0",
-    "nuxt": "^3.8.2"
+    "@iconify/json": "^2.2.165",
+    "@nuxt/ui-pro": "^0.6.1",
+    "nuxt": "^3.9.1"
   }
 }
