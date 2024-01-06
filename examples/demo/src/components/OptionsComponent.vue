@@ -4,15 +4,18 @@ import { useOptionsStore } from '@/stores/options'
 import RangeSelector from '@/components/RangeSelector.vue'
 import PresetSelector from '@/components/PresetSelector.vue'
 import ModeSelector from '@/components/ModeSelector.vue'
+import type { Options } from 'vite-plugin-vue-audiomotion'
 
 const optionsStore = useOptionsStore()
 const options = ref(optionsStore.options)
 
 function toggle(event: Event) {
-  optionsStore.options[event.target.innerText]
-    = !optionsStore.options[event.target.innerText]
+  if (event && event.target) {
+    const target: HTMLButtonElement = event.target as HTMLButtonElement
+    optionsStore.toggleBoolean(target.innerText as keyof Options)
+  }
 }
-</script>
+</script> 
 
 <template>
   <div class="green mt-2">
@@ -35,43 +38,53 @@ function toggle(event: Event) {
         <RangeSelector option="mirror" min="-1" max="1" step="1" />
         <RangeSelector option="smoothing" min="0" max="0.9" step="0.1" />
         <RangeSelector option="volume" min="0" max="1" step="0.1" />
-        <br>
-        <button v-btnClass="options.alphaBars" @click="toggle">
+        <br>       
+        <button v-btnClass="optionsStore.options.alphaBars" @click="toggle">
           alphaBars
         </button>
-        <button v-btnClass="options.ledBars" @click="toggle">
+        <button v-btnClass="optionsStore.options.ledBars" @click="toggle">
           ledBars
         </button>
-        <button v-btnClass="options.loRes" @click="toggle">
+        <button v-btnClass="optionsStore.options.loRes" @click="toggle">
           loRes
         </button>
         <button v-btnClass="options.lumiBars" @click="toggle">
           lumiBars
         </button>
-        <button v-btnClass="options.outlineBars" @click="toggle">
+        <button v-btnClass="optionsStore.options.outlineBars" @click="toggle">
           outlineBars
         </button>
-        <button v-btnClass="options.showBgColor" @click="toggle">
+        <button v-btnClass="optionsStore.options.showBgColor" @click="toggle">
           showBgColor
         </button>
-        <button v-btnClass="options.showFPS" @click="toggle">
+        <button v-btnClass="optionsStore.options.showFPS" @click="toggle">
           showFPS
         </button>
-        <button v-btnClass="options.showPeaks" @click="toggle">
+        <button v-btnClass="optionsStore.options.showPeaks" @click="toggle">
           showPeaks
         </button>
-        <button v-btnClass="options.showScaleX" @click="toggle">
-          showScaleX
+        <button v-btnClass="optionsStore.options.showScaleX" @click="toggle">
+        showScaleX
         </button>
-        <button v-btnClass="options.showScaleY" @click="toggle">
+        <button v-btnClass="optionsStore.options.showScaleY" @click="toggle">
           showScaleY
         </button>
-        <button v-btnClass="options.splitGradient" @click="toggle">
+        <button v-btnClass="optionsStore.options.splitGradient" @click="toggle">
           splitGradient
-        </button>
-        <button v-btnClass="options.stereo" @click="toggle">
-          stereo
-        </button>
+      </button>
+      </div>
+    </div>
+    <div>
+      <div class="green mt-5 mb-2">
+       Channel layout:
+      </div>
+      <div class="pl-5">
+        <select v-model="optionsStore.options.channelLayout" class="text-gray-800 pl-2 mx-2 mb-3">
+          <option value="single">Single</option>
+          <option value="dual-vertical">Vertical</option>
+          <option value="dual-horizontal">Horizontal</option>
+          <option value="dual-combined">Combined</option>
+        </select>
       </div>
     </div>
     <div>

@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useOptionsStore } from '@/stores/options'
+import type { Options } from 'vite-plugin-vue-audiomotion';
 
 const props = defineProps<{
-  option: string
+  option: keyof Options
   min: string
   max: string
   step: string
 }>()
 
 const optionsStore = useOptionsStore()
-const options = ref(optionsStore.options)
+const options = ref<Options>(optionsStore.options)
 </script>
 
 <template>
