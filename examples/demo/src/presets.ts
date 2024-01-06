@@ -1,4 +1,4 @@
-import { DefaultOptions } from 'vite-plugin-vue-audiomotion'
+import { DefaultOptions, type ChannelLayout } from 'vite-plugin-vue-audiomotion'
 
 export const presets = [
   {
@@ -112,7 +112,7 @@ export const presets = [
       mode: 10,
       mirror: 1,
       smoothing: 0.8,
-      channelLayout: 'dual-vertical'
+      channelLayout: 'dual-vertical' as ChannelLayout
     },
   },
 ]

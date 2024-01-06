@@ -1,6 +1,6 @@
 'use strict'
 import DefaultOptions from './DefaultOptions'
-import type { Options, GradientOptions } from 'audiomotion-analyzer'
+import type { Options, GradientOptions, ChannelLayout } from 'audiomotion-analyzer'
 
 /**
  * @author Wouter Vernaillen
@@ -8,4 +8,4 @@ import type { Options, GradientOptions } from 'audiomotion-analyzer'
  * @name vite-plugin-vue-audiomotion || vitePluginVueAudiomotion
  */
 export { default as VueAudioMotionAnalyzer } from './VueAudioMotionAnalyzer.vue'
-export { DefaultOptions, Options, GradientOptions }
+export { DefaultOptions, Options, GradientOptions, ChannelLayout }
