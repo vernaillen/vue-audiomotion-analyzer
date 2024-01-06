@@ -29,6 +29,21 @@ function toggle(event: Event) {
   </div>
   <div class="pl-5">
     <ModeSelector />
+    <div class="green mt-5 mb-2">
+      <label>Channel layout:</label>
+      <select v-model="optionsStore.options.channelLayout" class="text-gray-800 pl-2 mx-2 mb-3">
+        <option value="single">Single</option>
+        <option value="dual-vertical">Vertical</option>
+        <option value="dual-horizontal">Horizontal</option>
+        <option value="dual-combined">Combined</option>
+      </select>
+      <label>Gradient:</label>
+      <select v-model="optionsStore.options.gradient" class="text-gray-800 pl-2 mx-2 mb-3">
+        <option value="classic">Classic</option>
+        <option value="rainbow">Rainbow</option>
+        <option value="prism">Prism</option>
+      </select>
+    </div>
     <div>
       <div class="green pr-2">
         Common:
@@ -76,19 +91,6 @@ function toggle(event: Event) {
     </div>
     <div>
       <div class="green mt-5 mb-2">
-       Channel layout:
-      </div>
-      <div class="pl-5">
-        <select v-model="optionsStore.options.channelLayout" class="text-gray-800 pl-2 mx-2 mb-3">
-          <option value="single">Single</option>
-          <option value="dual-vertical">Vertical</option>
-          <option value="dual-horizontal">Horizontal</option>
-          <option value="dual-combined">Combined</option>
-        </select>
-      </div>
-    </div>
-    <div>
-      <div class="green mt-5 mb-2">
         Mode 10 / outlineBars:
       </div>
       <div class="pl-5">
@@ -101,7 +103,7 @@ function toggle(event: Event) {
         Radial effect:
       </div>
       <div class="pl-5">
-        <button v-btnClass="options.radial" @click="toggle">
+        <button v-btnClass="optionsStore.options.radial" @click="toggle">
           radial
         </button>
         <RangeSelector option="spinSpeed" min="-5" max="5" step="1" />

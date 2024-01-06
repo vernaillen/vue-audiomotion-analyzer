@@ -50,7 +50,7 @@ const modes = [
 
 <template>
   <div class="mt-2">
-    <label>mode:</label>
+    <label>Mode:</label>
     <select v-model="options.mode" class="text-gray-800 pl-2 mx-2 mb-3">
       <option v-for="mode in modes" :key="mode.id" :value="mode.id">
         {{ mode.id }}: {{ mode.desc }}
