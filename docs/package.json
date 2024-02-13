@@ -9,12 +9,12 @@
     "preview": "nuxi preview"
   },
   "dependencies": {
-    "vite-plugin-vue-audiomotion": "workspace:1.0.4"
+    "vite-plugin-vue-audiomotion": "workspace:1.0.5"
   },
   "devDependencies": {
     "@nuxt-themes/docus": "^1.15.0",
     "mdast-util-to-string": "^4.0.0",
-    "nuxt": "^3.9.1",
+    "nuxt": "^3.10.1",
     "unist-util-stringify-position": "^4.0.0"
   }
 }
